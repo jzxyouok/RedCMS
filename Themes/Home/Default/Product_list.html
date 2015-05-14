@@ -1,0 +1,172 @@
+<include file="Public:header"/>
+<style type="text/css">
+/*dl{width: 100%;float: left;}
+dl dd,dl dt{float: left;margin-right: 8px;}*/
+#filter {
+  width:620px;
+  height:auto;
+  margin-left:auto;
+  margin-right:auto;
+  font-size:14px;
+  float: left;
+}
+
+#filter dl {
+  padding:0;
+  margin-top:0;
+  margin-bottom:0;
+  clear:both;
+  padding:4px 0;
+}
+
+#filter dt,dd {
+  display:block;
+  float:left;
+  width:auto;
+  padding:0;
+  margin:3px 0;
+}
+
+#filter dt {
+  height:14px;
+  padding-bottom:4px;
+  font-weight:bold;
+  color:#333333;
+}
+
+#filter dd {
+  color:#005AA0;
+  margin-right:8px;
+}
+
+#filter a {
+  cursor:pointer;
+}
+
+.seling {
+  background-color:#005AA0;
+  color:#FFFFFF;
+}
+
+.seled{
+  background-color:#005AA0;
+  color:#FFFFFF;
+}
+</style>
+<!-- 内页布局 -->
+<div id="main" class="container">
+  <div class="row">
+    <include file="Home:left"/>
+      <!-- 右侧内容 -->
+    <div class="col-sm-9">
+      <div class="gr-content-box">
+        <div class="gr-product-list">
+        <div id="filter">
+          <dl>
+            <dt>品牌：</dt>
+            <dd><a data="brand=1">全部</a></dd>
+            <volist name="Type" id="r">
+              {if $r['parentid']==1}
+              <dd><a data="brand={$r['typeid']}">{$r['name']}</a></dd>
+              {/if}
+            </volist>
+          </dl>
+          <dl>
+            <dt>材质：</dt>
+            <dd><a data="material=7">全部</a></dd>
+            <volist name="Type" id="r">
+            {if $r['parentid']==7}
+              <dd><a data="material={$r['typeid']}">{$r['name']}</a></dd>
+            {/if}
+            </volist>
+          </dl>
+        </div>
+          <ul id="product-list">
+            {if $list}
+            <volist name="list" id="r">
+               <li><a title="{$r['title']}" href="{$r['url']}"><img alt="{$r['title']}" src="{$r['thumb']}"><span>{$r['title']}</span></a></li>
+            </volist>
+            {else}
+                {$catname}
+            {/if}
+          </ul>
+        </div>
+        <div style="text-align:center;">{$pages}</div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+$(function () {
+  //选中filter下的所有a标签，为其添加hover方法，该方法有两个参数，分别是鼠标移上和移开所执行的函数。
+  $("#filter a").hover(
+    function () {
+      $(this).addClass("seling");
+    },
+    function () {
+      $(this).removeClass("seling");
+    }
+  );
+
+
+  //选中filter下所有的dt标签，并且为dt标签后面的第一个dd标签下的a标签添加样式seled。(感叹jquery的强大)
+  $("#filter dt+dd a").attr("class", "seled"); /*注意：这儿应该是设置(attr)样式，而不是添加样式(addClass)，不然后面通过$("#filter a[class='seled']")访问不到class样式为seled的a标签。*/
+
+  //为filter下的所有a标签添加单击事件
+  $("#filter a").click(function () {
+    $(this).parents("dl").children("dd").each(function () {
+      //下面三种方式效果相同（第三种写法的内部就是调用了find()函数，所以，第二、三种方法是等价的。）
+      //$(this).children("div").children("a").removeClass("seled");
+      //$(this).find("a").removeClass("seled");
+      $('a',this).removeClass("seled");
+    });
+
+    $(this).attr("class", "seled");
+
+    var data = RetSelecteds();
+    $.ajax({
+      url: '/?m=product&a=ajax',
+      type: 'get',
+      dataType: 'json',
+      data: data,
+      success: function(data){
+        var html = "";
+        if(data==null){
+          html = "";
+        } else {
+        for (var i = data.length - 1; i >= 0; i--) {
+          html += '<li><a title="'+data[i].title+'" href="{$r['url']}"><img alt="'+data[i].title+'" src="'+data[i].thumb+'"><span>'+data[i].title+'</span></a></li>';
+        };
+
+        }
+
+        $('#product-list').html(html);
+      }
+    })
+    .done(function() {
+      console.log("success");
+    })
+    .fail(function() {
+      console.log("error");
+    })
+    .always(function() {
+      console.log("complete");
+    });
+
+    //alert(RetSelecteds()); //返回选中结果   弹出
+  });
+  //alert(RetSelecteds()); //返回选中结果   弹出
+});
+
+function RetSelecteds() {
+    var result = "";
+    $("#filter a[class='seled']").each(function () {
+      var data = $(this).attr('data');
+      if(data != ''){
+        result += "&"+data;
+      }
+    });
+    return result;
+}
+</script>
+<include file="Public:footer"/>

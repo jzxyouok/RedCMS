@@ -1,0 +1,36 @@
+<!-- 左侧栏目 -->
+<div class="col-sm-3">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h2>{$max_parent_catname}</h2></div>
+    <ul class="nav nav-pills nav-stacked">
+      <Gr:subcat catid="max_parent_catid">
+        <li><a {if $catid==$r['id']}class="current"{/if} href="{$r.url}">{$r.catname}</a></li>
+      </Gr:subcat>
+    </ul>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading"><h2>推荐产品</h2></div>
+    <div class="panel-body">
+      <ul>
+        <Gr:list catid="2" id="r" field="title,url,thumb" posid="2">
+        <li><a title="{$r['title']}" href="{$r['url']}"><img alt="{$r['title']}" src="{$r['thumb']}"><span>{$r['title']}</span></a></li>
+        </Gr:list>
+      </ul>
+    </div>
+  </div>
+
+  <div class="gr-sidebar-two">
+    <h2>联系我们</h2>
+    <div class="contact-box">
+      <h3>咨询热线<span>0532-68681186</span></h3>
+      <p>手机：13605328581（牛晓光）<br/>
+      座机：0532-68681186<br/>
+            0532-68681187<br/>
+            0532-68681188<br/>
+      传真：0532-68681186<br/>
+      Email:qdtzjc@163.com<br/>
+      地址：{$site_address}</p>
+    </div>
+  </div>
+</div>

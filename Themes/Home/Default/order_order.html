@@ -1,0 +1,147 @@
+<style type="text/css">
+
+.product_info{ width:850px; height:100%; margin-top:24px;}
+.I_am_here{ width:838px; height:21px;}
+.I_am_here li{ height:21px; line-height:21px; float:left; width:75px; font-size:12px; margin-right:5px;}
+.I_am_here li a{ margin-right:16px;}
+.I_am_here li.to_index{ font-size:13px;width:97px;  background:url(../images/skin/b/i_am_here_03.gif) left center no-repeat;}
+.I_am_here li.to_index a{ margin-left:22px;}
+/*------------------订单-----------------------*/
+.order_info{ width:850px; border:#DFDFDF 1px solid; margin-top:40px;}
+.order_top{ width:850px; height:34px;background-color:black; font-size:14px; line-height:34px;border:#DFDFDF 1px solid; color:white; font-weight:bold;}
+.order_top a{ margin-left:20px;}
+.order_main {width:808px; height:643px;  margin:10px 20px 20px 20px;}
+.o_main_top{ width:808px; height:106px;  }
+.o_main_top li{ width:788px; height:42px; margin-left:20px; font-size:12px;}
+.omt_topic{  height:20px; line-height:20px; width:808px; font-size:14px; font-weight:bold;margin-bottom:10px;}
+.o_main_top li a{ display:block; float:left; margin-left:5px;}
+.o_main_top li.omt_btm{border-bottom:#DFDFDF 1px dotted;}
+.o_main_mid{ width:808px; height:320px; margin-top:20px;}
+.o_main_mid li{ width:788px; height:42px; margin-left:20px; font-size:12px;}
+.o_main_mid li.omm_btm{border-bottom:#DFDFDF 1px dotted;}
+.o_main_mid li a{ display:block; float:left;}
+.o_main_mid li a.omm_topic{ width:80px; height:20px; line-height:20px; text-align:right; margin-right:10px;}
+.o_main_mid li a input{ height:15px; font-size:12px;}
+.o_main_mid li a select{ width:130px;}
+.o_main_mid li a.omm_choose2{ margin-left:10px;}
+.o_main_mid li a.omm_choose3{ margin-left:10px;}
+.o_main_mid li span{ height:20px; line-height:20px; margin-left:5px;}
+.omb_topic{ height:20px; line-height:20px; width:808px; font-size:14px; font-weight:bold;margin-bottom:10px;}
+.o_main_btm li{width:788px; height:20px; margin-left:20px; font-size:12px;  line-height:20px;; margin-bottom:10px;}
+.o_main_btm li a{ display:block; float:left;}
+.o_main_btm li a.omb_name{width:80px; height:20px; line-height:20px; text-align:right; margin-right:10px;}
+.o_main_btm li a.xiugai{ color:red; margin-left:10px;}
+.o_main_btm li.omb_notics{ color:#999; margin-left:20px; text-indent:19px;}
+</style>
+<div class="gr-web1000 pt20">
+	<div class="cart_list">
+		<ul class="I_am_here">
+			<li class="to_index"><a href="{:U('Index/index')}">网站首页</a>></li>
+			<li><a href="{:U('Cart/index')}">购物车</a>></li>
+			<div class="clear"></div>
+		</ul>
+		<ul class="cart_top">
+			<li class="cart_logo"><img src="__PUBLIC__/images/skin/o/order_logo.gif" /></li>
+			<li class="cartbar"><a class="check1">查看购物车</a><a class="check2_now">填写订单</a><a class="check3">付款，完成购买</a></li>
+			<div class="clear"></div>
+		</ul>		
+		<ul class="order_info">
+			<li class=" order_top"><a>请填写并核对一下资料</a></li>
+			<li class=" order_main">
+				<form action="{:U('Order/delivery')}" method="post" id="form_order1">
+				<ul class="o_main_top">
+				<div class="omt_topic">收货地址：</div>
+				<if condition="!empty($deliveryArr)">
+				<foreach name="deliveryArr" item="delivery">
+				<li><a class="omt_1"><input type="radio" /></a><a>{$delivery.consignee}</a><a>{$delivery.address}。邮编{$delivery.code}</a><a>手机{$delivery.phone}</a></li> 
+				</foreach>
+				<li class="omt_btm"><a><input type="radio" /></a><a>使用新地址</a></li>
+				</if>
+				</ul>
+				<ul class="o_main_mid">
+					<li><a class="omm_topic">收货人姓名：</a><a><input type="text" name="consignee"/></a><span>请填写收货人真实姓名</span></li>
+					<li>
+						<a class="omm_topic">收货地址：</a>
+						<a class="omm_choose1">
+						<select id="province" name="select" style=" font-size:12px;">
+						<option value="">请选择省份</option>
+						<foreach name="region" item="province">
+						<if condition="$province['parent_id'] eq 1">
+						<option value="{$province.region_id}">{$province.region_name}</option>
+						</if>
+						</foreach>
+						</select>
+						</a>
+						<a class="omm_choose2" style=" margin-right:10px;">
+						<select name="select" style=" font-size:12px;">
+						<option id="city" value="">请选择城市</option>
+						</select>
+						</a>
+						<a class="omm_choose3"><input type="text" name="address"/></a>
+						<span>请填写详细收货地址</span>
+					</li>
+					<li><a class="omm_topic">手机号码：</a><a><input type="text" name="phone"/></a><span>填写正确手机号以便于接收发货和收货通知</span></li>
+					<li><a class="omm_topic">固定电话：</a><a><input type="text" name="tel"/></a><span>如020-12345678，手机和固话号码至少填写一项</span></li>
+					<li><a class="omm_topic">电子邮件：</a><a><input type="text" name="email"/></a><span>用来接收提醒邮件,便于让您及时了解订单状态</span></li>
+					<li><a class="omm_topic">邮政编码：</a><a><input type="text" name="code"/></a><span>请填写准确的邮编，以确保商品尽快送出</span></li>
+					<li class="omm_btm"><a href="javascript:void(0);" onclick="javascript:document.getElementById('form_order1').submit();"><img src="__PUBLIC__/images/skin/ico/order_cfm_03.gif" /></a></li>
+					<div class="clear"></div>
+				</ul>
+				</form>
+				<form action="{:U('Order/add')}" method="post" id="form_order2">
+				<ul class="o_main_btm">
+					<div class="omb_topic">付款方式及送货时间</div>  
+					<li><a class="omb_name">付款方式：</a>					
+						<select onchange="selectPayment(this)" name="payment">
+							<option iscod="0" value="4">快钱人民币网关</option>
+							<option iscod="0" selected="true" value="6">财付通</option>
+							<option iscod="0" value="5">支付宝</option>
+						</select>
+					</li>
+					<li>
+						<a class="omb_name">送货时间：</a>
+						<a>
+							<select name="select" style=" font-size:12px;">
+							<option value="">工作日，双休日，节假日均可送货</option>
+							<option value="1">不送货</option>
+							</select>
+						</a>
+					</li>
+					<li>
+						<a class="omb_name">送货方式：</a>
+						<a>
+						<select name="transport" style=" font-size:12px;">
+						<option value="1">普通快递</option>
+						<option value="2">EMS快递</option>
+						</select>
+						</a>
+					</li>
+					<li class="omb_notics">声明：我们会尽力按照您指定的时间配送，但由于天气，交通等各类不可预知的因素影响，您的订单如有延误，恳请谅解</li>
+					<li><a href="javascript:void(0);" onclick="javascript:document.getElementById('form_order2').submit();"><img src="__PUBLIC__/images/skin/b/bnt_subOrder.gif" /></a></li>
+				</ul>
+				</form>
+			</li>
+		</ul>	
+
+	</div>
+</div>
+</div>
+<script>
+$(function(){
+	$('#province').change(function(){
+		var proid = $(this).find('option:selected').val()
+		alert('a');
+		//html='<foreach name="region" item="city"><if condition="$city[\'parent_id\'] eq '+proid+'"><option value="{$city.region_id}">{$city.region_name}</option></if></foreach>';
+		//alert(html);
+		//$('#city').append(html);
+		$.ajax({
+			type:'post',
+			url:"{:U('Order/region')}",
+			data:,
+			success:function(msg){
+				alert(msg);
+			}
+		});
+	});
+});
+</script>

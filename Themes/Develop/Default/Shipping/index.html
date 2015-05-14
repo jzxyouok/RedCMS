@@ -1,0 +1,47 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<div id="main-box">
+  <form name="myform" id="myform" action="" method="post">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th width="40"><input type="checkbox" value="" id="check_box" onclick="selectall('ids[]');"></th>
+          <th>{:L('listorder')}</th>
+          <th>ID</th>
+          <th align="left">{:L('name')}</th>
+          <th>{:L('status')}</th>
+          <th>物流保价</th>
+          <th>货到付款</th>
+          <th>{:L('manage')}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="list" id="vo" key="k">
+        <tr>
+          <td width="40" align="center"><input class="inputcheckbox " name="ids[]" value="{$vo['id']}" type="checkbox" ></td>
+          <td><input name='listorders[{$vo.id}]' type='text' size='3' value='{$vo.listorder}' class='input-text-c'></td>
+          <td>{$vo['id']}</td>
+          <td>{$vo['name']}</td>
+          <td>{if $vo['status']}{:L(enable)}{else}{:L(disable)}{/if}</td>
+          <td>{if $vo['is_insure']}{:L(yes)}{else}{:L(no)}{/if}</td>
+          <td>{if $vo['type']}{:L(yes)}{else}{:L(no)}{/if}</td>
+          <td><a href="javascript:openwin('edit','{:U($module_name.'/edit',array(id=>$vo['id'],isajax=>1))}','{:L('edit')}',600,450)">{:L('edit')}</a> | <a href="javascript:confirm_delete('{:U($module_name.'/delete',array(id=>$vo['id']))}')">{:L('delete')}</a></td>
+        </tr>
+        </volist>
+      </tbody>
+    </table>
+
+    <div class="btn">
+    <input type="button" class="btn btn-sm btn-primary" name="dosubmit" value="{:L('delete')}" onclick="myform.action='{:U($module_name.'/deleteall')}';return confirm_deleteall()"/> 
+    <input  type="button" class="btn btn-sm btn-primary" name="dosubmit" value="{:L('listorder')}" onclick="myform.action='{:U($module_name.'/listorder')}';$('#myform').submit();" />
+    </div>
+
+  </form>
+
+  <div id="pages">{$page}</div>
+
+</div>
+
+</block>

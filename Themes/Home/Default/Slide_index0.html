@@ -1,0 +1,21 @@
+<!-- 动画 -->
+<div class="fullSlide">
+    <div class="bd">
+        <ul>
+          {loop}
+            <li style="background:url({$r['pic']}) 50% 100% no-repeat;"><a target="_blank" href="{$r['link']}"></a></li>
+          {/loop}
+        </ul>
+    </div>
+    <div class="hd"><ul></ul></div>
+</div>
+<script type="text/javascript">
+  jQuery(".fullSlide").slide({ 
+    titCell:".hd ul",
+    mainCell:".bd ul", 
+    effect:"fold",
+    autoPlay:true,
+    autoPage:true,
+    trigger:"click"
+  });
+</script>

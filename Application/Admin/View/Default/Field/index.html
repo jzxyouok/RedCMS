@@ -1,0 +1,69 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<div id="yzh-content">
+  <div class="menu">
+    <a href="{:U('Field/add',array(moduleid=>$_GET[moduleid]))}" class="btn btn-primary btn-sm">添加</a>
+    <a href="javascript:window.history.go(-1);" class="btn btn-primary btn-sm">返回</a>
+  </div>
+
+  <form  id="myform" name="myform" action="{:U('field/listorder')}" method="post">
+  	<div class="table-list">
+      <table class="table table-bordered table-hover">
+        <thead>
+	        <tr>
+		        <th>{:L(listorder)}</th>
+		        <th align="left" width="80">{:L(field_field)}</th>
+		        <th align="left">{:L(field_name)}</th>
+		        <th align="left" >{:L(field_type)}</th>
+		        <th >{:L(field_issystem)}</th>
+		        <th >{:L(field_required)}</th>
+		        <th class="table-cell-2 center">{:L(manage)}</th>
+	      	</tr>
+        </thead>
+        <tbody>
+          <volist name="list" id="vo" key="k">
+      		<tr>
+        		<td align='center'><input name='listorders[{$vo.id}]' type='text' size='3' value='{$vo.listorder}' class='input-text-c'></td>
+            <td>{$vo['field']}</td>
+            <td>{$vo['name']}</td>
+            <td>{$vo['type']}</td>
+            <td align="center"><if condition="in_array($vo['field'],$sysfield)">{:L(duihao)}<else />{:L(xuohao)}</if></td>
+        		<td align="center"><if condition="$vo['required']==1">{:L(duihao)}<else />{:L(xuohao)}</if></td>
+          	<td align="center">
+		        <a href="{:U('field/edit',array(moduleid=>$vo['moduleid'],id=>$vo['id']))}" >{:L(edit)}</a>  |
+		        <if condition="$vo[status]==1">
+		          <if condition="in_array($vo['field'],$nodostatus)">
+		          <font color="#D3D3D3">{:L(disable)}</font>
+		          <else />
+		          <a href="{:U('field/status',array(id=>$vo['id'],status=>0))}">{:L(disable)}</a>
+		          </if>
+		        <else />
+		          <a href="{:U('field/status',array(id=>$vo['id'],status=>1))}"><font color="red">{:L(enable)}</font></a>
+		        </if>
+		       | <if condition="in_array($vo['field'],$sysfield)">
+		        <font color="#D3D3D3">{:L(delete)}</font>
+		       <else />
+		        <a href="javascript:confirm_delete('{:U('field/delete',array(id=>$vo['id']))}')">{:L(delete)}</a>
+		       </if>
+		       </td>
+          </tr>
+          </volist>
+        </tbody>
+      </table>
+  	</div>
+
+    <div class="btn">  
+      <input type="button" class="btn btn-sm btn-primary" value="{:L(listorder)}" onclick="myform.action='{:U($controller_name.'/listorder')}';$('#myform').submit();" />
+    </div>
+
+  </form>
+</div>
+
+
+<script>
+$('#nav ul a ').removeClass('on');
+$('#nav ul').append('<a href="{:U("field/index",array(moduleid=>$_GET[moduleid]))}" class="on">{:L(field_manage)}</a> | <a href="{:U("Field/add",array(moduleid=>$_GET[moduleid]))}">{:L(field_add)}</a> |');
+</script>
+
+</block>

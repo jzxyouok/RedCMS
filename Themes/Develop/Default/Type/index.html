@@ -1,0 +1,58 @@
+<extend name="Public:base"/>
+
+<block name="main">
+
+<div id="main-box">
+  <div class="jarviswidget jarviswidget-sortable" id="wid-id-0" role="widget">
+    <header role="heading">
+      <span class="widget-icon"> <i class="glyphicon glyphicon-stats txt-color-darken"></i> </span>
+      <h2>分类管理</h2>
+      <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
+    </header>
+
+    <div class="widget-body">
+      <form id="myform" name="myform" action="{:U('Type/listorder')}" method="post">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>{:L('listorder')}</th>
+              <th>typeid</th>
+              <th align="left">{:L('name')}</th>
+              <th align="left">{:L('description')}</th>
+              <th>{:L('status')}</th>
+              <th>{:L('manage')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <volist name="list" id="vo" key="k">
+            <tr>
+              <td><input name="listorders[{$vo['typeid']}]" type='text' size='3' value="{$vo['listorder']}"></td>
+              <td>{$vo['typeid']}</td>
+              <td >{$vo['name']}</td>
+              <td>{$vo['description']}</td>
+              <td>
+              <if condition="$vo[status]==1">
+                <a href="{:U('Type/status',array(typeid=>$vo['typeid'],status=>0))}"><font color="green">{:L('enable')}</font></a>
+              <else />
+                <a href="{:U('Type/status',array(typeid=>$vo['typeid'],status=>1))}"><font color="red">{:L('disable')}</font></a>
+              </if>
+              </td>
+              <td>
+              <a href="{:U('Type/index',array(keyid=>$vo['keyid'],parentid=>$vo['typeid']))}">{:L('type_manage')}</a> |
+              <a href="{:U('Type/add',array(keyid=>$vo['keyid'],parentid=>$vo['typeid']))}">{:L('add_type')}</a> |
+              <a href="{:U('Type/edit',array(keyid=>$vo['keyid'],typeid=>$vo['typeid']))}">{:L('edit')}</a> |
+              <a href="javascript:confirm_delete('{:U('Type/delete',array(typeid=>$vo['typeid']))}')">{:L('delete')}</a>
+              </td>
+            </tr>
+            </volist>
+          </tbody>
+        </table>
+
+        <div>
+          <input type="button" class="btn btn-sm btn-primary" name="dosubmit" value="{:L(listorder)}" onclick="myform.action='{:U($module_name.'/listorder')}';$('#myform').submit();" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</block>

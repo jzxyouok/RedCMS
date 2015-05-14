@@ -1,0 +1,173 @@
+<include file="Public:header"/>
+
+<script type="text/javascript" src="__TMPL__/public/js/jquery.jqzoom.js"></script>
+<script type="text/javascript" src="__TMPL__/public/js/base.js"></script>
+
+<!-- 内页布局 -->
+<div id="main" class="container">
+  <div class="row">
+    <include file="Home:left"/>
+    <!-- 右侧内容 -->
+    <div class="col-sm-9">
+      <include file="Home:title"/>
+        <div class="gr-content-box">
+          <div class="product-show-pic gr-left">
+              <form action="{:U('Cart/cartnow')}" method="post" id="shop_cart">
+            <!-- 放大镜效果 -->
+            <div id="preview" class="spec-preview" style="overflow:hidden"><span class="jqzoom"><img jqimg="{$product.thumb}" src="{$product.thumb}" width="400" height="400"/></span></div>
+                <!-- 缩略图= -->
+                <div class="spec-scroll">
+                    <a class="prev"></a><a class="next"></a>
+                    <div class="items">
+                        <ul>
+                        <li><img alt="{$product.title}" bimg="{$product.thumb}" src="{$product.thumb}" onmousemove="preview(this);"></li>
+                        <volist name="$product['pics']" id="r">
+                          <li><img alt="{$r.filename}" bimg="{$r[filepath]}" src="{$r[filepath]}" onmousemove="preview(this);"></li>
+                        </volist>
+                        </ul>
+                    </div>
+                </div>
+          </div>
+          <!-- 右侧标题简介 -->
+          <div class="product-show-title gr-left pl20">
+              <h2>{$product.title}</h2>
+              <div class="gr-description">
+                  <ul class="shop_price">
+                    <li class="sp_name">售价：</li>
+                    <li class="price1">￥<span id="price">{$product.price}</span></li>
+                    <div class="clear"></div>
+                  </ul>
+                  <ul class="shop_price">
+                    <li class="sp_name">总价：</li>
+                    <li class="price2">￥<span id="total_price">{$product.price}</span></li>
+                    <div class="clear"></div>
+                  </ul>
+                          <ul class="p_count">
+         <li class="p_count_topic">选数量：</li>
+         <li class="p_button" id="button_minus">-</li>
+         <li class="p_c_no"><input id="product_num" type="text" onblur="changeprice()" name="num" value="1" class="num"/></li>
+         <li class="p_button" id="button_add">+</li>
+        </ul>
+              </div>
+              <div class="prodcut-tel">订购热线：<span>0532-68681186</span></div>
+              <div class="product-order"><a id="submit" class="btn btn-default" href="javascript:;">加入购物车</a></div>
+          </div>
+          <input type="hidden" value="{$product.title}" name="title" />
+          <input type="hidden" value="{$product.price}" name="price" />
+          <input type="hidden" class="product_total" value="{$product.price}" name="subtotal" />
+          <input type="hidden" value="{$product.thumb}" name="thumb" />
+          <input type="hidden" value="{$product.id}" name="id" />
+          <input type="hidden" value="{$moduleid}" name="moduleid" />
+    </form>
+      <script>
+      $(function(){
+        $('#submit').click(function(){
+          $('#shop_cart').submit();
+        });
+      })
+      </script>
+        <div class="clearfix"></div>
+        <!-- 产品说明标签切换 -->
+        <div class="gr-tab-list pt20">
+          <div class="hd">
+            <ul>
+                <li class="on">产品详细</li>
+                <li>产品参数</li>
+                <li>联系我们</li>
+            </ul>
+          </div>
+          <div class="bd">
+            <div class="tab-list">产品详细</div>
+            <div class="tab-list">产品参数</div>
+            <div class="tab-list">联系我们</div>
+          </div>
+        </div>
+        <!-- 产品定购 -->
+                <form action="{:URL('user-post/insert')}" method="post">
+            <input type="hidden" id="catid" name="moduleid" value="6" />
+            <input type="hidden"  name="lang" value="1" />
+                    <h2>采购：{$title}<input name="title" type="hidden" value="{$title}"/></h2>
+                    <div class="order-table">
+                        <div class="table-row pr22"><span>联 系 人</span>
+                        <input class="row-input" type="text" name="uname" value="请填写您的真实姓名" onfocus="this.value=''" onkeydown="this.style.color='#666'" validate="required:true"/></div>
+                        <div class="table-row pr22"><span>手机号码</span><input class="row-input" type="text" name="tel" value="请填写您的联系电话" onfocus="this.value=''" onkeydown="this.style.color='#666'" validate="required:true"/></div>
+                        <div class="table-row"><span>电子邮件</span><input class="row-input" name="email" type="text" value="请填写您的电子邮件" onfocus="this.value=''" onkeydown="this.style.color='#666'" validate="required:true"/></div>
+                        <div class="clearfix"></div>
+                        <div class="table-row-a">
+                            <span>采购意<br/>向描述</span>
+                            <textarea name="content" onfocus="this.value=''" onkeydown="this.style.color='#666'" class="row-textarea">请填写订购的产品数量和产品描述，方便我们进行统一备货</textarea>
+                        </div>
+                        <div class="table-row gr-code">
+                        <span>验证码</span>
+                        <input class="row-input" type="text" value="请填写验证码" onfocus="this.value=''" onkeydown="this.style.color='#666'" validate="required:true" name="verifyCode" />
+
+<img id="verifyImage" class="checkcode" align="absmiddle" title="Click the refresh verification code" onclick="javascript:resetVerifyCode();" src="/index.php?m=index&a=verify">
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="table-row gr-code pt15">
+                            <input class="subt-a" type="submit" name="submit" value="提 交" id="submit">
+                            <input class="subt-b" type="reset" value="重 置">
+                        </div>
+                        </form>
+          </div>
+        </div>
+        <!-- 相关产品 -->
+        <div class="related-product pt20">
+          <div class="rec-title">相关产品</div>
+          <div class="related-product-list">
+            <ul>
+            <Gr:list catid="catid" id="r" posid="1" field="title,url,thumb" limit="3">
+              <li><a href="{$r['url']}"><img src="{$r['thumb']}" alt="{$r['title']}" /><span>{$r['title']}</span></a></li>
+            </Gr:list>
+            </ul>
+          </div>
+        </div>
+        <!-- 我要评论 -->
+        <div class="gr-comment pt20">
+          <div class="rec-title">我要评论</div>
+           <div class="comment-table">
+            <form name="myform" id="myform" action="{:U('Post/insert')}" method="post" class="comment_form">
+                <input id="catid" type="hidden" value="21" name="moduleid">
+                <input type="hidden" value="1" name="lang">
+                <input type="hidden" name="title" id="ideaName2" size="26" value="{$title}"/>
+                <div class="table-row-b"><span>评论内容</span><textarea name="content" onfocus="this.value=''" onkeydown="this.style.color='#666'" class="row-textarea">请填写评论内容</textarea>
+                </div>
+                <div class="clearfix"><p>（内容最多500个汉字，1000个字符）</p></div>
+                <div class="table-row gr-code"><span>验证码</span>
+                <input class="row-input" type="text" value="请填写验证码" onfocus="this.value=''" onkeydown="this.style.color='#666'" validate="required:true" name="verifyCode" />
+
+<img id="verifyImage" class="checkcode" align="absmiddle" title="Click the refresh verification code" onclick="javascript:resetVerifyCode();" src="/index.php?m=index&a=verify">
+
+                </div>
+                <div class="clearfix"></div>
+                <div class="table-row gr-code pt15">
+                    <input class="subt-a" type="submit" name="submit" value="提 交" id="submit">
+                    <input class="subt-b" type="reset" value="重 置">
+                </div>
+            </form>
+            </div>
+
+        </div>
+
+        <!-- 评论列表 -->
+        <div class="comment-list">
+          <Gr:list field="title,content,createtime" order="id desc,listorder asc" id="vo" name="vip">
+              <dl>
+                  <dd><span>游客：匿名</span><span>时间：{$vo.createtime|toDate=###,'Y-m-d'}</span></dd>
+                  <dt>{$vo.content}</dt>
+              </dl>
+           </Gr:list>
+          <a href="#">查看全部评论>></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+jQuery(".gr-tab-list").slide({delayTime:0});
+jQuery(".gr-sidebar-two").slide({mainCell:".bd ul",autoPlay:true,effect:"topMarquee",vis:3,interTime:50,trigger:"click"});
+
+</script>
+
+<include file="Public:footer"/>

@@ -1,0 +1,75 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<load href="__PUBLIC__/Js/swfupload.js"/>
+
+<div id="yzh-content" class="col-xs-12">
+  <div class="table-header">
+    <a href="{:U('slide/picmanage?fid='.$slide[id])}">广告图片管理</a>
+    {if $fid!=2}
+    <a href="{:U('slide/addpic?fid='.$slide[id])}" >{:L(add_pic)}</a>
+    {/if}
+    <div class="pull-right">
+      <a href="{:U('Slide/index')}" >返回广告列表</a>
+    </div>
+  </div>
+
+  <div class="dataTables_wrapper">
+
+    <form name="myform" id="myform" action="<if condition="$action_name=='addpic'">{:U($controller_name.'/insertpic')}<else />{:U($controller_name.'/updatepic')}</if>" method="post">
+    <input type="hidden" name="description" value="">
+    <input type="hidden" name="data" value="">
+      <table class="form-table">
+<!--        <tr>
+          <td width="120"><font color="red">*</font>{:L('title')}</td>
+          <td><input type="text" id="title" name="title" value="{$vo.title}" class="input-text" size="50" validate="required:true,cn_username:true, minlength:2, maxlength:20"/></td>
+        </tr>
+
+        <tr>
+          <td>{:L(link)}</td>
+          <td><input type="text" id="link" name="link" value="{$vo.link}" class="input-text" size="50" /></td>
+        </tr>
+
+        <tr>
+          <td>{:L(small)}</td>
+          <td>
+            <div class="small_box"  >
+              <div id="small_aid_box" style="display:none;"></div>
+              <input type="text" id="small" name="small" value="{$vo['small']}" class="input-text" size="40"/>
+              <input type="button" class="btn btn-xs btn-info" value="{:L(upload)}" onclick="javascript:swfupload('pic_uploadfile','small','{:L(uploadfiles)}',1,1,0,10,'jpeg,jpg,png,gif',5,230,'{$yzh_auth}',yesdo,nodo)" />
+            </div>
+            <div>
+            <img src="{if $vo['small']}{$vo['small']}{else}__PUBLIC__/Images/pview.gif{/if}" width="150" height="100" id="picview" name="picview">
+           </div>
+           </td>
+        </tr> -->
+
+        <tr>
+          <td>{:L(pic)}</td>
+          <td>
+            <div class="pic_box" ><div id="pic_aid_box" style="display:none;"></div>
+            <input type="text" id="pic" name="pic" value="{$vo['pic']}" class="input-text" size="40"/>
+            <input type="button" class="btn btn-xs btn-info" value="{:L(upload)}" onclick="javascript:swfupload('pic_uploadfile','pic','{:L(uploadfiles)}',1,1,0,10,'jpeg,jpg,png,gif',5,230,'{$yzh_auth}',yesdo,nodo)" />
+
+            </div>
+           <div>
+            <img src="{if $vo['pic']}{$vo['pic']}{else}__PUBLIC__/Images/pview.gif{/if}" width="150" height="100" id="picview" name="picview"  onclick="showpicbox($('#pic').val());">
+           </div>
+           (建议尺寸:1024px*600px，文件大小不超过200KB)
+          </td>
+        </tr>
+<!--         <tr>
+          <td>{:L(STATUS)}</td>
+          <td>{:Form::radio(array('field'=>'status','options'=>array('1'=>L('display_yes'),'0'=>L('display_no'))),$vo['status'])}</td>
+        </tr> -->
+      </table>
+      <div class="row">
+        <if condition="$vo['id']!=''"><input type="hidden" name="id" value="{$vo.id}"/></if>
+        <input type="hidden" name="fid" value="{$fid}"/>
+        <input type="submit" value="{:L('dosubmit')}" class="btn btn-sm btn-primary"/ >
+        <input type="reset" value="{:L('cancel')}" class="btn btn-sm btn-primary"/>
+      </div>
+    </form>
+  </div>
+</div>
+</block>

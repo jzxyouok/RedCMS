@@ -1,0 +1,52 @@
+<include file="Public:header"/>
+  <load href="__PUBLIC__/Js/jquery.validate.min.js"/>
+  <div id="vipMmain">
+   <div class="vipMmaina">
+      <div class="vipLogin">
+        <div class="vipLoginTitle"><p><span>欢迎加入国人在线</span>如果您已有誉字号账户？<a href="/index.php?g=user&m=login&a=index">立即登录</a></p></div>
+          <div class="vipLoginBody">
+            <div class="coLogin_box">
+              <form id="regform" method="post" action="{:U('user/register/doreg')}" >
+                <table>
+                  <tr>
+                    <th>用户名：</th>
+                    <td><input type="text" name="username" id="username" class="vam"/></td>
+                  </tr>
+                  <tr>
+                    <th>密&nbsp;&nbsp;&nbsp;码：</th>
+                    <td><input type="password" name="password" id="password" class="vam"/></td>
+                  </tr>
+                  <tr>
+                    <th>确认密码：</th>
+                    <td><input type="password" name="repassword" id="repassword" class="vam"/></td>
+                  </tr>
+                  <tr>
+                    <th>电子邮箱：</th>
+                    <td><input type="text" name="email" id="email" class="vam"></td>
+                  </tr>
+                  <tr>
+                    <th>验证码：<font color="red">*</font></th>
+                    <td><input type="text" name="verifyCode" id="verifyCode" class="vam">
+                    <img class="checkcode" align="absmiddle" title="Click the refresh verification code" onclick="javascript:resetVerifyCode();" src="/index.php?m=index&a=verify">
+               </td>
+            </tr>
+            <tr>
+              <th colspan="2"><input type="submit" class="button_1" id="btnSubmit" value=""></th>
+            </tr>
+            <tr>
+            <td colspan="2" id="zcc">
+              <input type="checkbox" class="cam" validate=" required:true" value="2" tabindex="5" checked="checked" name="checkbox" />
+              <label class="cam" for="iagree">同意国人在线</label>&nbsp;&nbsp;</td>
+            </tr>
+
+             </table>
+           </form>
+          </div>
+          <div class="coLogin_pic"><img src="__TMPL__/public/images/dal.jpg"/></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+<include file="Public:footer"/>

@@ -1,0 +1,34 @@
+	<footer>
+		<div class="scroll_top"><a href="#container"><img src="__TMPL__/statics/images/scroll_top.jpg"/></a></div>
+		<p class="clear"></p>
+		<nav class="b-nav">
+			<ul>
+				<Gr:subcat catid="0" id="r" key="i">
+				<li><a href="{$r['url']}">{$r['catname']}</a></li>
+				</Gr:subcat>
+				<p class="clear"></p>
+			</ul>
+		</nav>
+		<p class="copy">版权所有© {$site_copyright}<br/>{$site_approve}</p>
+		<p class="code"><img src="{$site_qrcode}"/><br/>扫一扫，访问网站</p>
+		<p class="b-bor"></p>
+	</footer>
+</div>
+
+<div class="social_nav4">
+    <div class="social4 fl">
+        <a href="tel:{$site_tel400}" class="tel"><span class="tel"></span>电话</a>
+        <a href="sms:{$site_tel400}" class="weichat">短信</a>
+        <a href="http://api.map.baidu.com/marker?location=<?php echo $map['y']?>,<?php echo $map['x'];?>&title=<?php echo $info['comname']?>&name=<?php echo $info['comname']?>&content=<?php echo $info['addr']?>&output=html&src=weiba" target="_blank" class="weibo">&nbsp;地图</a>
+		<a href="/index.php?m=content&c=index&a=guest" class="talk99">&nbsp;&nbsp;&nbsp;留言</a>
+        <span class="weichat"></span>
+        <span class="weibo"></span>
+        <span class="home"></span>
+    </div>
+    <span class="btn"></span>
+    <span class="btn2"></span>
+</div>
+<style>
+.bdsharebuttonbox{ margin:0 auto; text-align:center;}
+.bdsharebuttonbox a{ float:none; display:inline-table;}
+</style>

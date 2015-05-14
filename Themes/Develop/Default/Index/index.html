@@ -1,0 +1,83 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<style type="text/css">
+
+#sitestats li b {float:left;width:100%;height:21px;line-height:22px;  background:#EFEFEF;color:#777;font-weight:normal;}
+#sitestats li span {float:left;width:100%;color:#3865B8;background:#F8F8F8;height:21px;line-height:21px;overflow:hidden;zoom:1;}
+</style>
+<div id="main-box">
+<div class="row">
+
+  <div class="col-sm-12 col-md-12 col-lg-6">
+    <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable">
+
+      <header role="heading">
+        <span class="widget-icon"> <i class="fa fa-calendar"></i> </span>
+        <h2> {:L('Profile_info')} </h2>
+        <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
+      </header>
+
+      <div role="content">
+        <div class="widget-body no-padding">
+          <table class="table table-bordered table-striped table-hover">
+          <volist name="userinfo" id="v">
+            <tr><td>{:L($key)}:</td><td>{$v}</td></tr>
+          </volist>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="col-sm-12 col-md-12 col-lg-6">
+    <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable">
+
+      <header role="heading">
+        <div class="jarviswidget-ctrls" role="menu">
+         <a href="javascript:void(0);" class="button-icon jarviswidget-edit-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Edit"><i class="fa fa-cog "></i></a> <a href="javascript:void(0);" class="button-icon jarviswidget-toggle-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+         <a href="javascript:void(0);" class="button-icon jarviswidget-fullscreen-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Fullscreen"><i class="fa fa-expand "></i></a>
+         <a href="javascript:void(0);" class="button-icon jarviswidget-delete-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Delete"><i class="fa fa-times"></i></a>
+        </div>
+        <span class="widget-icon"> <i class="fa fa-calendar"></i> </span>
+        <h2> {:L('system_info')} </h2>
+
+        <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
+      </header>
+
+      <div role="content">
+      <div class="widget-body no-padding">
+        <table class="table table-bordered table-striped table-hover">
+        <volist name="server_info" id="v">
+          <tr><td>{:L($key)}:</td><td>{$v}</td></tr>
+        </volist>
+        </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-12 col-lg-6">
+    <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable">
+
+      <header role="heading">
+        <span class="widget-icon"> <i class="fa fa-calendar"></i> </span>
+        <h2> {:L('Site_Stats')} </h2>
+        <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
+      </header>
+
+      <div role="content">
+        <ul id="sitestats">
+          <volist name="moduledata" id="v">
+          <li class="col-md-2"><b>{$v['title']}</b><br><span>{$v['counts']}</span></li>
+          </volist>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</block>

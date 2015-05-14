@@ -1,0 +1,51 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<load href="./Public/Js/swfupload.js"/>
+
+<div id="yzh-content">
+  <form id="myform" method='post' action="{:U('config/dosite')}">
+
+  <table class="form-table">
+
+  <tr>
+    <th width="140">微信二维码:</th>
+    <td>
+      <input type="hidden" id="site_wxqrcode" name="site_wxqrcode" value="{$site_wxqrcode}" size="40" />
+      <div class="thumb_box" style ="left:500px;width:97px;height:80px;padding:2px;top:-7px;"><div id="image_aid_box"></div>
+      <a href="javascript:swfupload('logo_uploadfile','site_wxqrcode','{:L(uploadfiles)}',1,1,0,1,'jpeg,jpg,png,gif',3,1,'{$yzh_auth}',yesdo,nodo)">
+      <img style="width:50px;height: 50px;" width="50" height="50" src="<if condition="!empty($site_wxqrcode)">{$site_wxqrcode}<else/>./Public/Images/admin_upload_thumb.png</if>" id="site_wxqrcode_pic" ></a><br> 
+      <input type="button" value="{:L('clean_thumb')}" onclick="javascript:clean_thumb('site_wxqrcode');" class="btn btn-xs btn-info" style="margin:0;" />
+      </div>(建议尺寸：100px*100px)
+    </td>
+  </tr>
+
+  </table>
+
+  <div class="btn">
+    <input type="submit" value="{:L('save')}" class="btn btn-sm btn-primary" >
+    <input type="reset" value="{:L('reset')}" class="btn btn-sm btn-primary">
+  </div>
+
+  </form>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#myform').ajaxForm({
+    success:  complete,  // post-submit callback
+    dataType: 'json'
+  });
+});
+
+function complete(data){
+  if(data.status==1){
+    $.scojs_message('修改成功', $.scojs_message.TYPE_OK);
+
+  }else{
+    $.scojs_message(data.info, $.scojs_message.TYPE_ERROR);
+  }
+
+}
+</script>
+</block>

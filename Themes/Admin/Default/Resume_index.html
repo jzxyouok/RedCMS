@@ -1,0 +1,123 @@
+<extend name="Public:base"/>
+
+<block name="main">
+
+<div id="yzh-content" class="col-xs-12">
+  <div class="table-header">
+    <a href="{:U('Resume/index')}">简历列表</a>
+  </div>
+
+  <div class="dataTables_wrapper">
+    <div class="row">
+    <form action="{:U('Resume/index')}" method="get" class="form-inline" role="form" >
+      <input type="hidden" name="g" value="{$Think.GROUP_NAME}" />
+      <input type="hidden" name="m" value="{$Think.MODULE_NAME}" />
+      <input type="hidden" name="a" value="{$Think.ACTION_NAME}" />
+      <div class="form-group">
+        <input id="title" type="text" class="form-control input-sm" name="keyword" value="{$Think.get.keyword}" />
+      </div>
+
+      <if condition="$fields['typeid']">
+      <div class="form-group">
+        <select class="form-control input-sm" id="typeid" name="typeid">
+        <option value="">{:L('select_typeid')}</option>
+        <volist name="Type" id="row">
+        <if condition="$row['parentid']==$fields['typeid']['setup']['default']"><option value="{$row['typeid']}" <eq name="typeid" value="$row['typeid']">selected="selected"</eq>>{$row['name']}</option></if>
+        </volist>
+        </select>
+      </div>
+      </if>
+
+      <div class="form-group">
+        <select class="form-control input-sm" id="status" name="map[status]">
+        <option value="">{:L('status')}</option>
+        <option value="0" <if condition="isset($status) && $status ==0">selected="selected"</if>>{:L(noshenhe)}</option>
+        <option value="1" <if condition="isset($status) && $status ==1">selected="selected"</if>>{:L(isshenhe)}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <select class="form-control input-sm" id="order" name="order">
+        <option value="listorder" <eq name="order" value="listorder">selected="selected"</eq>>{:L('listorder')}</option>
+        <option value="{$pkid}" <eq name="order" value="$pkid">selected="selected"</eq>>ID{:L('listorder')}</option>
+        <if condition="$fields['hits']"><option value="hits" <eq name="order" value="hits">selected="selected"</eq>>{:L('hits')}{:L('listorder')}</option></if>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <select class="form-control input-sm" name="sort">
+          <option value="asc" <if condition="$sort =='asc'">selected="selected"</if>>{:L('order_by_asc')}</option>
+          <option value="desc" <if condition="$sort =='desc'">selected="selected"</if>>{:L('order_by_desc')}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <select class="form-control input-sm" name="listRows">
+          <option value="15" <if condition="$listRows ==5">selected="selected"</if>>15{:L('listRows')}</option>
+          <option value="20" <if condition="$listRows ==20">selected="selected"</if>>20{:L('listRows')}</option>
+          <option value="50" <if condition="$listRows ==50">selected="selected"</if>>50{:L('listRows')}</option>
+          <option value="100" <if condition="$listRows ==100">selected="selected"</if>>100{:L('listRows')}</option>
+        </select>
+      </div>
+      <input type="hidden" id="menuid" name="menuid" value="{$_GET['menuid']}"/>
+      <input type="submit" value="{:L('chaxun')}"  class="btn btn-sm btn-primary" />
+      <input type="reset" value="{:L('reset')}" class="btn btn-sm btn-primary"  />
+    </form>
+  </div>
+
+
+  <form name="myform" id="myform" action="" method="post">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th width="30"><input type="checkbox" value="" id="check_box" onclick="selectall('ids[]');"></th>
+          <th width="50">{:L('listorder')}</th>
+          <th width="40">ID</th>
+          <th>姓名</th>
+          <th>性别</th>
+          <th>应聘职位</th>
+          <th>联系电话</th>
+      		<if condition="$fields['status']"><th width="60">{:L('status')}</th> </if>
+      		<if condition="$fields['hits']"><th width="40">{:L('hits')}</th> </if>
+       		<th width="100">{:L('manage')}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="list" id="vo" key="k">
+        <tr>
+  	      <td  width="30" align="center"><input class="inputcheckbox " name="ids[]" value="{$vo['id']}" type="checkbox" ></td>
+  	      <td width="40" align='center'><input name='listorders[{$vo.id}]' type='text' size='3' value='{$vo.listorder}' class='input-text-c'></td>
+  	      <td align="center">{$vo['id']}</td>
+          <td>{$vo['title']}</td>
+          <td>{$vo['sex']}</td>
+          <td>{$vo['Folk']}</td>
+          <td>{$vo['LinkPhone']}</td>
+          <if condition="$fields['status']">
+          <td align="center">{if $vo['status']==1}<font color="green">已查看</font>{else}<a href="{:U($module_name.'/status',array(id=>$vo['id'],status=>1))}"><font color="red">未查看</font></a>{/if}</td></if>
+          <if condition="$fields['hits']"> <td align="center">{$vo['hits']}</td></if>
+          <td align="center"><a href="{:U($module_name.'/edit',array(id=>$vo['id']))}">查看简历</a> | <a href="javascript:confirm_delete('{:U($module_name.'/delete',array(id=>$vo['id']))}')">{:L('delete')}</a></td>
+        </tr>
+        </volist>
+      </tbody>
+    </table>
+    <div class="row">
+      <input type="button" class="btn btn-sm btn-primary" name="dosubmit" value="<?php echo L('delete')?>" onclick="myform.action='{:U($module_name.'/deleteall')}';return confirm_deleteall()"/> 
+      <input  type="button" class="btn btn-sm btn-primary" name="dosubmit" value="<?php echo L('listorder')?>" onclick="myform.action='{:U($module_name.'/listorder')}';$('#myform').submit();" />  
+      <input  type="button" class="btn btn-sm btn-primary" name="dosubmit" value="<?php echo L('status_ok')?>" onclick="myform.action='{:U($module_name.'/statusallok')}';$('#myform').submit();" /> 
+
+      <div class="pull-right" id="pages">{$page}</div>
+
+    </div>
+  </form>
+</div>
+</div>
+
+<script>
+$("#catid").attr("value",'{$catid}');
+function confirm_deleteall(){
+  art.dialog.confirm("{:L('real_delete')}", function(){ $('#myform').submit();});
+}
+</script>
+
+</block>

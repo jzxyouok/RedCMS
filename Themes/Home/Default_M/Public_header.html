@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width,minimum-scale=1,user-scalable=no,maximum-scale=1,initial-scale=1" name="viewport">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="white">
+<title></title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="__TMPL__/statics/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__TMPL__/statics/css/style.css" rel="stylesheet" type="text/css" />
+<link href="__TMPL__/statics/css/common.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__TMPL__/statics/js/jquery.js"></script>
+<script type="text/javascript">
+	var d = document,
+		dw = d.documentElement.clientWidth,
+		dh = d.documentElement.clientHeight;
+	d.addEventListener("DOMContentLoaded", function(){
+		var catalog = d.querySelector(".catalog");
+		catalog.style.height = d.body.scrollHeight+"px";
+		catalog.style.webkitTransform = "translateX("+dw+"px)";
+		catalog.getElementsByTagName("ul")[0].style.height = d.body.scrollHeight+"px";
+		//catalog.webkitTransform = "translateX("+dw+"px)";
+
+		d.querySelector(".catbtn").addEventListener("click", function(){
+			catalog.style.webkitTransform = "translateX("+dw+"px)";
+			setTimeout(function(){
+				catalog.style.display = "none";
+			},200);
+		});
+		d.querySelector("#catlist").addEventListener("click", function(){
+			catalog.style.display = "block";
+			catalog.style.webkitTransform = "translateX(0px)";
+		});
+	});
+
+	function showSubCatalog(obj) {
+		var subcatalog = d.querySelectorAll(".subcatalog");
+		if(subcatalog.length) {
+			for(var i=0; i<subcatalog.length; i++) {
+				subcatalog[i].style.display = "none";
+				subcatalog[i].previousSibling.previousSibling.style.backgroundImage = "url(__TMPL__/statics/images/arrow2.png)";
+			}
+			obj.nextSibling.nextSibling.style.display = "block";
+			obj.style.backgroundImage = "url(__TMPL__/statics/images/arrow3.png)";
+		}
+	}
+
+	function showNav(id) {
+		var obj = document.querySelector("."+id);
+		if(obj.style.display == "block") {
+			obj.style.display = "none";
+		}else {
+			obj.style.display = "block";
+		}
+	}
+</script>
+<script type="text/javascript">
+function reset_pic(obj, size) {
+	size = size.split(',');
+	var dW = size[0];
+	var dH = size[1];
+	var img = new Image();
+	img.src = obj.src;
+	if(img.width/img.height >= dW/dH) {
+		if(img.width > dW) {
+			obj.width = dW;
+			obj.height = img.height*dW/img.width;
+		}else {
+			obj.width = img.width;
+			obj.height = img.height > dH ? img.height*img.width/dW : img.height;
+		}
+	}else {
+		if(img.height > dH) {
+			obj.height = dH;
+			obj.width = img.width*dH/img.height;
+		}else {
+			obj.height = img.height;
+			obj.width = img.width > dW ? img.height*img.width/dH : img.width;
+		}
+	}
+	obj.style.marginTop = (dH-obj.height)/2+'px';
+}
+</script>
+</head>
+
+<body>
+<div id="container">
+	<header>
+		<h1>
+			<img src="{$site_logo}" alt="-" title="-"/>
+			<p class="co1">
+				{$site_name}<br/>
+				<label class="co2">{$site_telephone}</label><br/>
+				<a href="tel:{$site_telephone}" class="tel">{$site_telephone}</a>			</p>
+		</h1>
+	</header>
+	<p class="clear"></p>
+	<div class="g-nava">
+		<li class="goback"><a href="javascript:window.history.back(-1)"><img src="__TMPL__/statics/images/goback.png"/>返回</a></li>
+		<li class="goindex"><a href="/"><img src="__TMPL__/statics/images/goindex.png"/>首页</a></li>
+		<li class="goclass"><a href="javascript:;" id="godaohang" onClick="showNav('daohang')"><img src="__TMPL__/statics/images/goclass.png"/>导航</a>
+		</li>
+		<p class="clear"></p>
+	</div>
+	<p class="clear"></p>
+	<div class="daohang">
+		<ul>
+			<Gr:subcat catid="0" id="r" key="i">
+			<li><a href="{$r['url']}">{$r['catname']}</a></li>
+			</Gr:subcat>
+			<p class="clear"></p>
+		</ul>
+	</div>

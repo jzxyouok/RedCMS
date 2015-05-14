@@ -1,0 +1,31 @@
+<extend name="Public:base"/>
+<style type="text/css">*{ margin:0; padding:0}
+.bigbg{ background:url(./Public/Images/rzbg.jpg) 0 0 no-repeat scroll; width:678px; height:864px; margin:0 auto; position:relative; font-family:"微软雅黑"; font-size:14px; color:#533000}
+.b{ position:absolute; bottom:246px; left:155px;}
+.gsname{ font-size:20px; font-weight:bold}
+.gsbeian{ margin-bottom:10px;}
+.button { margin-left:15px; padding: 6px 8px; cursor: pointer; display: inline-block; text-align: center; line-height: 1; *padding:4px 10px; *height:2em; letter-spacing:2px; font-family: Tahoma, Arial/9!important; width:auto; overflow:visible; *width:1; color: #333; border: solid 1px #999; border-radius: 5px; background: #DDD; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#DDDDDD'); background: linear-gradient(top, #FFF, #DDD); background: -moz-linear-gradient(top, #FFF, #DDD); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFF), to(#DDD)); text-shadow: 0px 1px 1px rgba(255, 255, 255, 1); box-shadow: 0 1px 0 rgba(255, 255, 255, .7),  0 -1px 0 rgba(0, 0, 0, .09); -moz-transition:-moz-box-shadow linear .2s; -webkit-transition: -webkit-box-shadow linear .2s; transition: box-shadow linear .2s; }
+.btn {
+    position: absolute;
+    right: 21px;
+    top: 0;
+}
+.btn a{ text-decoration:none}
+</style>
+<div class="box_con">
+
+<div class="bigbg">
+<div class="b">
+<div class="gsname">{$site_name}</div>
+<div class="gsbeian">备案号：{$site_dizi}</div>
+<div class="gslianxi">
+	<p>联系人：{$site_lxr}</p>
+	<p>电话：{$site_telephone}</p>
+	<p>地址：{$site_ren}</p>
+</div>
+</div>
+</div>
+<!--
+<div class="btn" style="text-align:center"><a href="/?a=zhengshu&m=index&g=admin" target="_blank" class="btn btn-sm btn-primary">提交认证</a></div>-->
+<div class="btn" style="text-align:center"><a href="/?a=zhengshu&m=index&g=admin" target="_blank" class="btn btn-sm btn-primary">打印</a></div>
+</div>

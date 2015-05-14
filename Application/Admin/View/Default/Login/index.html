@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!--[if IE 8]>
+  <html xmlns="http://www.w3.org/1999/xhtml" class="ie8" lang="zh-CN">
+<![endif]-->
+<!--[if !(IE 8) ]><!-->
+  <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>誉字号网站管理系统 &rsaquo; 登录</title>
+<link rel='stylesheet' id='buttons-css'  href='__PUBLIC__/Css/buttons.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='login-css'  href='__PUBLIC__/Css/login.min.css' type='text/css' media='all'/>
+<load href="__PUBLIC__/Js/jquery.min.js"/>
+<meta name='robots' content='noindex,follow' />
+</head>
+<body class="login login-action-login yzh-core-ui  locale-zh-cn">
+<div id="login">
+  <h1><a href="/admin" title="誉字号网站管理系统" tabindex="-1">誉字号网站管理系统</a></h1>
+
+<form name="loginform" id="loginform" action="{:U('Login/doLogin')}" method="post">
+  <p>
+    <label for="user_login">用户名<br />
+    <input type="text" name="username" id="user_login" class="input" value="" size="20" /></label>
+  </p>
+  <p>
+    <label for="user_pass">密码<br />
+    <input type="password" name="password" id="user_pass" class="input" value="" size="20" /></label>
+  </p>
+  <p>
+    <label for="user_pass">验证码<br />
+    <input type="text" name="verifyCode" class="input" value="" size="20" style="width:50%" /><img src="{:U('Login/verify')}" onclick="this.src='{:U('Login/verify')}'+'&'+Math.random()" class="verifycode" title="{:L('REVERIFY')}" /></label>
+  </p>
+  <p class="submit">
+    <input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="登录" />
+    <input type="hidden" name="redirect_to" value="/admin/" />
+    <input type="hidden" name="testcookie" value="1" />
+  </p>
+</form>
+
+
+<script type="text/javascript">
+
+$("#loginform").submit(function () {
+    var username, password,verifyCode;
+
+    username = $("input[name='username']").val();
+    password = $("input[name='password']").val();
+    verifyCode = $("input[name='verifyCode']").val();
+
+    var data = new Object();
+    data.username = username;
+    data.password = password;
+    data.verifyCode = verifyCode;
+
+    var options = new Object();
+
+    options.data = data;
+    //options.dataType = 'json';
+    options.type = 'post';
+    options.success = function(data) {
+      if (data.status==1) {
+        setTimeout(function(){
+          window.location.href = '{:U("Index/index")}';
+        },500);
+      }else{
+        alert(data.info);
+      }
+    };
+
+    options.url = '{:U('Login/doLogin')}';
+
+    $.ajax(options);
+    return false;
+});
+</script>
+
+  <p id="backtoblog"><a href="/" title="不知道自己在哪？">&larr; 回到首页</a></p>
+
+</div>
+
+
+  <div class="clear"></div>
+</body>
+</html>

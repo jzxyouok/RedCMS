@@ -1,0 +1,82 @@
+<include file="Public:header"/>
+	<p class="clear"></p>
+
+<Gr:flash flashid="2"/>
+
+	<div class="position">
+		<label class="fenlei"><a href="javascript:;" id="catlist">分类</a></label>
+		<a href="/">首页</a>&nbsp;&gt;&nbsp;在线留言
+	</div>
+	<p class="positionb"><img src="__TMPL__/statics/images/arcb.jpg"/></p>
+	<div class="catalog">
+		<ul>
+				<li><a href="javascript:;">√{$max_parent_catname} </a></li>
+				<Gr:subcat catid="max_parent_catid" id="r">
+				<li><a href="{$r['url']}">　{$r['catname']}</a>
+				{if $r['child']==1}
+					<ul>
+						<Gr:subcat catid="r['id']" id="rr">
+						<li><a href="{$r['url']}">{$rr['catname']}</a></li>
+						</Gr:subcat>
+					</ul>
+				{/if}
+				</li>
+				</Gr:subcat>
+		</ul>
+		<span class="catbtn"><img src="__TMPL__/statics/images/icon_slid.png" width="30"/></span>
+	</div>
+	<p class="clear"></p>
+	<div class="cont">
+		<div class="box">
+			<div id="tagContent">
+				<div class="tagContent selectTag">
+					<ul class="guest">
+					<form method="post" action="{:U('Feedback/index')}" id="frm">
+						<li><label>姓名：</label><input name="name" type="text" class="guest_a" id="inp_name"></li>
+						<li><label>电话：</label><input name="tel" type="text" class="guest_a" id="inp_tel"></li>
+						<li><label>公司：</label><input name="comname" type="text" class="guest_a" id="inp_name"></li>
+						<li><label>Q Q：</label><input name="qq" type="text" class="guest_a" id="inp_name"></li>
+						<li><label>邮箱：</label><input name="email" type="text" class="guest_a" id="inp_name"></li>
+						<li><label>留言：</label><textarea name="content" cols="" rows="" class="guest_b"></textarea></li>
+						<li><label>验证：</label><input name="code" type="text" class="guest_d" style="width:100px;"><img src="{:U('home/index/verify')}" onClick="this.src='{:U('home/index/verify')}&'+Math.random();" class="fl l10"></li>
+						<p class="clear"></p>
+						<li><input name="dosubmit" type="submit" value="提  交" class="guest_c" onClick="chkForm(); return false;" id="submit"></li>
+					</form>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+<include file="Public:footer"/>
+<script type="text/javascript" src="__TMPL__/statics/js/mobile.js"></script>
+<script>
+function chkForm() {
+	var obj = document.getElementById("frm");
+	if(obj.content.value == '') {
+		alert('请填写联系信息及留言内容');
+		return false;
+	}
+	if(obj.code.value == '') {
+		alert('请输入验证码');
+		return false;
+	}
+	subForm();
+}
+function subForm() {
+	$.ajax({
+		type:"POST",
+		url:"/index.php?m=content&c=index&a=guest&submit=1",
+		data: $("#frm").serialize(),
+		success:function(msg){
+			if(msg=='succ') {
+				alert("感谢您的留言，我们会尽快联系您！");
+				window.location.reload();
+			}else if(msg == 'error') {
+				alert('验证码错误');
+			}
+		}
+	});
+}
+</script>
+</body>
+</html>

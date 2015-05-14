@@ -1,0 +1,201 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<literal>
+<style>
+h1{
+	font-size: 18px;
+	color: #909090;
+	margin-bottom: 12px;
+}
+.dashboard-1 p{
+	font-size: 14px;
+	color: #908f8f;
+}
+.dashboard-1 .glyphicon{
+	font-size: 16px;
+}
+.dashboard-1,.dashboard-2,.dashboard-3{
+	padding-bottom: 25px;
+	margin-bottom: 25px;
+	border-bottom:1px solid #ccc;
+}
+.dashboard-2 .content a{
+	display: block;
+	float: left;
+	margin-right: 15px;
+	width: 160px;
+	height: 44px;
+	line-height: 44px;
+	font-size: 14px;
+	background: #f1f1f1;
+	text-decoration: none;
+	color: #909090;
+}
+.dashboard-2 .content a:hover{
+	background: #59596a;
+	color: #fff;
+}
+.dashboard-2 .content span{
+	padding-left: 10px;
+}
+.dashboard-3 .content{
+	margin-left: -15px;
+}
+.palette{
+	position: relative;
+	width: 260px;
+	color: #fff;
+}
+.palette a{
+	color: #fff;
+}
+.palette-body {
+  margin: 0;
+  height: 75px;
+  padding: 15px;
+  margin-bottom: 0;
+  text-transform: uppercase;
+}
+.palette-body dt{
+	text-align: left;
+	font-size: 14px;
+}
+.palette-body dd{
+	text-align: left;
+	font-size: 26px;
+}
+.palette-footer{
+	height: 30px;
+  overflow: hidden;
+}
+.palette-footer dt{
+	float: left;
+	padding-left: 12px;
+  line-height: 30px;
+}
+.palette-footer dd{
+	float: right;
+	padding: 10px;
+  line-height: 30px;
+}
+.palette-footer a:hover{
+	color: #2B2C3E;
+}
+.dashboard-4 .panel-heading{
+	font-size: 14px;
+	color: #6579a2;
+}
+.dashboard-4{
+	color: #909090;
+}
+.dashboard-4 .table>tbody>tr>td{
+	padding: 8px 15px;
+}
+</style>
+
+</literal>
+
+<div id="yzh-content">
+	<div class="col-xs-12 dashboard-1">
+		<p><span class="glyphicon glyphicon-volume-up"></span>
+		<span>欢迎使用誉字号后台管理系统，你上次登录时间是：{$userinfo['logintime']}
+		&nbsp;&nbsp;&nbsp;&nbsp;当前时间：<span id="time"></span></span></p>
+	</div>
+
+	<div class="col-xs-12 dashboard-2">
+	  <h1>快速操作</h1>
+	  <div class="content">
+		  <a href="{:U('Article/add')}"><i class="fa fa-lg fa-caret-right"></i><span>发布新闻</span></a>
+		  <a href="{:U('Product/add')}"><i class="fa fa-lg fa-caret-right"></i><span>发布产品</span></a>
+		  <a href="{:U('Feedback/index')}"><i class="fa fa-lg fa-caret-right"></i><span>查看留言</span></a>
+		  <a href="{:U('link/index')}"><i class="fa fa-lg fa-caret-right"></i><span>管理链接</span></a>
+	  </div>
+	</div>
+
+  <div class="col-xs-12 dashboard-3">
+    <h1>站点统计</h1>
+    <div class="content">
+	    <div class="col-md-3 palette">
+	      <dl class="palette-body" style="background-color:#ffa800">
+	        <dt>产品发布数</dt>
+	        <dd>{$mdata['Product']}</dd>
+	      </dl>
+	      <dl class="palette-footer" style="background:#e09400;">
+	        <dt><a href="{:U('Product/index')}">查看详细</a></dt>
+	        <dd><a href="{:U('Product/index')}"><i class="fa fa-arrow-circle-right fa-lg"></i></a></dd>
+	      </dl>
+	    </div>
+	    <div class="col-md-3 palette">
+				<dl class="palette-body" style="background-color:#2ECC71">
+					<dt>新闻发布数</dt>
+					<dd>{$mdata['Article']}</dd>
+				</dl>
+				<dl class="palette-footer" style="background:#27AE60;">
+	        <dt><a href="{:U('Article/index')}">查看详细</a></dt>
+	        <dd><a href="{:U('Article/index')}"><i class="fa fa-arrow-circle-right fa-lg"></i></a></dd>
+				</dl>
+			</div>
+			<div class="col-md-3 palette">
+				<dl class="palette-body" style="background-color:#00b4ff">
+					<dt>客户反馈数</dt>
+					<dd>{$mdata['Feedback']}</dd>
+				</dl>
+				<dl class="palette-footer" style="background:#009ee0;">
+	        <dt><a href="{:U('Feedback/index')}">查看详细</a></dt>
+	        <dd><a href="{:U('Feedback/index')}"><i class="fa fa-arrow-circle-right fa-lg"></i></a></dd>
+				</dl>
+			</div>
+			<div class="col-md-3 palette">
+				<dl class="palette-body" style="background-color:#9B59B6">
+					<dt>友情链接数</dt>
+					<dd>{$mdata['Link']}</dd>
+				</dl>
+				<dl class="palette-footer" style="background:#8E44AD;">
+	        <dt><a href="{:U('Link/index')}">查看详细</a></dt>
+	        <dd><a href="{:U('Link/index')}"><i class="fa fa-arrow-circle-right fa-lg"></i></a></dd>
+				</dl>
+			</div>
+
+    </div>
+	</div>
+
+	<div class="col-xs-12 dashboard-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">{:L(system_info)}</div>
+
+			<table class="table table-hover">
+				<volist name="server_info" id="v">
+				<tr>
+					<td>{:L($key)}:</td>
+					<td>{$v}</td>
+				</tr>
+				</volist>
+				<tr>
+					<td>软件版本信息：</td>
+					<td>版本名称：誉字号旗舰版</td>
+				</tr>
+				<tr>
+					<td>版本号：</td>
+					<td><?php echo VERSION;?></td>
+				</tr>
+
+			</table>
+		</div>
+	</div>
+	<p style="color:#909090;">版权所有：深圳市国人在线信息技术有限公司</p>
+</div>
+
+<script type="text/javascript">function currentTime(){
+var d = new Date(),str = '';
+	str += d.getFullYear()+'-';
+	str += d.getMonth() + 1+'-';
+	str += d.getDate()+'&nbsp;&nbsp;';
+	str += d.getHours()+':';
+	str += d.getMinutes()+':';
+	str += d.getSeconds();
+	return str;
+}
+setInterval(function(){$('#time').html(currentTime)},1000);
+</script>
+</block>

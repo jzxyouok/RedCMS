@@ -1,0 +1,21 @@
+*{padding:0;margin:0;border:0;}
+body{font-size:12px;
+	font-family:Tahoma,Verdana,Helvetica,Arial,sans-serif;
+	background:url("../Images/login/xloginbg.jpg") repeat scroll 0 0 transparent;
+	height: 100%;
+}
+a{text-decoration:none;}
+ul{list-style: none;}
+input{font-size:12px;vertical-align: middle;}
+.login_box{position: relative;height: 205px;margin: 0 auto;padding: 105px 0 0;width: 665px;background: url("../Images/login/xlogin_infobg.jpg") no-repeat scroll 0 0 transparent;overflow: hidden;}
+.login_right{float:right;overflow: hidden;width: 320px;}
+.login_form li{color: #FFFFFF;height: 33px;padding:0 0 10px 0;line-height: 33px;}
+.login_form li label{height:33px;line-height: 33px;display: inline-block;float: left;padding: 0 10px 0 0;}
+#username{background:url("../Images/login/xuinput.jpg") no-repeat scroll 0 0 transparent;height: 33px;width: 140px;padding: 0 0 0 28px;line-height: 33px;overflow: hidden;display: inline;}
+#password{background:url("../Images/login/lxinput.jpg") no-repeat scroll 0 0 transparent;height: 33px;width: 140px;padding: 0 0 0 28px;line-height: 33px;overflow: hidden;display: inline;}
+#verifyCode{background:url("../Images/login/xcode.jpg") no-repeat scroll 0 0 transparent;height: 33px;width: 88px;text-indent: 10px;line-height: 33px;}
+.login_form li .loginbut{background:url("../Images/login/xloginbth.jpg") no-repeat scroll 0 0 transparent;height: 28px;width: 66px;cursor: pointer;}
+.login_form li .resetbut{background:url("../Images/login/xresetrbth.jpg") no-repeat scroll 0 0 transparent;height: 28px;width: 66px;cursor: pointer;}
+.labelend{width:40px;}
+#msg{height:16px;overflow:hidden;width:100%;font-size:12px;line-height: 16px;color: red;}
+.login_form .verifycode{vertical-align:middle};

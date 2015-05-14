@@ -1,0 +1,46 @@
+
+<div id="footer">
+  <div class="dbmenu"><a href="/">网站首页</a>
+    <Gr:subcat catid="0" key="ku">
+    |<a href="{$r.url}" title="{$r.catname}">{$r.catname}</a></li>
+    </Gr:subcat>
+
+    <div class="copy">{$site_tongji}</div>
+    {if $Js}
+    <div class="links">友情链接：
+    <Gr:link  typeid="0"  linktype="1" key="k">{if $k!=1}|{/if}<a href="{$r['siteurl']}" target="_blank" title="{$r['name']}">{$r['name']}</a> </Gr:link>
+    </div>
+    {/if}
+  </div>
+</div>
+</body>
+</html>
+
+
+<!--<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+  document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+</script>
+
+<Gr:kefu id="kefu" left='-1' top="180" />
+<script>
+  jQuery('#codeer').qrcode({
+      render: "table",
+    text  : document.URL,
+    width :75,
+    height:75
+  });
+$('#guanbi').click(function(){
+ $('#kefu .kefu-l').animate({width:'30px'},500);
+ $('#kefu .kefu-r').animate({width:0},100);
+});
+
+$(function(){
+ $('.kefu-l').click(function(){
+  $(this).animate({width:0},100);
+  $('.kefu-r').animate({width:'157px'},100);
+ })
+});
+
+</script>-->
+

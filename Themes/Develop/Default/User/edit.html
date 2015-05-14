@@ -1,0 +1,67 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<div id="main-box">
+  <form id="myform" action="<if condition="$action_name=='add'">{:U('User/insert')}<else />{:U('User/update')}</if>" method="post">
+    <input type="hidden" name="question" value="{$vo.age}">      
+    <input type="hidden" name="answer" value="{$vo.address}">
+    <table class="form-table">
+      <tr>
+        <td width="78"></td>
+        <td width="174"></td>
+        <td width="727"></td>
+      </tr>
+      <tr>
+        <td height="30" colspan="3"><if condition="$action_name=='add'"><span class="STYLE1">基本信息</span></if></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>用户名</td>
+        <td><input type="text" class="input-text" name="username" value="{$vo.username}" ></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>{:L('password')}</td><td><input type="password" id="password" name="pwd" class="input-text" validate=" <if condition="$action_name=='add'">required:true,</if> minlength:5, maxlength:20"/></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>{:L('realname')}</td>
+        <td><input type="text" class="input-text"  name="realname" value="{$vo.realname}" ></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>{:L('email')}</td>
+        <td><input type="text" class="input-text"  name="email" value="{$vo.email}" validate="required:true,email:true,remote: '{:U('Login/checkEmail?userid='.$vo[id])}' , minlength:1, maxlength:40"></td>
+      </tr>
+      <php>if($_SESSION['groupid']==1){</php>
+      <tr>
+         <td>&nbsp;</td>
+        <td valign="top">{:L('user_group')}</td>
+        <td>
+          <select name="groupid">
+          <option {if $vo['groupid']==1}selected="selected"{/if} value="1">超级管理员</option>
+          <option {if $vo['groupid']==2}selected="selected"{/if} value="2">普通管理员</option>
+          </select>
+        </td>
+      </tr>
+      <php>}else{</php>
+        <input type="hidden" value="2" name="groupid"/>
+      <php>}</php>
+      <tr>
+        <td>&nbsp;</td>
+      <td>{:L('user_is_enable')}</td>
+      <td>
+      {:L('yes')}<input type="radio" name="status" value="1" <eq name="vo['status']" value="1">checked="checked"</eq> />
+      {:L('no')}<input type="radio" name="status" value="0" <eq name="vo['status']" value="0">checked="checked"</eq> />    </td>
+      </tr>
+    </table>
+    <div class="btn">
+    <if condition="$action_name=='edit'"><input type="hidden" name="id" value="{$vo['id']}" />
+    <input type="hidden" name="opwd" value="{$vo['password']}" /></if>
+    <input type="hidden" name="forward" value="{$_SERVER['HTTP_REFERER']}" />
+    <input TYPE="submit"  value="{:L('dosubmit')}" class="btn btn-sm btn-primary" >
+    <input TYPE="reset"  value="{:L('cancel')}" class="btn btn-sm btn-primary">
+  </div>
+</form>
+</div>
+</block>

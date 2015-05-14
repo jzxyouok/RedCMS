@@ -1,0 +1,127 @@
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie6"><![endif]-->
+<!--[if IE 7 ]><html class="ie7"><![endif]-->
+<!--[if IE 8 ]><html class="ie8"><![endif]-->
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html class="w3c"><!--<![endif]-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="{$seo_keywords}" />
+<meta name="description" content="{$seo_description}" />
+<!-- 最新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="__STATIC__/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="__STATIC__/bootstrap/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<!-- <script type="text/javascript" src="__PUBLIC__/Js/jquery.min.js"></script>  -->
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+
+<script type="text/javascript" src="__PUBLIC__/Js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="__TMPL__/public/css/style.css">
+<link rel="stylesheet" type="text/css" href="__TMPL__/public/css/css.css">
+
+{if $module_name!='Login' && $module_name!='Register' }
+  <link rel="stylesheet" type="text/css" href="__TMPL__/public/css/member.css">
+{/if}
+
+<script src="__PUBLIC__/Js/jquery.min.js"></script>
+
+<script src="__PUBLIC__/Js/gr.js"></script>
+<script src="__PUBLIC__/Js/jquery.qrcode.min.js"></script>
+<script src="__PUBLIC__/Js/qrcode.js"></script>
+
+<title>{$seo_title}-{$site_name}</title>
+<!--[if IE 6]><script type="text/javascript" src="/Grzx/Tpl/home/default/public/js/EvPng.js"></script><script language="javascript" type="text/javascript">EvPNG.fix(".pngimg,#pics,#pngimgb");
+</script><![endif]-->
+
+</head>
+<body>
+
+<div id="header">
+<div class="container">
+  <div class="top">
+    <div class="topleft">您好！欢迎光临{$site_name}官方网站</div>
+    <div class="topright">
+      <div class="topright_1">
+        <a class="forindex" href="/">中文</a>|
+        <a class="forindex" href="/en.html">英文</a>
+        <a class="forindex" href="javascript:AddFavorite(window.location,document.title);">收藏本站</a>|
+        <a class="forindex" href="{$Cats[26]['url']}">在线留言</a>|
+        <a class="forindex" href="{$Cats[28]['url']}">常见问题</a>
+      </div>
+      <div class="topright_2">
+          <a href="{$site_txd}" target="_blank"  rel="nofollow"><img src="__TMPL__/public/images/01.jpg"/></a>
+          <a class="forzy" target="_blank" href="{$site_xld}" rel="nofollow" ><img src="__TMPL__/public/images/02.jpg"/></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="top_1">
+    <div class="logo"><a href="/"><img src="__TMPL__/public/images/logo.jpg"/></a></div>
+    <div class="cxt"><img src="__TMPL__/public/images/cxt.jpg"/></div>
+    <div class="coder" id="codeeru"></div>
+
+    <div id="login_div" style="display:none">
+      <a href="{:U('User/Login/index')}"  target="_blank">
+      <span class="anl">登录</span></a>
+      <a href="{:U('User/Register/index')}" target="_blank"><span class="anl">注册</span></a>
+    </div>
+    <div class="logined_div" style="display:none">
+      <span id="login_username" class="logined_div" ></span>
+      <a href="{:U('User/Index/index')}">会员中心</a>
+      <a href="{:U('User/login/logout')}">[退出]</a>
+    </div>
+  </div>
+
+  <div id="navbar" class="navbar navbar-default">
+    <ul class="nav navbar-nav">
+      <li class="{if $current=='/'}active{/if}"><a href="/">首页</a></li>
+      <Gr:subcat catid="0" id="r" key="i">
+        <li class="{if $i>6}nava{/if}{if $max_parent_catid==$r['id']} cur{/if}" ><a class="yjia"  title="{$r.catname}" href="{$r.url}">{$r.catname}</a>
+         {if $r[child]==1}
+          <ul class="submenu" style="display:none">
+          <Gr:subcat catid="$r['id']" id="rr">
+            <li class="child"><a href="{$rr.url}">{$rr.catname}</a></li>
+          </Gr:subcat>
+         </ul>
+         {/if}
+      </li>
+      </Gr:subcat>
+    </ul>
+  </div>
+
+  <div class="search">
+    <div class="search_1">
+      <form method="post" action="{:U('Search/index')}">
+        <input type="hidden" name="l" value="{$l}" />
+        <input name="keyword" type="text" onblur="if(this.value == '')this.value='请输入关键字...'" onfocus="this.value=''" class="pro_stxt" value="{if $keyword}{$keyword}{else}请输入关键字...{/if}" >
+        <input value="" type="submit" class="pro_sbut">
+      </form>
+
+    </div>
+    <div class="prokey">
+      产品直通车：
+      <Gr:subcat catid="1" key="i">
+	    {if $i<9}
+            <a href="{$r.url}">{$r.catname}</a>
+		  {/if}
+      </Gr:subcat>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+$(function(){
+
+	jQuery('#codeeru').qrcode({
+	    render: "table",
+		text  : document.URL,
+		width :75,
+		height:75
+	});
+
+})
+</script>

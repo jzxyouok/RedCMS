@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--[if lt IE 7 ]><html class="ie6"><![endif]-->
+<!--[if IE 7 ]><html class="ie7"><![endif]-->
+<!--[if IE 8 ]><html class="ie8"><![endif]-->
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html class="w3c"><!--<![endif]-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 最新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="__TMPL__Public/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+<!-- <script type="text/javascript" src="__PUBLIC__/Js/jquery.min.js"></script>  -->
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+
+<script type="text/javascript" src="__TMPL__Public/js/bootstrap.min.js"></script> 
+<link rel='stylesheet' type='text/css' href='__TMPL__Public/css/style.css'>
+<link rel='stylesheet' type='text/css' href='__PUBLIC__/Css/jquery-ui-1.9.0.custom.css'>
+<link rel='stylesheet' type='text/css' href='__PUBLIC__/Css/artdialog.css'>
+<link rel='stylesheet' type='text/css' href="__TMPL__Public/message/css/messenger.css">
+<link rel='stylesheet' type='text/css' href="__TMPL__Public/message/css/messenger-theme-flat.css">
+<script src="__TMPL__Public/message/js/messenger.min.js"></script>
+<script src="__TMPL__Public/message/js/messenger-theme-flat.js"></script>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<title>{:L('welcome')}</title>
+</head>
+
+<body>
+<script type="text/javascript">
+ 
+  function checknode(obj)
+  {
+      var chk = $("input[type='checkbox']");
+      var count = chk.length;
+      var num = chk.index(obj);
+      var level_top = level_bottom =  chk.eq(num).attr('level');
+      for (var i=num; i>=0; i--)
+      {
+        var le = chk.eq(i).attr('level');
+        if(eval(le) < eval(level_top)) 
+        {
+            chk.eq(i).attr("checked",true);
+            var level_top = level_top-1;
+        }
+      }
+      for (var j=num+1; j<count; j++)
+      {
+        var le = chk.eq(j).attr('level');
+        if(chk.eq(num).attr("checked")=='checked') {
+ 
+            if(eval(le) > eval(level_bottom)) chk.eq(j).attr("checked",true);
+            else if(eval(le) == eval(level_bottom)) break;
+        }
+        else {
+            if(eval(le) > eval(level_bottom)) chk.eq(j).attr("checked",false);
+            else if(eval(le) == eval(level_bottom)) break;
+          }
+      }
+  }
+</script>
+
+<form id="myform" name="myform" action="{:U('Access/insert')}" method="post">
+<input type="hidden" id="rid" name="rid" value="{$rid}" />
+<div class="pad-lr-10">
+  <div class="table-list">
+    <table width="100%" cellspacing="0"  style="border:1px solid #ccc;" id="dnd-example"> 
+      <tbody>
+        <tr>
+          <td width=100 bgcolor="#CBE0F6">
+          <input type='checkbox' name='nid[1]' value='1'  level='0' {if array_key_exists(1,$alist)}checked{/if}  onclick='javascript:checknode(this);' />{$topnode[0][title]}
+          </td>
+          <td bgcolor="#CBE0F6"></td>
+        </tr>
+        <volist name="node" id="r" >
+         
+        <tr>
+          <td  colspan="2" bgcolor="#F0F5FB" align="center" height="40"><b>{$r[groupinfo][name]}</b></td>
+        </tr>
+        <volist name="r[data]" id="rr">
+        
+        <if condition="$rr[level]==2">
+        <tr>
+          <td style='padding-left:15px;' bgcolor="#F8FAFC"><input type='checkbox' name='nid[{$rr.id}]' value='{$rr.id}'  level='{$rr.level}' {$rr.selected}  onclick='javascript:checknode(this);' />&nbsp;{$rr.title}
+          </td>
+        
+          <td><volist name="node[$rr[groupid]][data]" id="rrr" >        
+            <if condition="$rrr[pid]==$rr[id]">
+            <span class="w1"><input type='checkbox' name='nid[{$rrr.id}]' value='{$rrr.id}'  level='{$rrr.level}' {$rrr.selected}  onclick='javascript:checknode(this);' /> {$rrr.title} &nbsp;</span>
+            
+            </if>
+            </volist>
+          </td>
+        
+        </tr>  
+             
+        </if>
+        </volist>
+       
+        </volist>
+        <input type="hidden" name="isajax" value="1" />
+        <input name="dosubmit" type="submit" value="1" class="hidden" id="dosubmit"> 
+      </tbody>
+    </table>
+  </div>
+</div>
+</form>
+<!-- 引入js -->
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.artDialog.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/Js/iframeTools.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/Js/my.js"></script> 
+</body>
+</html>

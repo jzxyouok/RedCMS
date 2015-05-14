@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie6"><![endif]-->
+<!--[if IE 7 ]><html class="ie7"><![endif]-->
+<!--[if IE 8 ]><html class="ie8"><![endif]-->
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html class="w3c"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>用户登录</title>
+  <link href="__TMPL__/Public/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="__TMPL__/Public/css/login.css" rel="stylesheet" />
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
+  <![endif]-->
+
+  <script src="__TMPL__/Public/js/jquery-1.10.2.min.js"></script>
+  <script src="__TMPL__/Public/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+
+    <form class="form-signin" method="post" action="" id="login-form" role="form">
+      <h3>誉字号开发中心</h3>
+        <div class="errorMsg"></div>
+        <div class="form-group">
+          <input type="text" placeholder="请输入用户名" name="username" class="form-control" />
+        </div>
+        <div class="form-group">
+          <input type="password" placeholder="请输入密码" name="password" class="form-control" />
+        </div>
+        <div class="form-group">
+          <input type="text" name="verifyCode" placeholder="请输入验证码" class="form-control yzm"/>
+          <img src="{:U('Login/verify')}" onclick="this.src='{:U('Login/verify')}'+'&'+Math.random()" class="verifycode" title="{:L('REVERIFY')}" alt="看不清，换一张"/>
+        </div>
+        <input type="hidden" name="ajax" value="1">
+        <button class="btn btn-primary btn-block" type="submit">登录</button>
+     </form>
+</div>
+
+<script language="JavaScript">
+
+function reload(){
+  document.login.username.focus();
+}
+$("#login-form").submit(function () {
+    var username, password,verifyCode;
+
+    username = $("input[name='username']").val();
+    password = $("input[name='password']").val();
+    verifyCode = $("input[name='verifyCode']").val();
+
+    var data = new Object();
+    data.username = username;
+    data.password = password;
+    data.verifyCode = verifyCode;
+
+    var options = new Object();
+
+    options.data = data;
+    //options.dataType = 'json';
+    options.type = 'post';
+    options.success = function(data) {
+      if (data.status==1) {
+        $('.errorMsg').html(data.info).show();
+        setTimeout(function(){
+          window.location.href = '{:U("Index/index")}';
+        },500);
+      }else{
+        $('.errorMsg').html(data.info).show();
+      }
+    };
+
+    options.url = '{:U('Login/doLogin')}';
+
+    $.ajax(options);
+    return false;
+});
+
+</script>
+</body>
+</html>

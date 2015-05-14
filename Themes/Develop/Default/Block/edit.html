@@ -1,0 +1,32 @@
+<extend name="Public:base"/>
+
+<block name="main">
+
+<load href="./Public/Js/swfupload.js"/>
+
+<div id="main-box">
+  <form method='post' name="myform" action="<if condition="$action_name=='add'">{:U('Block/insert')}<else />{:U($module_name.'/update')}</if>">
+    <table class="form-table" >
+      <tr>
+        <td width="140"><label class="control-label">{:L('name')}:</label></td>
+        <td><input type="text" class="form-control" name="name" id="name" value="{$vo.name}"  ></td>       
+      </tr>
+      <tr>
+        <td><label class="control-label">{:L('pos')}:</label></td>
+        <td><input type="text" class="form-control" name="pos" id="pos" value="{$vo.pos}"  validate="required:true,en_num:true, minlength:2, maxlength:20">
+        </td>
+      </tr>
+      <tr>
+        <td><label class="control-label">{:L('content')}:</label></td>
+        <td>{: $Form->editor(array('field'=>'content','moduleid'=>'231','setup'=>array('toolbar'=>'full','flashupload'=>'1')),$vo[content])}</td>
+      </tr>
+    </table>
+    <div class="btn">
+    <if condition="$vo[id]!=''"><input type="hidden" name="id" value="{$vo.id}"></if>
+    <input type="submit"  value="{:L('dosubmit')}" class="btn btn-sm btn-primary" />
+    <input type="reset"  value="{:L('reset')}" class="btn btn-sm btn-primary"/>
+    </div>
+  </form>
+</div>
+
+</block>

@@ -1,0 +1,39 @@
+<include file="Public:header"/>
+<div class="right1">
+
+			<h5 class="title"><b>文件管理</b></h5>
+
+						<form name="myform" id="myform" action="" method="post">
+
+						<div class="table-list">
+							<table width="100%" cellspacing="0">
+								<thead>
+									<tr>
+
+									<th width="140" align="left">编号</th>
+									<th width="150" align="left">文件名称</th>
+									<th  align="left">上传时间</th>
+
+									<th width="160" align="center">下载</th>
+									</tr>
+								</thead>
+								<tbody>
+									<volist name="list" id="vo" key="k">
+									<tr>
+									<td>{$k}</td>
+						             <td>{$vo.title}</td>
+									 <td>{$vo.createtime|toDate=###,'Y-m-d'}</td>
+									 <td><a href="/index.php?m=Download&a=down&id={$vo.id}">下载</a></td>
+									</tr>
+									</volist>
+								</tbody>
+							</table>
+
+						</form></div>
+
+						<div class="poofen">{$page}</div>
+
+
+
+	</div>
+

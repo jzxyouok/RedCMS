@@ -1,0 +1,103 @@
+<div class="box">
+	<ul id="tags">
+		<li class="selectTag"><a onClick="selectTag('tagContent0',this)" href="javascript:void(0)">联系我们</a></li>
+		<li><a onClick="selectTag('tagContent1',this)" href="javascript:void(0)">在线留言</a></li>
+		<li><a onClick="selectTag('tagContent2',this)" href="javascript:void(0)">我要评论</a></li>
+	</ul>
+	<div id="tagContent">
+		<div class="tagContent selectTag" id="tagContent0">
+			<ul class="contact">
+				<li><a href="tel:{$info['hotline']}"><div><img src="__TMPL__/statics/images/c_tel.jpg"/><br/>电话咨询</div></a></li>
+				<li><a href="sms:+86 {$info['mobile']}"><div><img src="__TMPL__/statics/images/c_sms.jpg"/><br/>短信咨询</div></a></li>
+				<li><a href="http://wpa.qq.com/msgrd?V=1&Uin=517312967&Site=www.ouyanghuasi.com&Menu=yes" target="_blank"><div><img src="__TMPL__/statics/images/c_qq.jpg"/><br/>QQ咨询</div></a></li><!--http://wpa.qq.com/msgrd?v=3&uin=1324092257&site=qq&menu=yes-->
+				<li><a href="mailto:{$site_email}"><div><img src="__TMPL__/statics/images/c_email.jpg"/><br/>邮件咨询</div></a></li>
+				<li><a href="{:U('Feedback/index')}"><div><img src="__TMPL__/statics/images/c_guest.jpg"/><br/>在线留言</div></a></li>
+				<li><a href="http://api.map.baidu.com/marker?location={$map['y']},{$map['x']}&title={$info['comname']}&name={$info['comname']}&content={$info['addr']}&output=html&src=weiba" target="_blank"><div><img src="__TMPL__/statics/images/c_map.jpg"/><br/>公司地图</div></a></li>
+			</ul>
+		</div>
+		<div class="tagContent" id="tagContent1">
+			<ul class="guest">
+			<form method="post" action="/?m=content&c=index&a=guest&submit=1" id="frm">
+				<li><label>姓名：</label><input name="name" type="text" class="guest_a" id="inp_name"></li>
+				<li><label>手机：</label><input name="tel" type="text" class="guest_a" id="inp_tel"></li>
+				<li><label>留言：</label><textarea name="content" cols="" rows="" class="guest_b"></textarea></li>
+				<li><label>验证：</label><input name="code" type="text" class="guest_d" style="width:100px;"><img src="{:U('home/index/verify')}" onClick="this.src='{:U('home/index/verify')}&amp;'+Math.random();" class="fl l10"></li>
+				<p class="clear"></p>
+				<li><input name="dosubmit" type="submit" value="提  交" class="guest_c" onClick="chkForm();return false;"id="submit"></li>
+			</form>
+			</ul>
+		</div>
+		<div class="tagContent" id="tagContent2">
+			<ul class="guest">
+			<form method="post" action="/?m=content&amp;c=index&amp;a=comment" id="commentfrm">
+				<li><label>昵称：</label><input name="" type="text" class="guest_a"></li>
+				<li><label>评论：</label><textarea name="content" cols="" rows="" class="guest_b"></textarea></li>
+				<li><label>验证：</label><input name="code" type="text" class="guest_d" style="width:100px;">
+				<input type="hidden" value="1-86-21" name="comment_id">
+				<input type="hidden" value="" name="title">
+				<input type="hidden" value="/index.php?m=content&amp;c=index&amp;a=show&amp;catid=86&amp;id=21" name="url">
+				<img src="{:U('home/index/verify')}"  onclick="this.src='{:U('home/index/verify')}&'+Math.random();" class="fl l10"/>
+				<p class="clear"></p>
+				<li><input type="submit" onclick="chkCommentForm();return false;" class="guest_c" value="提  交" name=""></li>
+			</form>
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+function chkForm() {
+	var obj = document.getElementById("frm");
+	if(obj.content.value == '请输入咨询内容，我们将在24小时内回复您！') {
+		alert('请填写联系信息及留言内容');
+		return false;
+	}
+	if(obj.code.value == '') {
+		alert('请输入验证码');
+		return false;
+	}
+	subForm();
+}
+function subForm() {
+	$.ajax({
+		type:"POST",
+		url:"/index.php?m=content&c=index&a=guest&submit=1",
+		data: $("#frm").serialize(),
+		success:function(msg){
+			if(msg=='succ') {
+				alert("感谢您的留言，我们会尽快联系您！");
+				window.location.reload();
+			}else if(msg == 'error') {
+				alert("验证码错误")
+			}	
+		}
+	});
+}
+
+function chkCommentForm() {
+	var obj = document.getElementById("commentfrm");
+	if(commentfrm.content.value == '') {
+		alert("请填写评论内容");
+		return false;
+	}
+	if(commentfrm.code.value == '') {
+		alert('请输入验证码');
+		return false;
+	}
+	subCommentForm();
+}
+function subCommentForm() {
+	$.ajax({
+		type:"POST",
+		url:"/index.php?m=content&c=index&a=comment",
+		data:$("#commentfrm").serialize(),
+		success: function(msg) {
+			if(msg=='succ') {
+				alert("感谢您对我们产品及服务的评价");
+				window.location.reload();
+			}else if(msg == 'error') {
+				alert('验证码错误');
+			}	
+		}
+	});
+}
+</script>

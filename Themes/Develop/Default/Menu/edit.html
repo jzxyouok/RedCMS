@@ -1,0 +1,57 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<div id="main-box">
+  <form method='post'  id="myform" action="<if condition="$action_name=='add'">{:U('Menu/insert')}<else />{:U('menu/update')}</if>">
+
+    <table class="form-table" width="100%">
+      <tr>
+        <td width="140">{:L('menu_parent_menu')}:</td>
+        <td><select   name="parentid">
+        <option value="0">{:L('menu_top_menu')}</option>
+        {$select_categorys}
+        </select></td>
+      </tr>
+      <tr>
+        <td>{:L('name')}:</td>
+        <td><input type="text" class="input-text"  name="name" value="{$vo.name}"  validate="required:true,cn_username:true, minlength:2, maxlength:20"></td>
+      </tr>
+      <tr>
+        <td>{:L('menu_model')}:</td>
+        <td><input type="text" class="input-text" name="model" value="{$vo.model}"  validate="required:true,english:true, minlength:2, maxlength:20"></td>
+      </tr>
+      <tr>
+        <td>{:L('menu_action')}:</td>
+        <td><input type="text" class="input-text"  name="action" value="{$vo.action}"  validate="english:true, minlength:2, maxlength:20"> {:L('default')}:index</td>
+      </tr>
+      <tr>
+        <td>{:L('menu_option')}:</td>
+        <td><input type="text" class="input-text"  name="data" value="{$vo.data}"> {:L('examples')}:groupid=1&type=2</td>
+      </tr>
+      <tr>
+        <td>{:L('menu_remark')}:</td>
+        <td><TEXTAREA   name="remark" rows="5" cols="57">{$vo.remark}</textarea></td>
+      </tr>
+      <tr>
+        <td>{:L('status')}:</td>
+        <td><select name="status">
+        <option value="1"<eq name="vo.status" value="1"> selected</eq>>{:L('enable')}</option>
+        <option value="0"<eq name="vo.status" value="0"> selected</eq>>{:L('disable')}</option>
+        </select></td>
+      </tr>
+      <tr>
+        <td>{:L('menu_type')}:</td>
+        <td><select name="type">
+        <option value="1"<eq name="vo.type" value="1"> selected</eq>>{:L('menu_type1')}</option>
+        <option value="2"<eq name="vo.type" value="2"> selected</eq>>{:L('menu_type2')}</option>
+        </select></td>
+      </tr>
+    </table>
+    <div class="btn">
+    <if condition="$vo[id]!=''"><input TYPE="hidden" name="id" value="{$vo.id}"/></if>
+    <input type="submit"  value="{:L('dosubmit')}" class="btn btn-sm btn-primary" />
+    <input type="reset"  value="{:L('reset')}" class="btn btn-sm btn-primary"/>
+    </div>
+  </form>
+</div>
+</block>

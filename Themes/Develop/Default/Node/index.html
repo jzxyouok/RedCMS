@@ -1,0 +1,39 @@
+<extend name="Public:base"/>
+
+<block name="main">
+
+<div id="main-box">
+  <div class="table-header">
+    <a href="{:U('Node/index')}">节点管理</a> 
+    <a href="{:U('Node/add')}">添加</a>
+  </div>
+
+  <div class="dataTables_wrapper">
+    <form name="myform" action="{:U('Node/listorder')}" method="post">
+      <table class="table table-condensed table-hover">
+        <thead>
+          <tr>
+            <th width="40">{:L('listorder')}</th>           
+            <th align="left">{:L('node_title')}</th>
+            <th width="80" align="left">{:L('node_name')}</th>  
+            <th width="80">{:L('status')}</th>
+            <th width="120">{:L('manage')}</th>
+          </tr>
+        </thead>
+        <tbody>
+
+
+        <volist name="nodes" id="r">
+          <tr><td colspan="7" bgcolor="F8FAFC">{$r[groupinfo][name]}</td></tr>
+          {$r[data]}
+        </volist>
+        </tbody>
+      </table>
+  
+      <div class="row">
+      <input type="submit" class="btn btn-sm btn-primary" name="dosubmit" value="{:L('listorder')}" />
+      </div>  
+    </form>
+  </div>
+</div>
+</block>

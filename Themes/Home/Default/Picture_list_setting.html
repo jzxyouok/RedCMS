@@ -1,0 +1,55 @@
+<include file="Public:header"/>
+<script type="text/javascript" src="__TMPL__/public/js//fresco.js"></script>
+<link rel="stylesheet" type="text/css" href="__TMPL__/public/css/fresco.css" />
+
+
+<!-- 内页布局 -->
+<div class="gr-page">
+    <div class="gr-page-banner pt20"><img src="__TMPL__/public/images/pbanner.jpg"/></div>
+    <div class="gr-web1000 pt20">
+        <!-- 左侧栏目 -->
+        <include file="Home:left"/>
+        <!-- 右侧内容 -->
+        <div class="gr-content gr-right">
+            <include file="Home:title"/>
+            <div class="gr-content-box">
+                <div class="gr-picture-list">
+                    <ul>
+                        <li><a href="images/setting.jpg" class='fresco' data-fresco-group='example' data-fresco-caption="公司环境" title="公司环境"><img alt="公司环境" src="images/setting.jpg"><span>公司环境</span></a></li>
+                      {if $list}
+                      <volist name="list" id="r">
+
+                          <li><a href='{$r['thumb']}' class='fresco' data-fresco-group='example' data-fresco-caption="{$r.title}" title="{$r.title}"><img src="{$r['thumb']}" alt="{$r.title}"/><span>{$r.title|str_cut=###,25}</span></a></li>
+                      </volist>
+                        {else}
+                        {$catname}
+                      {/if}
+                    </ul>
+                </div>
+                <div style="text-align:center;">此处放分页代码</div>
+            </div>
+            <!-- 推荐资讯 -->
+            <div class="gr-rec-news">
+                <div class="rec-title">推荐资讯</div>
+                <ul>
+                    <li><a href="newshow.html">台正供应商-台湾键椿主轴</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.html">炮塔铣床不断创新在显行业风范炮塔铣床不断创新在显行业风范</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.html">炮塔铣床不断创新在显行业风范</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.html">台正供应商-台湾键椿主轴</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.html">炮塔铣床不断创新在显行业风范炮塔铣床不断创新在显行业风范</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.html">炮塔铣床不断创新在显行业风范</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.html">台正供应商-台湾键椿主轴</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.html">炮塔铣床不断创新在显行业风范</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.html">炮塔铣床不断创新在显行业风范炮塔铣床不断创新在显行业风范</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.html">台正供应商-台湾键椿主轴</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.html">炮塔铣床不断创新在显行业风范炮塔铣床不断创新在显行业风范</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.html">炮塔铣床不断创新在显行业风范</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.html">台正供应商-台湾键椿主轴</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.html">炮塔铣床不断创新在显行业风范</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.html">炮塔铣床不断创新在显行业风范</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.html">炮塔铣床不断创新在显行业风范</a><span>2014-08-08</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

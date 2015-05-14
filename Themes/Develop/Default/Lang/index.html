@@ -1,0 +1,51 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<div id="main-box">
+  
+  <form name="myform" id="myform" action="" method="post">
+    <table class="table">
+      <thead>
+        <tr>
+        <th width="20"><input type="checkbox"  id="check_box"  onclick="selectall('ids[]');" /></th>
+        <th width="30">{:L('listorder')}</th>
+        <th width="40">ID</th>
+        <th width="110">{:L(LANG_NAME)}</th>
+        <th>{:L(LANG_MARK)}</th>   
+        <th>{:L(LANG_FLAG)}</th>
+        <th>{:L(STATUS)}</th>
+        <th width="180"  >{:L('manage')}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <volist name="list" id="vo" key="k">
+      <tr>
+      <td><input type="checkbox" name="ids[]" value="{$vo['id']}" /></td>
+      <td width="40" align='center'><input name='listorders[{$vo.id}]' type='text' size='3' value='{$vo.listorder}' class='input-text-c'></td>
+      <td>{$vo['id']}</td>
+      <td>{$vo['name']}</td>
+      <td>{$vo['mark']}</td>
+      <td><if condition="!empty($vo['flag'])"><img src="./Public/Images/flag/{$vo['flag']}"></if>&nbsp;</td>
+      <td><eq name="vo['status']" value="1">
+        {:L('yes')}
+        <else />
+        {:L('no')}
+        </eq></td>
+      <td>
+      <a href="{:U('Lang/edit',array(id=>$vo['id']))}">{:L('edit')}</a> | <a href="javascript:confirm_delete('{:U('Lang/delete',array(id=>$vo['id']))}')">{:L('delete')}</a></td>         
+        </tr>
+        </volist>
+      </tbody>
+    </table>
+  
+    <div class="btn">
+      <input type="button" class="btn btn-sm btn-primary" name="dosubmit" value="<?php echo L('delete')?>" onclick="myform.action='{:U($module_name.'/deleteall')}';return onfirm_deleteall()"/>
+      <input type="button" class="btn btn-sm btn-primary" name="dosubmit" value="<?php echo L('listorder')?>" onclick="myform.action='{:U($module_name.'/listorder')}';$('#myform').submit();"/> 
+    </div>  
+
+  </form>
+
+  <div id="pages">{$page}</div>
+   
+</div>
+</block>

@@ -1,0 +1,48 @@
+<extend name="Public:base"/>
+
+<block name="main">
+
+<load href="__TMPL__Public/js/swfupload.js"/>
+<div id="main-box">
+<div class="row">
+  <div class="col-sm-12 col-md-12 col-lg-12">
+    <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable">
+
+      <header role="heading">
+        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+        <h2> 添加 </h2>
+        <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
+      </header>
+  
+      <div role="content">
+  <form name="myform" id="myform" action="<if condition="$action_name=='add'">{:U($module_name.'/insert')}<else />{:U($module_name.'/update')}</if>&iscreatehtml=1" method="post">
+    <div id="filelist" class="hide"></div>
+    <div class="error"><ul></ul></div>
+    <table class="form-table">
+      <volist name="fields" id="r">
+      <if condition="!empty($r['status'])">
+        <tr>
+          <td align="right">
+          <label class="control-label"><if condition="$r['required']"><font color="red">*</font></if>{$r.name}</label>
+          </td>
+          <td id="box_{$r['field']}">
+          {$r|getform=$form,###}
+          </td>
+        </tr>
+      </if>
+      </volist>
+    </table>
+
+    <div id="btnbox">
+      <if condition="$vo['id']!=''"><input type="hidden" name="id" value="{$vo.id}"></if>
+      <input type="hidden" name="lang" value="{$langid}" />
+      <input type="hidden" name="forward" value="{$_SERVER['HTTP_REFERER']}" />
+      <input type="submit" value="{:L('dosubmit')}" class="btn btn-sm btn-primary" />
+      <input type="reset" value="{:L('cancel')}" class="btn btn-sm btn-primary"/>
+    </div>
+  </form>
+  </div>
+</div>
+</div>
+
+</block>

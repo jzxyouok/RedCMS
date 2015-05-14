@@ -1,0 +1,111 @@
+﻿<include file="Public:header"/>
+<div id="vipMmain">
+ <div class="vipMmaina">
+    <div class="vipLogin">
+      <div class="vipLoginTitle"><p>
+      <span>欢迎您，请登录</span>还没有誉字号账户？
+      <a href="/index.php?g=user&m=register&a=index">立即注册</a></p></div>
+        <div class="vipLoginBody">
+          <div class="coLogin_box">
+            <form id="loginform" method="post" action="{:URL('user-login/dologin')}">
+              <table>
+                <tr>
+                  <th>用户名：</th>
+                  <td><input type="text" name="username" id="username" class="vam"></td>
+                </tr>
+                <tr>
+                  <th>密&nbsp;&nbsp;&nbsp;码：</th>
+                  <td><input type="password"name="password" id="password"  class="vam"></td>
+                </tr>
+                <tr>
+                  <th>验证码：</th>
+                  <td><input type="text" name="verifyCode" style="width:110px" class="pointer cam" id="randomCode" size="6" value="" maxlength="4" />&nbsp;&nbsp;
+                  <img src="{:U('home/index/verify')}" onclick="javascript:resetVerifyCode();" class="checkcode" align="absmiddle"  title="{:L('resetVerifyCode')}" id="verifyImage"/>
+                </td>
+              </tr>
+              <tr>
+                <th colspan="2"><input type="submit" class="buttona" id="btnSubmit" value="" tabindex="6"></th>
+              </tr>
+
+              </table>
+            </form>
+          </div>
+      </div>
+    </div>
+ </div>
+</div>
+<load href="__PUBLIC__/Js/jquery.validate.min.js"/>
+<script type="text/javascript">
+
+$("#loginform").validate({
+  rules: {
+    username: "required",
+    email: {
+      required: true,
+      email: true
+    },
+    password: {
+      required: true,
+      minlength: 5
+    }
+  },
+  messages: {
+    username: "请输入姓名",
+    email: {
+      required: "请输入Email地址",
+      email: "请输入正确的email地址"
+    },
+    password: {
+      required: "请输入密码",
+      minlength: jQuery.validator.format("密码不能小于{0}个字 符")
+    },
+  }
+});
+
+$("#regform").validate({
+  rules: {
+    username: {
+      required:true,
+      remote: "{:U('User/Register/checkusername')}",
+      minlength:5,
+      maxlength:20
+    },
+    email: {
+      required:true,
+      email:true,
+      //remote: '{:U('User/Register/checkEmail')}' ,
+      minlength:1,
+      maxlength:40
+    },
+    password: {
+      required:true,
+      minlength:6,
+      maxlength:20
+    },
+    repassword: {
+      required:true,
+      equalTo: '#password',
+      minlength:5,
+      maxlength:20
+    }
+  },
+  messages: {
+    username: {
+      required:"请输入用户名",
+      remote:"用户名已存在"
+    },
+    email: "请输入正确的email地址",
+    password: {
+      required: "请输入密码",
+      minlength: jQuery.validator.format("密码不能小于{0}个字 符")
+    },
+    repassword: {
+      required: "请输入确认密码",
+      minlength: "确认密码不能小于5个字符",
+      equalTo: "两次输入密码不一致不一致"
+    }
+  }
+});
+</script>
+
+<include file="Public:footer"/>

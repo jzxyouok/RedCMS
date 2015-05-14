@@ -1,0 +1,29 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<div id="main-box">
+
+  <form id="myform" name="myform" action="{:U('menu/listorder')}" method="post">
+    <table class="table">
+      <thead>
+        <tr>
+          <th width="55">{:L('listorder')}</th>
+          <th>id</th>
+          <th>{:L('menu_name')}</th>
+          <th>{:L('status')}</th>
+          <th>{:L('manage')}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php echo $select_categorys;?>
+      </tbody>
+    </table>  
+    <div class="btn">
+      <input type="submit" class="btn btn-sm btn-primary" name="dosubmit" value="<?php echo L('listorder')?>" />
+      <a class="btn btn-sm btn-primary"  href="{:U('menu/add')}">添加</a>
+    </div>
+
+  </form>
+
+</div>
+</block>

@@ -1,0 +1,163 @@
+<include file="Public:header"/>
+
+<div id="main" class="container">
+
+	<ol class="breadcrumb">
+    <li><a href="{:U('Index/index')}">网站首页</a></li>
+    <li class="active">购物车</li>
+  </ol>
+
+	<div class="cart_list">
+
+    <ul class="cart_top">
+      <li class="cartbar">
+        <a class="check1_now">查看购物车</a>
+        <a class="check2">填写订单</a>
+        <a class="check3">付款，完成购买</a>
+      </li>
+    </ul>
+
+    <table class="table cart_info">
+      <tr class="cart_info_top">
+        <th class="name_choose"><input type="checkbox" /></th>
+        <th class="cart_pro_info">商品信息</th>
+        <th class="cart_pro_price">单价(元)</th>
+        <th class="pro_shuliang">数量</th>
+        <th class="cart_total">小计(元)</th>
+        <th class="cart_ctr">操作</th>
+      </tr>
+
+      <foreach name="list" item="product">
+      <tr class="cart_info_list" id="tr_{$product.id}">
+        <td class="cii_name_choose">
+          <a class="nc_left"><input type="checkbox" /></a>
+          <a class="nc_right"><img src="{$product.product_thumb}" style="width:65px;height:95px;"/></a>
+        </td>
+        <td class="cart_pro_info"><a>{$product.title}</a></td>
+        <td class="pro_shop_price"><a id="price_{$product.id}">{$product.product_price}</a></td>
+        <td class="pro_shuliang">
+          <a class="shuliang_left btn btn-xs btn-default">-</a>
+          <a class="shuliang_choose"><input product_id="{$product.id}" type="text" value="{$product.number}" size="4" class="num"/></a>
+          <a class="shuliang_right btn btn-xs btn-default">+</a>
+        </td>
+        <td class="cart_total"><a class="subtotal_{$product.id}"><php>echo $product['product_price']*$product['number'];</php></a></td>
+        <td class="cart_ctr">
+          <a class="btn btn-xs btn-default" href="javascript:del({$product.id})">删除</a>
+          <a class="btn btn-xs btn-default">收藏</a>
+        </td>
+      </tr>
+      </foreach>
+    </table>
+
+    <div class="cart_jisuan">
+      <div class="pull-right">
+      <a class="jisuan2">您实际需要支付金额：</a><a class="jisuan3"><span id="product_total">{$total}</span></a><a class="jisuan4">元</a>
+      </div>
+    </div>
+
+    <div class="cart_anniu">
+      <a href="{:U('Index/index')}" class="btn btn-default">继续购物</a>
+      <a href="{:U('Order/checkout')}" class="btn btn-default">立即结算</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function del(id){
+  if(confirm("确定要删除吗？")){
+    var price=$('#price_'+id).text();
+    var aPro=$('.cart_info_list');
+
+    $.ajax({
+      type:'post',
+      url:"{:U('Cart/del')}",
+      data:'&id='+id,
+      success:function(msg){
+        $('#tr_'+id).remove();
+        var tmp_total=0;
+				for(var i=0;i<aPro.length;i++){
+					var pid=aPro.eq(i).attr("id").substr(3);
+
+					tmp_total+=Number($('.subtotal_'+pid).text());
+				}
+
+				$('#product_total').text(tmp_total);
+
+			}
+		});
+	}
+}
+$(function(){
+	$('.cart_info_list :input').change(function(){
+		var num=$(this).val();
+		var id=$(this).attr('product_id');
+		var price=$('#price_'+id).text();
+		var aPro=$('.cart_info_list');
+
+		$.ajax({
+			type:'post',
+			url:"{:U('Cart/edit')}",
+			data:{
+				'id':id,
+				'num':num
+			},
+			success:function(msg){
+
+				$(this).attr('value',num)
+				var subtotal=num*price;
+				$('.subtotal_'+id).text(subtotal);
+				var tmp_total=0;
+				for(var i=0;i<aPro.length;i++){
+					var pid=aPro.eq(i).attr("id").substr(3);
+
+					tmp_total+=Number($('.subtotal_'+pid).text());
+				}
+				$('#product_total').text(tmp_total);
+			}
+		});
+	});
+	$('.shuliang_left').click(function(){
+		var obj = $(this).next().children()[0];
+		var num = $(obj).val();
+		 num==1?1:num--;
+		$(obj).val(num);
+		changePrice(num,obj);
+	});
+	$('.shuliang_right').click(function(){
+		var obj = $(this).prev().children()[0];
+		var num = $(obj).val();
+		 num++;
+		$(obj).val(num);
+		changePrice(num,obj);
+	});
+	function changePrice(num,obj){
+		var id=$(obj).attr('product_id');
+		var price=$('#price_'+id).text();
+		var aPro=$('.cart_info_list');
+
+		$.ajax({
+			type:'post',
+			url:"{:U('Cart/edit')}",
+			data:{
+				'id':id,
+				'num':num
+			},
+			success:function(msg){
+
+				$(obj).attr('value',num)
+				var subtotal=num*price;
+				$('.subtotal_'+id).text(subtotal);
+				var tmp_total=0;
+				for(var i=0;i<aPro.length;i++){
+					var pid=aPro.eq(i).attr("id").substr(3);
+
+					tmp_total+=Number($('.subtotal_'+pid).text());
+				}
+
+				$('#product_total').text(tmp_total);
+			}
+		});
+	}
+});
+ </script>
+<include file="Public:footer"/>

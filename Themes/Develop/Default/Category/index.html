@@ -1,0 +1,72 @@
+<extend name="Public:base"/>
+
+<block name="main">
+
+<div id="main-box">
+  <div class="table-header">
+    <a href="{:U('Category/index')}">导航列表</a>
+  </div>
+
+  <form name="myform" action="{:U('category/listorder')}" method="post">
+    <div class="dataTables_wrapper">
+      <table class="table table-hover table-condensed">
+        <thead>
+          <tr>
+            <th class="table-cell-1">{:L('listorder')}</th>
+            <th class="table-cell-1">catid</th>
+            <th>{:L('catname')}</th>
+            <th class="table-cell-2">所属类型</th>
+            <th class="table-cell-1">{:L('ismenu')}</th>
+            <th class="table-cell-1">{:L('fangwen')}</th>
+            <th class="center table-cell-3">{:L('manage')}</th>
+          </tr>
+        </thead>
+        <tbody>
+        {$categorys}
+        </tbody>
+      </table>
+      <div class="row">
+        <input type="submit" class="btn btn-sm btn-primary" value="{:L('listorder')}"/>
+
+        <div class="pull-right">
+          <button type="button" class="btn btn-sm btn-primary" id="trigger">添加顶级栏目</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script type="text/javascript" src="__PUBLIC__/Js/sco.modal.js"></script> 
+
+<script type="text/javascript">
+var modal = $.scojs_modal({
+  title: '添加栏目'
+  ,remote: "{:U('Category/add')}"
+  ,width: '700px'
+  ,height:'500px'
+});
+$('#trigger').click(function(){
+  modal.show();
+})
+
+function add_cat(catid){
+  $.scojs_modal({
+    title: '添加栏目'
+    ,remote: "{:U('Category/add')}"+'&catid='+catid
+    ,width: '700px'
+    ,height:'500px'
+  }).show();
+}
+
+function edit_cat(catid,type){
+  $.scojs_modal({
+    title: '编辑栏目'
+    ,remote: "{:U('Category/edit')}"+'&id='+catid+'&type='+type
+    ,width: '700px'
+    ,height:'500px'
+  }).show();
+}
+
+</script>
+
+</block>

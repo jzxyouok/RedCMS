@@ -1,0 +1,291 @@
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie6"><![endif]-->
+<!--[if IE 7 ]><html class="ie7"><![endif]-->
+<!--[if IE 8 ]><html class="ie8"><![endif]-->
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html class="w3c"><!--<![endif]-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 最新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="__STATIC__/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="__STATIC__/font-awesome/css/font-awesome.min.css">
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+
+<script type="text/javascript" src="__STATIC__/bootstrap/js/bootstrap.min.js"></script>
+<link rel='stylesheet' type='text/css' href='__TMPL__/Public/css/style.css'>
+<link rel='stylesheet' type='text/css' href='__PUBLIC__/Css/jquery-ui-1.9.0.custom.css'>
+<link rel='stylesheet' type='text/css' href='__PUBLIC__/Css/artdialog.css'>
+<link rel='stylesheet' type='text/css' href='__PUBLIC__/Css/scojs.css'>
+<link rel='stylesheet' type='text/css' href='__PUBLIC__/Css/sco.message.css'>
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<title>{:L('welcome')}</title>
+</head>
+
+<body>
+
+<div id="header">
+  <div id="logo"><img src="__PUBLIC__/Images/logo4.png" width="35" />誉字号开发中心</div>
+
+  <div id="ribbon">
+<!--     <ol class="breadcrumb">
+      <li><i class="fa fa-home"></i> <a href="/" class="ng-binding">Home Page</a></li>
+      <li ng-repeat="item in riboonList" class="ng-scope ng-binding">模板例子</li>
+      <li ng-repeat="item in riboonList" class="ng-scope ng-binding">表单</li>
+      <li ng-repeat="item in riboonList" class="ng-scope ng-binding">表单控件</li>
+    </ol> -->
+
+    <ul class="header-right pull-right">
+      <li> <a href="javascript:update_cache();"><i class="fa fa-lg fa-refresh"></i>更新缓存</a></li>
+      <li><a href="/" target="_blank">浏览站点</a></li>
+      <li class="">
+        <a aria-expanded="false" href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <i class="fa fa-lg fa-user"></i>{$Think.session.username}<span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu pull-right">
+          <li><a href="{:U('Index/profile')}">账户设置</a></li>
+          <li><a href="{:U('Login/logout')}">退出</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div id="aside">
+
+  <nav>
+    <ul style="display: block;">
+      <li>
+        <a href="{:U('Index/index')}" title="Dashboard" id="menu_dashboard">
+        <i class="fa fa-lg fa-fw fa-home"></i>
+        <span class="menu-item-parent">控制面板</span>
+        </a>
+      </li>
+
+      <li ng-repeat="item in menu" class="ng-scope">
+        <a href="javascript:return false;" id="menu_system">
+          <i class="fa fa-lg fa-fw fa-cogs"></i>
+          <span class="menu-item-parent ng-binding">系统设置</span>
+          <b class="collapse-sign"><em class="fa fa-plus-square-o"></em></b>
+        </a>
+        <ul ng-if="isSubMenu(item)" class="ng-scope" id="pm_system">
+          <li><a href="{:U('Config/index')}">基本设置</a></li>
+          <li><a href="{:U('User/index')}">管理员管理</a></li>
+          <li><a href="{:U('Role/index')}">角色管理</a></li>
+          <li><a href="{:U('Menu/index')}">菜单管理</a></li>
+          <li><a href="{:U('Node/index')}">节点管理</a></li>
+          <li><a href="{:U('Lang/index')}">语言管理</a></li>
+          <li><a href="{:U('Posid/index')}">推荐位管理</a></li>
+          <li><a href="{:U('Type/index')}">分类管理</a></li>
+          <li><a href="{:U('Urlrule/index')}">路由管理</a></li>
+          <li><a href="{:U('Index/cache')}">更新缓存</a></li>
+          <li><a href="{:U('Createhtml/updateurl')}">更新伪静态</a></li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="javascript:;" title="Graphs" id="menu_content">
+          <i class="fa fa-lg fa-fw fa-desktop"></i>
+          <span class="menu-item-parent">内容管理 </span>
+          <b class="collapse-sign"><em class="fa fa-plus-square-o"></em></b>
+        </a>
+        <ul id="pm_content">
+          <li><a href="{:U('Category/index')}">导航设置</a></li>
+          <li><a href="{:U('Page/index')}">单页管理</a></li>
+          <li><a href="{:U('Product/index')}">产品列表</a></li>
+          <li><a href="{:U('Article/index')}">新闻列表</a></li>
+          <li><a href="{:U('Picture/index')}">图片列表</a></li>
+          <li><a href="{:U('Job/index')}">招聘管理</a></li>
+          <li><a href="{:U('Download/index')}">下载管理</a></li>
+          <li><a href="{:U('Block/index')}">碎片管理</a></li>
+          <li><a href="{:U('Tags/index')}">标签管理</a></li>
+        </ul>
+
+        </li>
+
+      <li>
+        <a href="javascript:;" title="Forms" id="menu_database">
+          <i class="fa fa-lg fa-fw fa-database"></i>
+          <span class="menu-item-parent">数据管理 </span>
+          <b class="collapse-sign"><em class="fa fa-plus-square-o"></em></b>
+        </a>
+          <ul id="pm_database">
+            <li><a href="{:U('Module/index')}">模型管理</a></li>
+            <li><a href="{:U('Module/index')}&type=2">模块管理</a></li>
+            <li><a href="{:U('Database/index')}">数据库结构</a></li>
+             <li><a href="{:U('Database/query')}">SQL查询</a></li>
+          </ul>
+      </li>
+
+      <li>
+        <a href="javascript:;" title="App Views" id="menu_addon">
+          <i class="fa fa-lg fa-fw fa-puzzle-piece"></i>
+          <span class="menu-item-parent">插件管理</span>
+          <b class="collapse-sign"><em class="fa fa-plus-square-o"></em></b>
+        </a>
+        <ul id="pm_addon">
+          <li><a href="{:U('Slide/index')}">首页动画</a></li>
+          <li><a href="{:U('Kefu/index')}">客服设置</a></li>
+          <li><a href="{:U('Config/liul')}">流量监控</a></li>
+          <li><a href="{:U('Feedback/index')}">客户反馈</a></li>
+          <li><a href="{:U('Resume/index')}">简历列表</a></li>
+          <li><a href="{:U('Index/qr')}">生成二维码</a></li>
+          <li><a href="{:U('Link/index')}">友情链接</a></li>
+          <li><a href="{:U('index/shoulu')}">搜索引擎登录</a></li>
+          <li><a href="{:U('Addon/ditu')}">电子地图</a></li>
+          <li><a href="{:U('Member/index')}">会员管理</a></li>
+          <li><a href="{:U('createhtml/createsitemap')}">网站地图生成</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="javascript:;" id="menu_order">
+          <i class="fa fa-lg fa-fw fa-shopping-cart"></i>
+          <span class="menu-item-parent">订单管理</span>
+          <b class="collapse-sign"><em class="fa fa-plus-square-o"></em></b>
+        </a>
+        <ul id="pm_order">
+          <li><a href="{:U('Order/index')}">订单管理</a></li>
+          <li><a href="{:U('Payment/index')}">支付管理</a></li>
+          <li><a href="{:U('Shipping/index')}">配送管理</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="javascript:;" title="Widgets" id="menu_template">
+          <i class="fa fa-lg fa-fw fa-list-alt"></i>
+          <span class="menu-item-parent">模板管理 </span>
+          <b class="collapse-sign"><em class="fa fa-plus-square-o"></em></b>
+        </a>
+        <ul id="pm_template">
+          <li><a href="{:U('Template/index')}">Html编辑</a></li>
+          <li><a href="{:U('Template/index')}&type=css">CSS编辑</a></li>
+          <li><a href="{:U('Template/index')}&type=js">js编辑</a></li>
+          <li><a href="{:U('Template/config')}">模板参数</a></li>
+          <li><a href="{:U('Template/images')}">图片管理</a></li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="#" title="UI Elements" id="menu_wap">
+          <i class="fa fa-lg fa-fw fa-mobile"></i>
+          <span class="menu-item-parent">手机网站 </span>
+          <b class="collapse-sign"><em class="fa fa-plus-square-o"></em></b>
+        </a>
+
+        <ul id="pm_wap">
+          <li><a href="{:U('config/shouji')}">基本设置</a></li>
+        </ul>
+      </li>
+    </ul>
+
+  </nav>
+
+</div>
+
+
+<div id="main">
+  <block name="main"></block>
+</div>
+
+
+<script type="text/javascript">
+
+window.onload = function (){
+  if(!+"\v1" && !document.querySelector) { // for IE6 IE7
+    document.body.onresize = init;
+  } else {
+    window.onresize = init;
+  }
+}
+
+//更新缓存
+function update_cache(){
+  $.ajax({
+    url:'{:U('Index/cache')}',
+    success:function(data){
+      $.scojs_message(data, $.scojs_message.TYPE_OK);
+      window.location.reload();
+    }
+  });
+}
+
+//返回浏览器可见区高度
+function getWindowHeight(){
+    return window['innerHeight']||
+  document.compatMode === "CSS1Compat" && document.documentElement['clientHeight'] || document.body['clientHeight'];
+}
+//打开浏览器就执行自定义初始函数
+function init(){
+  var heights=getWindowHeight()-130;
+  $('#pageleft').height(heights);
+  if($('#pageleft').height()>heights){
+    var width=$('#pageleft').width();
+    $('#pageleft').width(width+12);
+  }
+  //设置右主体内容高度
+  $('#pagerightMain').height(heights);
+}
+init();
+
+
+var APP = '/develop.php';
+var ROOT = '';
+var PUBLIC = '/Public';
+
+function confirm_delete(url){
+  $.scojs_confirm({
+    content: "<h4>确认要删除信息吗?</h4>",
+    action: function(){
+      $.ajax({
+        url:url,
+        success:function(data){
+          $.scojs_message(data.info, $.scojs_message.TYPE_OK);
+          window.location.reload();
+        }
+      });
+    }
+  }).show();
+}
+
+$('#menu_{$nav1}').show();
+$('#pm_{$nav1}').show();
+var num = {$nav2}-1;
+$('#pm_{$nav1} li').eq(num).addClass('active');
+
+
+$('#aside li a').click(function(){
+  var numorder = this.id.split('_')[1];
+  var url = $('#pm_'+numorder).find("li:eq(0) a").attr('href');
+  location.href = url;
+})
+
+
+
+window.onload=function(){
+
+if (document.getElementById("main").clientHeight < document.getElementById("aside").clientHeight) {
+  document.getElementById("aside").style.height= document.getElementById("aside").clientHeight+"px";
+}else{
+  document.getElementById("aside").style.height= document.getElementById("main").clientHeight+49+"px";}
+}
+</script>
+
+<!-- 引入js -->
+<script type="text/javascript" src="__PUBLIC__/Js/sco.modal.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/sco.message.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/sco.confirm.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.artDialog.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.form.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/iframeTools.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/my.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.colorpicker.js"></script>
+<script type="text/javascript" src="__STATIC__/MyDate/WdatePicker.js"></script>
+</body>
+</html>

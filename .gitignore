@@ -1,0 +1,7 @@
+Cache/
+Uploads/
+Runtime/
+install.lock
+.DS_Store
+/config.php
+.htaccess

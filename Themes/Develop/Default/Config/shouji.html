@@ -1,0 +1,42 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<load href="./Public/Js/swfupload.js"/>
+
+<div class="box_con">
+	<form method='post' action="{:U('config/dosite')}">
+
+	<table class="form-table" >
+
+	<volist name="shouji_config" id="vo">
+	{if $vo[varname]=='site_qrcode'}
+	<tr>
+		<th width="140">{$vo.info}:</th>
+		<td>
+	    <input type="text" class="input-text" id="site_qrcode" name="{$vo.varname}"  value="{$vo['value']}" size="40" />
+			<div class="thumb_box" style ="position: absolute;left:500px;width:97px;height:80px;padding:2px;top:-7px;"><div id="image_aid_box"></div>
+			<a href="javascript:swfupload('logo_uploadfile','site_qrcode','{:L(uploadfiles)}',1,1,0,1,'jpeg,jpg,png,gif',3,1,'{$yzh_auth}',yesdo,nodo)"><img style="width:50px;height: 50px;" width="50" height="50" src="<if condition="!empty($vo['value'])">{$vo['value']}<else/>./Public/Images/admin_upload_thumb.png</if>" id="logo_pic" ></a><br> 
+			<input type="button" value="{:L('clean_thumb')}" onclick="javascript:clean_thumb('site_qrcode');" class="btn btn-sm btn-primary" style="margin:0;" /></div>
+		</td>
+	</tr>
+	{else}
+
+	<tr>
+		<th width="140">{$vo.info}:</th>
+		<td><input type="text" class="input-text"  name="{$vo.varname}" value="{$vo.value}" size="40"><!--<a href="{:U('Config/delete?id='.$vo[id])}"><font color="red">{:L(delete)}</font></a>--></td>
+	</tr>
+	{/if}
+
+	</volist>
+
+	</table>
+
+	<div class="btn">
+		<input type="submit" value="{:L('save')}" class="btn btn-sm btn-primary" >
+		<input type="reset" value="{:L('reset')}" class="btn btn-sm btn-primary">
+	</div>
+
+	</form>
+
+</div>
+</block>

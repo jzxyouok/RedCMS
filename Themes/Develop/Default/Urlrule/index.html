@@ -1,0 +1,46 @@
+<extend name="Public:base"/>
+
+<block name="main">
+
+<div id="main-box">
+  <form name="myform" action="{:U($module_name.'/deleteall')}" method="post">
+    <table class="table">
+      <thead>
+        <tr>
+          <th><input type="checkbox"  id="check_box"  onclick="selectall('ids[]');" /></th>
+          <th>ID</th>
+          <th>{:L('URL_MAKE_HTML')}</th>
+          <th>{:L('URL_example')}</th>
+          <th>{:L('URL_RULE')}</th>
+          <th>{:L('manage')}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="list" id="vo" key="k">
+        <tr>
+        <td><input type="checkbox" name="ids[]" value="{$vo['id']}" /></td>
+        <td>{$vo['urlruleid']}</td>
+        <td><eq name="vo['ishtml']" value="1">
+        {:L('yes')}
+        <else />
+        {:L('no')}
+        </eq></td>
+        <td>{$vo['showexample']}<br>{$vo['listexample']}</td>
+        <td>{$vo['showurlrule']}<br>{$vo['listurlrule']}</td>
+        <td>
+          <a class="btn btn-xs btn-primary" href="{:U('Urlrule/edit',array(urlruleid=>$vo['urlruleid']))}">{:L('edit')}</a>
+          <a class="btn btn-xs btn-danger" href="javascript:confirm_delete('{:U('Urlrule/delete',array(urlruleid=>$vo['urlruleid']))}')">{:L('delete')}</a>
+        </td>
+        </tr>
+        </volist>
+      </tbody>
+    </table>
+
+    <div class="btn">
+      <input type="submit" class="btn btn-sm btn-primary" name="dosubmit" value="{:L('delete')}" />
+    </div>
+  </form>
+
+  <div id="pages">{$page}</div>
+</div>
+</block>

@@ -1,0 +1,18 @@
+<include file="Public:header"/>
+<!-- 内页布局 -->
+<div id="main" class="container">
+    <div class="gr-page-banner pt20"><img src="__TMPL__/public/images/pbanner.jpg"/></div>
+    <div class="pt20">
+
+        <include file="Home:left"/>
+
+        <!-- 右侧内容 -->
+        <div class="col-sm-9">
+            <include file="Home:title"/>
+            <div class="gr-content-box">
+                {if $content}{$content}{else}{$catname}{/if}
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Public:footer"/>

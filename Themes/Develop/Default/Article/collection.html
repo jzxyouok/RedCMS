@@ -1,0 +1,39 @@
+<extend name="Public:base"/>
+
+<block name="main"/>
+<div class="table-list">
+<form id="myform" method="post" action="{:U('article/getcollection')}" name="myform">
+<table width="100%" cellspacing="0" cellpadding="0" class="form-table">
+		<tbody>
+		    <tr>
+				<td width="15%"><font color="red">*</font>栏目</td>
+				<td width="85%" id="box_catid">{:Form::catid($filed_catid)}</td>
+			</tr>
+		    <tr>
+				<td width="15%"><font color="red">*</font>采集网址：</td>
+				<td width="85%" id="box_catid"><input class="input-text" type="text" validate=" required:true" size="55" value="" name="http">网址带:http://</td>
+			</tr>
+	    <tr>
+				<td width="15%"><font color="red">*</font>采集列表页规则：</td>
+				<td width="85%" id="box_catid"><input class="input-text" type="text" validate=" required:true" size="20" value="" name="start">始标签&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="input-text" type="text" validate=" required:true" size="20" value="" name="end">结标签</td>
+			</tr>
+		    <tr>
+				<td width="15%"><font color="red">*</font>采集内容页规则：</td>
+				<td width="85%" id="box_catid"><input class="input-text" type="text" validate=" required:true" size="20" value="" name="title_lable_start">标题始标签&nbsp;&nbsp;<input class="input-text" type="text" validate=" required:true" size="20" value="" name="title_lable_end">标题结标签<br><br>
+				&nbsp;&nbsp<input class="input-text" type="text" validate=" required:true" size="20" value="" name="content_lable_start">内容始标签&nbsp;&nbsp;<input class="input-text" type="text" validate=" required:true" size="20" value="" name="content_lable_end">内容结标签</td>
+			</tr>
+		    <tr>
+				<td width="15%"><font color="red">*</font>采集数量：</td>
+				<td width="85%" id="box_catid"><input class="input-text" type="text" validate=" required:true" size="5" value="" name="limit"></td>
+			</tr>
+		    <tr>
+				<td width="15%"><font color="red">*</font></td>
+				<td width="85%" id="box_catid"><input class="button" type="submit" value="提交">
+<input class="button" type="reset" value="取消"></td>
+			</tr>
+	   </tbody>
+</table>
+</form>
+
+</div>
+</block>

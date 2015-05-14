@@ -1,0 +1,54 @@
+<include file="Public:header"/>
+	<p class="clear"></p>
+	<div class="searchi">
+		<ul>
+			<form action="{:U('Search/index')}" method="post">
+				<input name="kwyword" type="text" class="searchi_a"  onblur="if(this.value==''){this.value='请输入产品关键字'}" onFocus="if(this.value=='请输入产品关键字'){this.value=''}" value="请输入产品关键字">
+				<input name="" type="submit" class="searchi_s" value="搜索">
+			</form>
+		</ul>
+	<p class="clear"></p>
+	</div>
+	<div class="box">
+		<div class="position">
+			<label class="fenlei"><a href="javascript:;" id="catlist">分类</a></label>
+			<a href="/" target="_blank">首页</a>
+		</div>
+		<p class="clear"></p>
+		<div class="catalog">
+			<ul>
+				<li><a href="javascript:;">√{$max_parent_catname} </a></li>
+				<Gr:subcat catid="2" id="r">
+				<li><a href="{$r['url']}">　{$r['catname']}</a>
+				{if $r['child']==1}
+					<ul>
+						<Gr:subcat catid="r['id']" id="rr">
+						<li><a href="{$r['url']}">{$rr['catname']}</a></li>
+						</Gr:subcat>
+					</ul>
+				{/if}
+				</li>
+				</Gr:subcat>
+			</ul>
+			<span class="catbtn"><img src="__TMPL__/statics/images/icon_slid.png" width="30"/></span>
+		</div>
+		<p class="positionb"><img src="__TMPL__/statics/images/arcb.jpg"/></p>
+		<ul class="product_list" style="padding:15px 0;">
+		<volist name="list" id="r">
+			<li>
+				<div class="di"><a href="{$r.url}"><img src="{$r.thumb}" alt="" title="" onload="reset_pic(this, '120,120')"/></a></div>
+					<h3><strong>{$r.title}</strong></h3>
+					<p class="c">{$r.description|str_cut=###,100}</p>
+			</li>
+			</volist>
+			<p class="clear"></p>
+			<div id="pagelist">
+				{$pages}
+			</div>
+		</ul>
+	</div>
+	<p class="clear"></p>
+<include file="Public:footer"/>
+<script type="text/javascript" src="js/mobile.js"></script>
+</body>
+</html>

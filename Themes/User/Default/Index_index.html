@@ -1,0 +1,53 @@
+<include file="Public:header"/>
+
+<script type="text/javascript" src="__TMPL__/Public/js/user.js"></script>
+<script type="text/javascript" src="/Public/js/my.js"></script>
+<script type="text/javascript" src="/Public/Js/commons.js"></script>
+
+<div id="wbody" class="container">
+
+	<div class="col-md-3">
+    <ul class="nav nav-pills nav-stacked">
+    	<li class="user_curr"><a href="javascript:void(0);">会员中心首页</a></li>
+      <li><a href="javascript:void(0);">个人资料</a></li>
+      <li><a href="{:U('Home/Cart/index')}">购物车</a></li>
+      <li><a href="{:U('Order/index')}">{:L(order_query)}</a></li>
+    </ul>
+  </div>
+
+	<div class="col-md-9">
+		<div class="left himg">
+			<a href="{:U('User/Index/avatar')}"><img src="{$vo['avatar']}" width="60" height="60" onerror="this.src='/Public/images/nophoto.gif'"></a>
+		</div>
+	  <div class="col-auto">
+		  <h3>{$vo['username']} （{$vo['email']}）</h3>
+      <div class="Balance">
+      {:L(user_group)}：{$Role[$vo['groupid']]['name']}，{:L(user_amount)}：<font style="color:#F00; font-size:22px;font-family:Georgia,Arial; font-weight:700">{$vo['amount']}</font> {:L(RMB)}，{:L(user_point)}：<font style="color:#F00; font-size:18px;font-family:Georgia,Arial; font-weight:700">{$vo['point']}</font> {:L(point)}
+      </div>
+
+      <div class="Balance">
+      	{:L(user_reg_ip)}：{$vo['reg_ip']} {:L(user_last_login_ip)}： {$vo['last_ip']} {:L(user_last_login_time)}：{$vo['last_logintime']|toDate} {:L(user_reg_time)}：{$vo['createtime']|toDate}
+      </div>
+
+      <div class="datile">
+        <h4>1、普通会员权限：</h4>
+        <ul>
+              <li>浏览网页</li>
+              <li>查看和下载密级为公开级以下的文档</li>
+              <li>参与在线活动或注册线下活动（需要客户身份的除外）</li>
+        </ul>
+
+        <h4>2、认证会员（客户会员）：</h4>
+        <ul>
+          <li>浏览网页</li>
+          <li>查看和下载密级为限制级或以下的文档</li>
+          <li>参与在线活动或注册线下活动</li>
+          <li>享受专业问题解答</li>
+        </ul>
+      </div>
+	  </div>
+	</div>
+
+</div>
+
+<include file="Public:footer"/>

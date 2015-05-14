@@ -1,0 +1,47 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<div id="yzh-content" class="col-xs-12">
+  <div class="table-header">
+    <a href="{:U('Slide/index')}">广告列表</a>
+  </div>
+
+  <div class="dataTables_wrapper">
+    <form name="myform" action="" method="post">
+      <table class="table">
+        <thead>
+          <tr>
+            <th width="40">ID</th>
+            <th align="left">名称</th>
+            <th width="100" align="left">幻灯片宽</th>
+            <th width="100" align="left">幻灯片高</th>
+            <th width="100" class="center">状态</th>
+            <th width="180" class="center">管理操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <volist name="list" id="vo" key="k">
+          <tr>
+            <td class="center">{$vo['id']}</td>
+            <td align="left">{$vo['name']}</td>
+            <td align="left">{$vo['width']}</td>
+            <td align="left">{$vo['height']}</td>
+            <td class="center"><eq name="vo['status']" value="1">
+              {:L('enable')}
+              <else />
+              {:L('disable')}
+              </eq></td>
+            <td class="center">
+            <a href="{:U('Slide/picmanage',array('fid'=>$vo['id']))}">{:L('PICMANAGE')}</a> |
+            <a href="{:U('Slide/edit',array('id'=>$vo['id']))}">编辑</a> | <a href="javascript:confirm_delete('{:U('Slide/delete',array('id'=>$vo['id']))}')">删除</a>
+            </td>
+          </tr>
+          </volist>
+        </tbody>
+      </table>
+
+    </form>
+  </div>
+  <div id="pages">{$pages}</div>
+</div>
+</block>

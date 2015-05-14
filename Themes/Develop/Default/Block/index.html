@@ -1,0 +1,37 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<div id="main-box">
+
+  <form  id="myform" name="myform" action="{:U('Type/listorder')}" method="post">
+    <div class="menu">             
+      <a href="{:U('Block/add')}" class="btn btn-sm btn-primary">添加碎片</a>        
+    </div>
+    <table class="table table-hover table-condensed table-bordered">
+      <thead>
+        <tr>
+          <th width="20">ID</th>
+          <th align="left">{:L('name')}</th>  
+          <th width="40">{:L('pos')}</th>
+          <th class="center table-cell-2">{:L('manage')}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="list" id="vo" key="k">      
+        <tr>
+          <td align='center'>{$vo['id']}</td>
+          <td >{$vo['name']}</td>
+          <td>{$vo['pos']}</td>
+          <td align="center">
+          <a class="btn btn-xs btn-primary" href="{:U($module_name.'/edit',array(id=>$vo['id'],pos=>$vo['pos']))}">{:L('edit')}</a> 
+          <a class="btn btn-xs btn-danger" href="javascript:confirm_delete('{:U($module_name.'/delete',array(id=>$vo['id']))}')">{:L('delete')}</a> 
+          </td>
+        </tr>
+        </volist>
+      </tbody>
+    </table>
+
+  </form>
+</div>
+
+</block>

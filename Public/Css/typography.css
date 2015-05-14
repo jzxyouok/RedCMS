@@ -1,0 +1,241 @@
+
+.ym-form input, .ym-form input, .ym-form textarea, .ym-form select {
+    -moz-box-sizing: border-box;
+    width: 60%;
+}
+.ym-columnar label {
+    -moz-box-sizing: border-box;
+}
+.ym-columnar .ym-fbox-select select, .ym-columnar .ym-fbox-text input, .ym-columnar .ym-fbox-text textarea {
+    width: 70%;
+}
+.ym-full .ym-fbox-select select, .ym-full .ym-fbox-text input, .ym-full .ym-fbox-text textarea {
+    width: 100%;
+}
+.ym-form {
+    background: none repeat scroll 0 0 hsl(0, 0%, 96%);
+    border: 2px solid hsl(0, 0%, 100%);
+    box-shadow: 0 0 4px hsl(0, 0%, 87%);
+    margin: 1.5em 0 0;
+    padding: 0;
+}
+.ym-form fieldset {
+    background: none repeat scroll 0 0 transparent;
+    margin: 0.75em 0;
+    padding: 0 0.5em;
+    position: static;
+}
+.ym-form legend {
+    background: none repeat scroll 0 0 transparent;
+    color: hsl(0, 0%, 0%);
+    font-size: 1.2em;
+    font-weight: bold;
+    line-height: 1.25em;
+    padding: 0 0.5em;
+}
+.ym-form label {
+    color: hsl(0, 0%, 40%);
+    line-height: 1.5em;
+}
+.ym-label {
+    color: hsl(0, 0%, 40%);
+    padding-top: 0.25em;
+}
+.ym-form .ym-form div.ym-fbox-check:focus + label {
+    color: hsl(0, 0%, 0%);
+}
+.ym-form div.ym-fbox-text, .ym-form div.ym-fbox-select, .ym-form div.ym-fbox-check, .ym-form div.ym-fbox-button {
+    margin-bottom: 0.5em;
+    padding: 0.3em 1em;
+}
+.ym-form div.ym-fbox-button {
+    background: none repeat scroll 0 0 hsl(0, 0%, 93%);
+    border-top: 1px solid hsl(0, 0%, 88%);
+    margin: 0;
+    padding: 0 1em 1.5em;
+}
+.ym-form .ym-gbox {
+    margin-right: 0;
+    padding: 0 0.5em;
+}
+.ym-form h6 {
+    color: hsl(0, 0%, 0%);
+    margin: 1em 0 0 1em;
+}
+.ym-form .ym-fbox-text input, .ym-form .ym-fbox-text textarea {
+    line-height: 1em;
+    margin-top: -2px;
+    padding: 0.25em 0.3em;
+}
+.ym-form .ym-fbox-select select {
+    line-height: 1em;
+    margin-top: -2px;
+    padding: 0.25em 2px 0.25em 1px;
+}
+.ym-form input, .ym-form textarea, .ym-form select, .ym-form optgroup {
+    box-shadow: 0 0 4px hsl(0, 0%, 93%) inset;
+    font-family: Arial,Helvetica,sans-serif;
+}
+.ym-form optgroup {
+    font-style: normal;
+    font-weight: bold;
+}
+.ym-form .ym-fbox-text input, .ym-form .ym-fbox-text textarea, .ym-form .ym-fbox-select select {
+    border: 1px solid hsl(0, 0%, 87%);
+}
+.ym-form .ym-message {
+    color: hsl(0, 0%, 40%);
+    margin-bottom: 0.5em;
+}
+.ym-form .ym-required {
+    color: hsl(0, 100%, 27%);
+    font-weight: bold;
+}
+.ym-form input:valid, .ym-form textarea:valid {
+    background-color: hsl(0, 0%, 100%);
+}
+.ym-form input:invalid, .ym-form textarea:invalid {
+    background-color: hsl(0, 100%, 93%);
+}
+.ym-form .ym-error label {
+    color: hsl(0, 100%, 27%);
+    font-weight: normal;
+}
+.ym-form .ym-error input, .ym-form .ym-error select, .ym-form .ym-error textarea {
+    border: 1px solid hsl(0, 100%, 27%);
+}
+.ym-form .ym-error input:hover, .ym-form .ym-error input:focus, .ym-form .ym-error select:hover, .ym-form .ym-error select:focus, .ym-form .ym-error textarea:hover, .ym-form .ym-error textarea:focus {
+    border: 1px solid hsl(0, 100%, 27%) !important;
+}
+.ym-form .ym-error .ym-message {
+    color: hsl(0, 100%, 27%);
+    font-weight: bold;
+    margin-top: 0;
+}
+.ym-form div.ym-fbox-text input:focus, .ym-form div select:focus, .ym-form div textarea:focus, .ym-form div.ym-fbox-text input:hover, .ym-form div select:hover, .ym-form div textarea:hover, .ym-form div.ym-fbox-text input:active, .ym-form div select:active, .ym-form div textarea:active {
+    background: none repeat scroll 0 0 hsl(0, 0%, 100%);
+    border: 1px solid hsl(0, 0%, 53%);
+}
+.ym-button, .ym-form button, .ym-form input[type="button"], .ym-form input[type="reset"], .ym-form input[type="submit"] {
+    background-color: hsl(0, 0%, 80%);
+    background-image: -moz-linear-gradient(center top , hsl(0, 0%, 93%), hsl(0, 0%, 80%));
+    border: 1px solid hsl(0, 0%, 47%);
+    border-radius: 0.2em 0.2em 0.2em 0.2em;
+    box-shadow: 0 0 1px 1px hsla(0, 0%, 100%, 0.8) inset, 0 1px 0 hsla(0, 0%, 0%, 0.15);
+    color: hsl(0, 0%, 20%) !important;
+    cursor: pointer;
+    display: inline-block;
+    font: 1em/2em Arial,Helvetica;
+    margin: 1.5em 0.75em 0 0;
+    overflow: visible;
+    padding: 0 1.5em;
+    text-decoration: none !important;
+    text-shadow: 0 1px 0 hsla(0, 0%, 100%, 0.8);
+    white-space: nowrap;
+}
+.ym-form button:hover, .ym-form input[type="button"]:hover, .ym-form input[type="reset"]:hover, .ym-form input[type="submit"]:hover, .ym-button:hover {
+    background-color: hsl(0, 0%, 87%);
+    background-image: -moz-linear-gradient(center top , hsl(0, 0%, 98%), hsl(0, 0%, 87%));
+}
+.ym-form button:active, .ym-form input[type="button"]:active, .ym-form input[type="reset"]:active, .ym-form input[type="submit"]:active, .ym-button:active {
+    background-color: hsl(0, 0%, 73%);
+    background-image: -moz-linear-gradient(center top , hsl(0, 0%, 80%), hsl(0, 0%, 73%));
+    box-shadow: 2px 2px 3px hsla(0, 0%, 0%, 0.2) inset;
+    position: relative;
+    top: 1px;
+}
+.ym-form button:focus, .ym-form input[type="button"]:focus, .ym-form input[type="reset"]:focus, .ym-form input[type="submit"]:focus, .ym-button:focus {
+    background: none repeat scroll 0 0 hsl(0, 0%, 98%);
+    outline: 0 none;
+}
+.ym-form button:before, .ym-button:before {
+    background: none repeat scroll 0 0 hsla(0, 0%, 0%, 0.1);
+    border-radius: 0.15em 0 0 0.15em;
+    box-shadow: 1px 0 0 hsla(0, 0%, 0%, 0.5), 2px 0 0 hsla(0, 0%, 100%, 0.5);
+    float: left;
+    font-size: 1.5em;
+    margin: 0 1em 0 -1em;
+    padding: 0 0.2em;
+    pointer-events: none;
+    text-align: center;
+    width: 1em;
+}
+.ym-add:before {
+    content: "✚";
+}
+.ym-delete:before {
+    content: "✘";
+}
+.ym-edit:before {
+    content: "✎";
+}
+.ym-email:before {
+    content: "✉";
+}
+.ym-like:before {
+    content: "❤";
+}
+.ym-next:before {
+    content: "➜";
+}
+.ym-play:before {
+    content: "▶";
+}
+.ym-save:before {
+    content: "✔";
+}
+.ym-spark:before {
+    content: "✷";
+}
+.ym-star:before {
+    content: "★";
+}
+.ym-form button::-moz-focus-inner {
+    border: 0 none;
+    padding: 0;
+}
+.ym-form input[type="button"]::-moz-focus-inner, .ym-form input[type="reset"]::-moz-focus-inner, .ym-form input[type="submit"]::-moz-focus-inner {
+    padding: 0.4em;
+}
+.ym-form button[disabled], .ym-form button[disabled]:hover, .ym-form input[type="button"][disabled], .ym-form input[type="button"][disabled]:hover, .ym-form input[type="reset"][disabled], .ym-form input[type="reset"][disabled]:hover, .ym-form input[type="submit"][disabled], .ym-form input[type="submit"][disabled]:hover, .ym-button.ym-disabled, .ym-button.ym-disabled:hover {
+    background: none repeat scroll 0 0 hsl(0, 0%, 93%);
+    border-color: hsl(0, 0%, 67%);
+    box-shadow: none;
+    color: hsl(0, 0%, 67%) !important;
+    cursor: default;
+    position: static;
+    text-shadow: none;
+}
+* html .ym-button, * html .ym-form button {
+    background-color: hsl(0, 0%, 80%);
+    border: 1px solid hsl(0, 0%, 47%);
+    color: hsl(0, 0%, 20%) !important;
+    cursor: pointer;
+    display: inline-block;
+    font: 1em/2em Arial,Helvetica;
+    margin: 1.5em 0.75em 0 0;
+    overflow: visible;
+    padding: 0 1.5em;
+    text-decoration: none !important;
+    white-space: nowrap;
+}
+* html .ym-form button:focus, * html .ym-button:focus {
+    background: none repeat scroll 0 0 hsl(0, 0%, 98%);
+    outline: 0 none;
+}
+* html .ym-form button:hover, * html .ym-button:hover {
+    background-color: hsl(0, 0%, 87%);
+}
+* html .ym-form button:active, * html .ym-button:active {
+    background-color: hsl(0, 0%, 73%);
+    position: relative;
+    top: 1px;
+}
+* html .ym-button.ym-disabled, * html .ym-button.ym-disabled:hover {
+    background: none repeat scroll 0 0 hsl(0, 0%, 93%);
+    border-color: hsl(0, 0%, 67%);
+    color: hsl(0, 0%, 67%) !important;
+    cursor: default;
+    position: static;
+    text-shadow: none;
+}

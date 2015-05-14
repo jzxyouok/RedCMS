@@ -1,0 +1,60 @@
+<include file="Public:header"/>
+	<p class="clear"></p>
+	<div class="searchi">
+		<ul>
+			<form action="" method="get">
+				<input name="q" type="text" class="searchi_a"  onblur="if(this.value==''){this.value='请输入产品关键字'}" onFocus="if(this.value=='请输入产品关键字'){this.value=''}" value="请输入产品关键字">
+				<input type="hidden" value="content" name="m">
+				<input type="hidden" value="index" name="c">
+				<input type="hidden" value="search" name="a">
+				<input type="hidden" value="product" name="t">
+				<input name="" type="submit" class="searchi_s" value="搜索">
+			</form>
+		</ul>
+	<p class="clear"></p>
+	</div>
+	<p class="clear"></p>
+	<include file="Public:catalog"/>
+	<div class="box">
+		<div class="position">
+			<label class="fenlei"><a href="javascript:;" id="catlist">分类</a></label>
+			<a href="<?php echo BASEURL?>" target="_blank">首页</a>
+		</div>
+		<p class="positionb"><img src="__TMPL__/statics/images/arcb.jpg"/></p>
+		<div class="catalog">
+			<ul>
+				<li><a href="javascript:;">√{$max_parent_catname} </a></li>
+				<Gr:subcat catid="2" id="r">
+				<li><a href="{$r['url']}">　{$r['catname']}</a>
+				{if $r['child']==1}
+					<ul>
+						<Gr:subcat catid="r['id']" id="rr">
+						<li><a href="{$r['url']}">{$rr['catname']}</a></li>
+						</Gr:subcat>
+					</ul>
+				{/if}
+				</li>
+				</Gr:subcat>
+			</ul>
+			<span class="catbtn"><img src="__TMPL__/statics/images/icon_slid.png" width="30"/></span>
+		</div>
+		<p></p>
+		<ul class="product_lista" style="padding:15px 0;">
+
+			<li><a href="">
+					<div><img src="" alt="" title="" onload="reset_pic(this, '130,130')"></div>
+					<p></p>
+				</a>
+			</li>
+
+			<p class="clear"></p>
+			<div id="pagelist">
+				{$pages}
+			</div>
+		</ul>
+	</div>
+	<p class="clear"></p>
+<include file="Public:footer"/>
+<script type="text/javascript" src="__TMPL__/statics/js/mobile.js"></script>
+</body>
+</html>

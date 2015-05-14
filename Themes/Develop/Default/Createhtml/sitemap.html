@@ -1,0 +1,51 @@
+<extend name="Public:base"/>
+
+<block name="main">
+
+
+<form action="{:u('Createhtml/do'.$action_name.'?')}" method="GET" > 
+    <input type="hidden" name="m" value="{$module_name}"> 
+    <input type="hidden" name="a" value="do{$action_name}">
+    <input type="hidden" name="iscreatehtml" value="1">
+  <div id="infobox1" > 
+    <label>说明：</label>
+     <div style=" margin-right:100px; margin-left:34px; line-height:19px;">
+      <p>Sitemaps 服务旨在使用 Feed 文件 sitemap.xml 通知 Google、Yahoo! 以及 Microsoft 等 Crawler(爬虫)网站上哪些文件需要索引、这些文件的最后修订时间、更改频度、文件位置、相对优先索引权，这些信息将帮助他们建立索引范围和索引的行为习惯。详细信息请查看 sitemaps.org 网站上的说明。</p>
+    <p>通过Sitemaps，您可以获得：</p>
+    <ol>
+    <li>更大的抓取范围，更新的搜索结果 &ndash; 帮助网友找到更多您的网页。</li>
+    <li>更为智能的抓取 &ndash; 因为我们可以得知您网页的最新修改时间或网页的更改频率。</li>
+    <li>详细的报告 &ndash; 详细说明 Google 如何将网友的点击指向您的网站及 Googlebot 如何看到您的网页。</li>
+    </ol>
+    <p style="font-weight:bold;">互联网新闻开放协议：</p>
+    <p>1.互联网新闻开放协议》是百度新闻搜索制定的搜索引擎新闻源收录标准，网站可将发布的新闻内容制作成遵循此开放协议的XML格式的网页（独立于原有的新闻发布形式）供搜索引擎索引。 C+云网站可自动生成网站的Sitemaps，但是您还需要向google或者baidu提交Sitemaps的访问地址。</p>
+    <p>您的网站的Sitemaps 访问地址为：sitemaps.xml</p>
+    <p>C+云网站可自动生成网站的&lt;&lt;互联网新闻开放协议&gt;&gt;，但是您还需要向baidu提交访问地址。</p>
+    <p>您的网站的Sitemaps 访问地址为：baidunews.xml</p>
+    <p>更多关于Google Sitemaps的信息：https://www.google.com/webmasters/sitemaps/login?hl=zh_CN</p>
+    <p>更多关于&lt;&lt;互联网新闻开放协议&gt;&gt;的信息：http://news.baidu.com/newsop.html#kg</p>
+    </div>
+
+  </div>
+  <table width="100%" class="form-table" > 
+ <tr>
+    <th height="25" style="width:140px;">{:L('YES_NO_CREATE')}{:L('HTML_SITEMAP')}：</th>
+    <td>{:Form::radio(array('field'=>'htmlmap','options'=>$yesorno),$htmlmap)}
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a target="_blank" href="{$siteurl}/sitemap.html">{:L('GOTO')}{:L('HTML_SITEMAP')}</a>
+    <input type="text" style="visibility:hidden" oname="article" size="2" value="100">
+    <input type="text" style="visibility:hidden" name="product" size="2" value="100"> </td>
+  </tr>
+
+   <tr>
+    <th height="25">{:L('YES_NO_CREATE')}{:L('XML_SITEMAP')}：</th>
+    <td>{:Form::radio(array('field'=>'xmlmap','options'=>$yesorno),$xmlmap)}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="{$siteurl}/sitemap.xml">{:L('GOTO')}{:L('XML_SITEMAP')}</a></td>
+  </tr>
+   
+    </table>
+  <div class="btn">
+    <input type="submit" value="{:L('Createsitemap')}" class="btn btn-sm btn-primary"/>
+  </div>
+</form>
+
+</block>

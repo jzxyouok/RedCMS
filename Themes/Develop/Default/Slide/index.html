@@ -1,0 +1,44 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<div id="main-box">
+  <form name="myform" id="myform" action="" method="post">
+    <div class="table-list">
+        <table class="table">
+            <thead>
+              <tr>
+              <th width="40">ID</th>
+              <th>{:L(NAME)}</th>  
+              <th>{:L(width)}</th>
+              <th>{:L(height)}</th>
+              <th>{:L(STATUS)}</th>
+              <th>{:L('manage')}</th>
+              </tr>
+            </thead>
+          	<tbody>
+          		<volist name="list" id="vo" key="k">
+          		<tr>
+              <td>{$vo['id']}</td>
+              <td>{$vo['name']}</td>
+              <td>{$vo['width']}</td>
+              <td>{$vo['height']}</td>
+              <td>
+              <eq name="vo['status']" value="1">
+              {:L('enable')}
+              <else />
+              {:L('disable')}
+              </eq></td>
+              <td>
+              <a href="{:U('slide/picmanage',array(fid=>$vo['id']))}">{:L('PICMANAGE')}</a> | 
+              <a href="{:U('slide/edit',array(id=>$vo['id']))}">{:L('edit')}</a> | 
+              <a href="javascript:confirm_delete('{:U('slide/delete',array(id=>$vo['id']))}')">{:L('delete')}</a></td>
+              </tr>
+              </volist>
+            </tbody>
+        </table>
+    </div>
+  </form>
+
+  <div id="pages">{$page}</div>
+</div>
+</block>

@@ -1,0 +1,35 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<div id="main-box">
+  <form name="myform" action="<if condition="$action_name=='add'">{:U($module_name.'/insert')}<else />{:U($module_name.'/update')}</if>&iscreatehtml=1" method="post">
+    <div id="filelist" class="hide"></div>
+      <div class="error"><ul></ul></div>
+      <input type="hidden" name="id" value="{$vo['id']}" />
+      <input type="hidden" name="slug" value="{$vo['slug']}" />
+      <input type="hidden" name="moduleid" value="{$vo['moduleid']}" />
+      <input type="hidden" name="module" value="{$vo['module']}" />
+      <input type="hidden" name="num" value="{$vo['num']}" />
+      <input type="hidden" name="lang" value="{$vo['lang']}" />
+        
+    <table class="form-table">
+      <tr>
+        <td class="td_indent" width="10%">
+        <div class="selectstyle"><font color="red">*</font>名称</div>
+        </td>
+        <td width="88%">
+          <input type="text" name="" value="{$vo['name']}">
+        </td>
+      </tr>
+    </table>
+    <div id="btnbox" class="btn">
+      <if condition="$vo['id']!=''"><input TYPE="hidden" name="id" value="{$vo.id}"></if>
+      <input type="hidden" name="lang" value="{$langid}" />
+      <input type="hidden" name="forward" value="{$_SERVER['HTTP_REFERER']}" />
+      <input type="submit" value="{:L('dosubmit')}" class="btn btn-sm btn-primary" />
+      <input type="reset" value="{:L('cancel')}" class="btn btn-sm btn-primary"/>
+    </div>
+  </form>
+
+</div>
+</block>
