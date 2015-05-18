@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Admin\Adminbase;
-use Org\Util\Tree;
+use Org\Util\Form;
 class CategoryController extends AdminbaseController {
 
   protected $db;
@@ -65,8 +65,7 @@ class CategoryController extends AdminbaseController {
           <td class='center table-cell-3'>\$str_manage</td>
         </tr>";
 
-      import('@.ORG.Tree' );
-      $tree = new Tree ($array);
+      $tree = new \Org\Util\Tree($array);
       $tree->icon = array(L('tree_1'),L('tree_2'),L('tree_3'));
       $tree->nbsp = '&nbsp;&nbsp;&nbsp;';
       $categorys = $tree->get_tree(0, $str);
@@ -102,9 +101,9 @@ class CategoryController extends AdminbaseController {
     foreach($this->categorys as $r) {
       $array[] = $r;
     }
-    import ( '@.ORG.Tree' );
+
     $str  = "<option value='\$id' \$selected>\$spacer \$catname</option>";
-    $tree = new Tree ($array);
+    $tree = new \Org\Util\Tree($array);
     $select_categorys = $tree->get_tree(0, $str,$parentid);
     $usergroup=F('Role');
     $this->assign('rlist',$usergroup);
@@ -252,7 +251,6 @@ class CategoryController extends AdminbaseController {
 
     $parentid = intval($record['parentid']);
 
-    import('@.ORG.Tree');
     $result = $this->categorys;
 
     foreach($result as $r) {
@@ -262,7 +260,7 @@ class CategoryController extends AdminbaseController {
     }
 
     $str  = "<option value='\$id' \$selected>\$spacer \$catname</option>";
-    $tree = new Tree($array);
+    $tree = new \Org\Util\Tree($array);
     $select_categorys = $tree->get_tree(0, $str,$parentid);
 
     $this->assign('select_categorys', $select_categorys);

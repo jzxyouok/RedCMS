@@ -8,7 +8,7 @@ namespace Home\Controller;
 use Home\Base;
 class PageController extends BaseController {
 
-  public function index($catid='',$module='')
+  public function index($catid='',$controller='')
   {
     //获取路由规则
     $this->Urlrule = F('Urlrule');
@@ -16,7 +16,7 @@ class PageController extends BaseController {
     if(empty($catid))
       $catid = intval($_REQUEST['id']);
 
-    $module = 'Page';
+    $controller = 'Page';
 
 
     if(empty($catid))
@@ -31,7 +31,7 @@ class PageController extends BaseController {
       if($bcid == '')
         $bcid=intval($catid);
 
-      $this->assign('module_name',$module);
+      $this->assign('controller_name',$controller);
       unset($cat['id']);
       $this->assign($cat);
       $cat['id']=$catid;
@@ -44,7 +44,7 @@ class PageController extends BaseController {
       $this->error (L('NO_READ'));
     }
 
-    $fields = F($this->mod[$module].'_Field');
+    $fields = F($this->mod[$controller].'_Field');
     foreach($fields as $key=>$r){
       $fields[$key]['setup'] =string2array($fields[$key]['setup']);
     }
@@ -66,7 +66,7 @@ class PageController extends BaseController {
     $this->assign ('cnumf',$cnumf);
     $this->assign ('cnumg',$cnumg);
 
-    $fields = F($this->mod[$module].'_Field');
+    $fields = F($this->mod[$controller].'_Field');
     foreach($data as $key=>$c_d){
       $setup='';
       $fields[$key]['setup'] =$setup=string2array($fields[$key]['setup']);

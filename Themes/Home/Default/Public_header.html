@@ -31,20 +31,20 @@
 
   <div class="header-top">
     <div class=" container">
-      {if empty($_SESSION['yzh_member']['username'])}
+      <if condition="empty($_SESSION['yzh_member']['username'])">
       <div id="login_div" class="gr-left">
         <a href="{:U('User/Login/index')}" target="_blank">
         <span class="anl">登录</span></a>
         <a href="{:U('User/Register/index')}" target="_blank">
         <span class="anl">注册</span></a>
       </div>
-      {else}
+      <else />
       <div class="gr-left">
         <span id="login_username" class="logined_div"></span>
         <a href="{:U('user/index/index')}">会员中心</a>
         <a href="{:U('user/login/logout')}">[退出]</a>
       </div>
-      {/if}
+      </if>
       <div class="pull-right">
         <ul>
           <li><a class="gr-xl" title="关注我们" href="/?m=sitemap">网站地图</a></li>
@@ -64,9 +64,9 @@
 
     <div id="main-nav" class="navbar navbar-default">
       <ul class="nav navbar-nav">
-        <li class="{if $current=='/'}active{/if}"><a href="/">首页</a></li>
+        <li class="<if condition="$current=='/'">active</if>"><a href="/">首页</a></li>
         <subcat catid="0" id="r" key="i">
-        <li class="{if $max_parent_catid==$r['id']}active{/if}" >
+        <li class="<if condition="$max_parent_catid==$r['id']">active</if>" >
           <a title="{$r.catname}" href="{$r.url}">{$r.catname}</a>
         </li>
         </subcat>

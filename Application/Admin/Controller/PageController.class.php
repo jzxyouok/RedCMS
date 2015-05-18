@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Admin\Adminbase;
-class PageAction extends ContentAction {
+class PageController extends ContentController {
   protected  $fields;
 
   public function _initialize() {

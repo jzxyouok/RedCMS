@@ -2,7 +2,6 @@
 return array(
 	//'配置项'=>'配置值'
   'DEFAULT_THEME'		=> 'Default',
-	'LANG_AUTO_DETECT'  => false,
 	'LANG_SWITCH_ON'    => true,
 	'DEFAULT_LANG'      => 'zh-cn',
 	'URL_ROUTER_ON'		=> false,
@@ -10,6 +9,10 @@ return array(
 	'TMPL_CACHE_TIME'	=> -1,
 	'URL_DISPATCH_ON'	=> 0,
 	'URL_MODEL'			=> 0,
+
+  'LANG_AUTO_DETECT' => true, // 自动侦测语言 开启多语言功能后有效
+  'LANG_LIST'        => 'zh-cn', // 允许切换的语言列表 用逗号分隔
+  'VAR_LANGUAGE'     => 'l', // 默认语言切换变量
 
 	'USER_AUTH_ON'			=>true,
 	'USER_AUTH_TYPE'		=>1,		// 默认认证类型 1 登录认证 2 实时认证

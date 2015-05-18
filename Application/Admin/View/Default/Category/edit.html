@@ -19,7 +19,7 @@
           <td width="20%">选择类型</td>
           <td width="80%" class="box_thumb">
             <div class="selectstyle">
-            {:Form::select(array('field'=>'moduleid','options'=>$module+array('0'=>array('id'=>0,'title'=>L('Module_url'))),'options_key'=>'id,title','setup'=>array('onchange'=>'changetemplate(this.value)')),$vo['moduleid'])}
+            {$Form::select(array('field'=>'moduleid','options'=>$module+array('0'=>array('id'=>0,'title'=>L('Module_url'))),'options_key'=>'id,title','setup'=>array('onchange'=>'changetemplate(this.value)')),$vo['moduleid'])}
             </div>
           </td>
         </tr>

@@ -232,7 +232,7 @@ $('.topmenu li').click(function(){
 
 $("#select_lang").change(function(){
   var lang = $("#select_lang").find("option:selected").val();
-  window.location.href = "/index.php?a=index&m=index&g=admin&l="+lang;
+  window.location.href = "__SELF__&l="+lang;
 });
 /*
 

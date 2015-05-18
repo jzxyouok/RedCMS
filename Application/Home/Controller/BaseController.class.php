@@ -60,6 +60,7 @@ class BaseController extends Controller {
       $this->Config = F('Config');
       cookie('think_language',$this->sysConfig['DEFAULT_LANG']);
     }
+
     $_GET['id'] = !empty($_GET['id'])?$_GET['id']:0;
     $c_atid = !empty($_GET['catid'])?$_GET['catid']:$_GET['id'];
     $c_atid = intval($c_atid);
@@ -82,8 +83,8 @@ class BaseController extends Controller {
     $this->assign('Type',$this->Type);
     $this->assign('Module',$this->module);
     $this->assign('Cats',$this->categorys);
-    import("@.ORG.Form");
-    $this->assign('form',new Form());
+    $form = new \Org\Util\Form();
+    $this->assign('form', $form);
 
     C('PAGE_LISTROWS',$this->sysConfig['PAGE_LISTROWS']);
     C('URL_M',$this->sysConfig['URL_MODEL']);
@@ -92,8 +93,7 @@ class BaseController extends Controller {
     C('URL_LANG',$this->sysConfig['DEFAULT_LANG']);
     C('DEFAULT_THEME_NAME',$this->sysConfig['DEFAULT_THEME']);
 
-    import("@.ORG.Online");
-    $session = new Online();
+    $session = new \Org\Util\Online();
 
     if($_COOKIE['ww_auth']){
       $yzh_auth_key = sysmd5($this->sysConfig['ADMIN_ACCESS'].$_SERVER['HTTP_USER_AGENT']);
@@ -116,12 +116,12 @@ class BaseController extends Controller {
         $this->user_menu[$r['id']]=$r;
     }
 
-    if(GROUP_NAME=='User'){
+    if(MODULE_NAME=='User'){
       $langext = $lang ? '_'.$lang : '';
       $this->member_config = F('member.config'.$langext);
       $this->assign('member_config',$this->member_config);
       $this->assign('user_menu',$this->user_menu);
-      if($this->_groupid=='5' &&  MODULE_NAME!='Login'){
+      if($this->_groupid=='5' &&  CONTROLLER_NAME!='Login'){
         $this->assign('jumpUrl',URL('User-Login/emailcheck'));
         $this->assign('waitSecond',3);
         $this->success(L('no_regcheckemail'));
@@ -132,30 +132,31 @@ class BaseController extends Controller {
     if($_GET['forward'] || $_POST['forward']){
       $this->forward = $_GET['forward'].$_POST['forward'];
     }else{
-      if(MODULE_NAME!='Register' || MODULE_NAME!='Login' )
+      if(CONTROLLER_NAME!='Register' || CONTROLLER_NAME!='Login' )
       $this->forward = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] :  $this->Config['site_url'];
     }
 
     $this->assign('forward',$this->forward);
 
     $this->assign('search_module',$search_module);
-    $this->assign('module_name',MODULE_NAME);
+    $this->assign('module_name',CONTROLLER_NAME);
     $this->assign('action_name',ACTION_NAME);
 
     if($_SERVER['HTTP_X_REWRITE_URL']){
-       $current=$_SERVER['HTTP_X_REWRITE_URL'];
+       $current = $_SERVER['HTTP_X_REWRITE_URL'];
     }else{
-       $current=$_SERVER['REQUEST_URI'];
+       $current = $_SERVER['REQUEST_URI'];
     }
 
     $this->assign('current',$current);
   }
 
-  public function index($catid='',$module='') {
+  public function index($catid='',$controller='') {
     $this->Urlrule = F('Urlrule');
 
-    if(empty($catid))
+    if(empty($catid)){
       $catid = intval($_REQUEST['id']);
+    }
 
     $p = max(intval($_REQUEST[C('VAR_PAGE')]),1);
     if($catid){
@@ -165,10 +166,10 @@ class BaseController extends Controller {
       if($bcid == '')
         $bcid=intval($catid);
 
-      if(empty($module))
-        $module = $cat['module'];
+      if(empty($controller))
+        $controller = $cat['module'];
 
-      $this->assign('module_name',$module);
+      $this->assign('module_name',$controller);
       unset($cat['id']);
       $this->assign($cat);
       $cat['id']=$catid;
@@ -181,7 +182,7 @@ class BaseController extends Controller {
       $this->error(L('NO_READ'));
     }
 
-    $fields = F($this->mod[$module].'_Field');
+    $fields = F($this->mod[$controller].'_Field');
 
     foreach($fields as $key=>$r){
       $fields[$key]['setup'] = string2array($fields[$key]['setup']);
@@ -206,7 +207,7 @@ class BaseController extends Controller {
 
       if(empty($cat['listtype'])){
 
-        $this->db = M($module);
+        $this->db = M($controller);
 
         $count = $this->db->where($where)->count();
 
@@ -219,7 +220,7 @@ class BaseController extends Controller {
           $page->urlrule = geturl($cat,'',$this->Urlrule);
           $pages = $page->show();
 
-          $field =  $this->module[$this->mod[$module]]['listfields'];
+          $field =  $this->module[$this->mod[$controller]]['listfields'];
 
           $field =  $field ? $field : 'id,catid,userid,url,username,title,title_style,keywords,description,thumb,createtime,hits';
 
@@ -228,13 +229,13 @@ class BaseController extends Controller {
           $this->assign('pages',$pages);
           $this->assign('list',$list);
         }
-        if($module == 'Page'){
+        if($controller == 'Page'){
           $template_r = 'index';
         }else{
           $template_r = 'list';
         }
       }else{
-        if($module=='Article'){
+        if($controller=='Article'){
           $this->db= M($module);
           $count = $this->db->where($where)->count();
           if($count){
@@ -259,7 +260,6 @@ class BaseController extends Controller {
     $template = $cat['template_list'] ? $cat['template_list'] : $template_r;
 
     $this->display($module.':'.$template);
-
   }
 
   public function show($id='',$module='') {
@@ -272,7 +272,7 @@ class BaseController extends Controller {
       $this->assign('chid',$_GET['chid']);
     }
 
-    $module = $module ? $module : MODULE_NAME;
+    $module = $module ? $module : CONTROLLER_NAME;
     $this->assign('module_name',$module);
     $this->db= M($module);;
     $data = $this->db->find($id);
@@ -396,7 +396,7 @@ class BaseController extends Controller {
 
   public function down() {
 
-    $module = $module ? $module : MODULE_NAME;
+    $module = $module ? $module : CONTROLLER_NAME;
     $id = $id ? $id : intval($_REQUEST['id']);
     $this->db= M($module);
     $filepath = $this->db->where("id=".$id)->getField('file');
@@ -426,7 +426,7 @@ class BaseController extends Controller {
   }
 
   public function hits(){
-    $module    = $module ? $module : MODULE_NAME;
+    $module    = $module ? $module : CONTROLLER_NAME;
     $id        = $id ? $id : intval($_REQUEST['id']);
     $this->db = M($module);
     $this->db->where("id=".$id)->setInc('hits');

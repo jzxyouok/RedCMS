@@ -12,10 +12,10 @@ class EmptyController extends Controller {
     $a = ACTION_NAME?ACTION_NAME:"index";
 
     //空操作 空模块
-    if(MODULE_NAME!='Urlrule'){
+    if(CONTROLLER_NAME!='Urlrule'){
       $Mod = F('Mod');
 
-      if(!$Mod[MODULE_NAME]){
+      if(!$Mod[CONTROLLER_NAME]){
         header("HTTP/1.0 404 Not Found");
         $this->display();
       }
@@ -25,7 +25,7 @@ class EmptyController extends Controller {
     $catid = intval($_REQUEST['catid']);
     $moduleid = intval($_REQUEST['moduleid']);
 
-    if(MODULE_NAME=='Urlrule'){
+    if(CONTROLLER_NAME=='Urlrule'){
       if(APP_LANG){
         $lang = $_REQUEST['l'] ? '_'.$_REQUEST['l'] : '_'.C('DEFAULT_LANG');
       }
@@ -57,11 +57,10 @@ class EmptyController extends Controller {
         $id = $Cat[$_REQUEST['id']];
         unset($Cat);
       }
-      $m = MODULE_NAME;
+      $m = CONTROLLER_NAME;
     }
 
-    import('@.Action.Base');
-    $myclass = $m.'Action';
+    $myclass = $m.'Controller';
     if(class_exists($myclass)){
       $bae = new $myclass();
 
@@ -73,7 +72,7 @@ class EmptyController extends Controller {
       $bae->$a($id,$m);
     }else{
 
-      $bae = new BaseAction();
+      $bae = new BaseController();
 
       $bae->$a($id,$m);
     }

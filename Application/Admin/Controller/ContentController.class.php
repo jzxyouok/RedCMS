@@ -10,7 +10,7 @@ class ContentController extends AdminbaseController {
 
     parent::_initialize();
 
-    $this->db = D(MODULE_NAME);
+    $this->db = D(CONTROLLER_NAME);
 
     $fields = F($this->moduleid.'_Field');
 

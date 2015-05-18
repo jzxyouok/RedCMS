@@ -1,15 +1,15 @@
 <?php
-
+namespace Admin\Controller;
+use Admin\Adminbase;
 class TagsController extends AdminbaseController {
+
   protected  $db,$fields;
 
   public function _initialize() {
 
     parent::_initialize();
 
-    defined('THEME_PATH') or define('THEME_PATH', TMPL_PATH.GROUP_NAME.'/'.C('DEFAULT_THEME').'/');
-
-    $this->db = D(MODULE_NAME);
+    $this->db = D(CONTROLLER_NAME);
 
     $fields = F($this->moduleid.'_Field');
     foreach($fields as $key => $res){

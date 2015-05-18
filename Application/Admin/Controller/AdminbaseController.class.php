@@ -10,6 +10,7 @@ use Org\Util\Form;
 use Org\Util\Online;
 use Org\Util\Rbac;
 use Org\Util\Page;
+use Org\Util\Tree;
 class AdminbaseController extends Controller {
 
   protected $mod;
@@ -76,7 +77,7 @@ class AdminbaseController extends Controller {
     C('ADMIN_ACCESS',$this->sysConfig['ADMIN_ACCESS']);
 
     // 用户权限检查
-    if (C( 'USER_AUTH_ON' ) && !in_array(MODULE_NAME,explode(',',C('NOT_AUTH_MODULE')))) {
+    if (C( 'USER_AUTH_ON' ) && !in_array(CONTROLLER,explode(',',C('NOT_AUTH_MODULE')))) {
       import('@.ORG.RBAC');
       if (! RBAC::AccessDecision ('admin')) {
         //检查认证识别号
@@ -93,14 +94,14 @@ class AdminbaseController extends Controller {
             $this->assign ('jumpUrl', PHP_FILE . C( 'USER_AUTH_GATEWAY' ) );
           }
           // 提示错误信息
-          $this->error( L( '_VALID_ACCESS_' ) );
+          $this->error( L('_VALID_ACCESS_'));
         }
       }
     }
 
-    if(!empty($this->mod[MODULE_NAME])){
+    if(!empty($this->mod[CONTROLLER_NAME])){
 
-      $this->moduleid = $this->mod[MODULE_NAME];
+      $this->moduleid = $this->mod[CONTROLLER_NAME];
       $this->m = $this->module[$this->moduleid];
       $this->assign('moduleid',$this->moduleid);
       $this->Type = F('Type');
@@ -128,7 +129,6 @@ class AdminbaseController extends Controller {
           $array[] = $r;
         }
 
-        import( '@.ORG.Tree' );
         $str  = "<option value='\$id' \$disabled \$selected>\$spacer \$catname</option>";
         $tree = new Tree($array);
         $select_categorys = $tree->get_tree(0, $str);
@@ -138,9 +138,8 @@ class AdminbaseController extends Controller {
       $this->assign('posids', F('Posid'));
 
     }
-
-    import("@.ORG.Form");
-    $this->assign('Form', new Form());
+    $Form = new \Org\Util\Form();
+    $this->assign('Form', $Form);
     $this->showMenu();
   }
 
@@ -306,7 +305,7 @@ class AdminbaseController extends Controller {
    *
    */
   function add() {
-    $name = MODULE_NAME;
+    $name = CONTROLLER_NAME;
     $this->display('edit');
   }
 
@@ -316,7 +315,7 @@ class AdminbaseController extends Controller {
       $_POST['setup'] = array2string($_POST['setup']);
     }
 
-    $name = MODULE_NAME;
+    $name = CONTROLLER_NAME;
 
     $model = D($name);
 
@@ -344,7 +343,7 @@ class AdminbaseController extends Controller {
       if($_POST['isajax']){
         $this->assign('dialog','1');
       }
-      $jumpUrl = $_POST['forward'] ? $_POST['forward'] : U(MODULE_NAME.'/index');
+      $jumpUrl = $_POST['forward'] ? $_POST['forward'] : U(CONTROLLER_NAME.'/index');
 
       $this->assign ( 'jumpUrl',$jumpUrl );
       $this->success (L('add_ok'));
@@ -359,7 +358,7 @@ class AdminbaseController extends Controller {
    */
   function edit() {
 
-    $name = MODULE_NAME;
+    $name = CONTROLLER_NAME;
     $model = M($name);
     $pk = ucfirst($model->getPk());
     $id = $_REQUEST[$model->getPk()];
@@ -383,7 +382,7 @@ class AdminbaseController extends Controller {
     if($_POST['setup'])
       $_POST['setup'] = array2string($_POST['setup']);
 
-    $name = MODULE_NAME;
+    $name = CONTROLLER_NAME;
     $model = D( $name );
 
     if (false === $model->create ()) {
@@ -407,7 +406,7 @@ class AdminbaseController extends Controller {
       if($_POST['isajax'])
         $this->assign('dialog','1');
 
-      $jumpUrl = $_POST['forward'] ? $_POST['forward'] : U(MODULE_NAME.'/index');
+      $jumpUrl = $_POST['forward'] ? $_POST['forward'] : U(CONTROLLER_NAME.'/index');
 
       $this->assign('jumpUrl', $jumpUrl);
       $this->success(L('edit_ok'));
@@ -422,7 +421,7 @@ class AdminbaseController extends Controller {
    */
   function delete(){
 
-    $name = MODULE_NAME;
+    $name = CONTROLLER_NAME;
     $model = M( $name );
     $pk = $model->getPk ();
     $id = $_REQUEST[$pk];
@@ -949,11 +948,11 @@ class AdminbaseController extends Controller {
 
   function showMenu(){
 
-    $module_name = MODULE_NAME;
+    $controller_name = CONTROLLER_NAME;
 
     $menu_dashboard = array('index');
 
-    switch ($module_name) {
+    switch ($controller_name) {
       case 'Index':
         $nav1 = 'dashboard';$nav2 = 1;
         break;

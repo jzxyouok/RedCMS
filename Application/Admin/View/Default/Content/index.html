@@ -122,13 +122,10 @@
           <td align="center">{$vo['id']}</td>
           <td>
           <if condition="$vo['catid']">[<font color="green">{$categorys[$vo['catid']]['catname']}</font>]</if>
-          {if $controller_name=='Guestbook'}
-          {$vo['username']}-{$vo['title']}{else}<a href="{$vo.url}" <if condition="$vo['title_style']!=''">style ="{$vo['title_style']}"</if> target="_blank">{$vo['title']} </a>
-          {/if}
           <if condition="$vo['thumb']!=''"><a href="{$vo['thumb']}" class="preview" title="{$vo['title']}"><img src="./Public/Images/admin_image.gif"></a></if>
           <if condition="$vo['posid']!=0"><img src="./Public/Images/admin_elite.gif"></if></td>
           <td>{$vo['createtime']|toDate=###,'Y-m-d'}</td>
-          <if condition="$fields['status']"><td align="center">{if $vo['status']==1}<font color="green">已发布</font>{else}<a href="{:U($controller_name.'/status',array(id=>$vo['id'],status=>1))}"><font color="red">未发布</font></a>{/if}</td></if>
+          <if condition="$fields['status']"><td align="center"><if condition="$vo['status']==1"><font color="green">已发布</font>{else}<a href="{:U($controller_name.'/status',array(id=>$vo['id'],status=>1))}"><font color="red">未发布</font></a></if></td></if>
           <if condition="$fields['hits']"> <td align="center">{$vo['hits']}</td></if>
           <td align="center">{$vo['username']}</td>
           <td class="center table-cell-2">

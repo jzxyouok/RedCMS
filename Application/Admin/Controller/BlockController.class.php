@@ -2,14 +2,10 @@
 
 namespace Admin\Controller;
 use Admin\Adminbase;
-class BlockAction extends AdminbaseAction {
-
-	protected $db,$Type;
+class BlockController extends AdminbaseController {
 
   function _initialize() {
 	  parent::_initialize();
-	  $this->db = M(MODULE_NAME);
-	  $this->Type = F('Type');
 	  $pos = !empty($_REQUEST['pos'])?$_REQUEST['pos']:'';
 
 	  if($pos == 'wap_youshi'){
@@ -28,15 +24,16 @@ class BlockAction extends AdminbaseAction {
 	public function index() {
 
 		if(APP_LANG)
-			$map['lang']=array('eq',LANG_ID);
+		$map['lang']=array('eq',LANG_ID);
 
-		$this->_list(MODULE_NAME, $map);
-      $this->display();
+		$this->_list(CONTROLLER_NAME, $map);
+    $this->display();
   }
 
 	public function _before_insert() {
-		if(APP_LANG)
+		if(APP_LANG) {
 		 	$_POST['lang']=LANG_ID;
+		}
 	}
 
 	public function edit() {
@@ -50,8 +47,10 @@ class BlockAction extends AdminbaseAction {
 			$this->error(L('do_empty'));
 
 		if($pos){
-			$map['pos']=array('eq',$pos);
-			if(APP_LANG)$map['lang']=array('eq',LANG_ID);
+			$map['pos'] = array('eq',$pos);
+			if(APP_LANG) {
+				$map['lang']=array('eq',LANG_ID);
+			}
 
 			$vo = $model->where($map)->find();
 		}else{
@@ -59,8 +58,9 @@ class BlockAction extends AdminbaseAction {
 			$vo = $model->$do ( $id );
 		}
 
-		if($vo['setup'])
+		if($vo['setup']) {
 			$vo['setup']=string2array($vo['setup']);
+		}
 
 		$this->assign('vo', $vo);
 		$this->display();
