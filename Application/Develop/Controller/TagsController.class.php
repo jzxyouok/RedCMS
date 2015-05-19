@@ -1,5 +1,6 @@
 <?php
-
+namespace Develop\Controller;
+use Think\Developbase;
 class TagsController extends DevelopbaseController {
   protected  $db,$fields;
 

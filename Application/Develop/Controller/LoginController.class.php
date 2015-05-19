@@ -11,7 +11,6 @@ class LoginController extends Controller{
   function _initialize() {
     $this->sysConfig = F('sys.config');
     C('ADMIN_ACCESS',$this->sysConfig['ADMIN_ACCESS']);
-    import('@.TagLib.TagLibGr');
   }
 
   public function index() {
@@ -35,9 +34,7 @@ class LoginController extends Controller{
       C('ADMIN_ACCESS',$this->sysConfig['ADMIN_ACCESS']);
     }
     if(!empty($_SESSION['adminid'])){
-      $this->assign('jumpUrl',U('Index/index'));
-      $this->success(L('logined'));
-      exit;
+      $this->redirect('Index/index');
     }
     $this->display();
   }

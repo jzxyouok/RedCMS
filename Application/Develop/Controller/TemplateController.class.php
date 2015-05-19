@@ -1,5 +1,6 @@
 <?php
-
+namespace Develop\Controller;
+use Think\Developbase;
 class TemplateController extends DevelopbaseController {
   protected $filepath,$publicpath;
 

@@ -4,7 +4,8 @@
  * Createhtml(生成静态页)
  *
  */
-
+namespace Develop\Controller;
+use Think\Developbase;
 class CreatehtmlAction extends DevelopbaseAction {
 
   protected $module;

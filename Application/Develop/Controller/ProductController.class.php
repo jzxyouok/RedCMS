@@ -4,6 +4,8 @@
  * Product
  *
  */
+namespace Develop\Controller;
+use Think\Developbase;
 class ProductAction extends ContentAction {
 
   public function _initialize() {

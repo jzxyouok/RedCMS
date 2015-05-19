@@ -1,7 +1,8 @@
 <?php
 
 
-
+namespace Develop\Controller;
+use Think\Developbase;
 class ContentController extends DevelopbaseController{
 
   protected  $db,$fields;

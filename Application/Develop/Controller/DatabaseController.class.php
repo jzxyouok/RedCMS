@@ -4,7 +4,8 @@
  * Database(数据库)
  */
 
-
+namespace Develop\Controller;
+use Think\Developbase;
 class DatabaseController extends DevelopbaseController{
 
   protected $db = '';

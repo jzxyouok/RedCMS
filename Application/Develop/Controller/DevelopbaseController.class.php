@@ -938,7 +938,7 @@ class DevelopbaseController extends Controller {
   }
 
   function checkLogin(){
-    if(empty($_SESSION['username']) || empty($_SESSION['adminid']) || $_SESSION['adminaccess'] != C('ADMIN_ACCESS') ){
+    if(empty($_SESSION['adminid'])){
       $this->redirect('Login/index');
     }
   }

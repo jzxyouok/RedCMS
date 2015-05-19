@@ -1,6 +1,7 @@
 <?php
 
-
+namespace Develop\Controller;
+use Think\Developbase;
 class TypeController extends DevelopbaseController {
 
   protected $db,$Type;

@@ -4,6 +4,8 @@
  * Config(系统配置文件)
  *
  */
+namespace Develop\Controller;
+use Think\Developbase;
 class ConfigController extends DevelopbaseController {
 
   protected $db;

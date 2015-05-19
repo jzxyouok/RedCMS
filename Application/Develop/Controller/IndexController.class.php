@@ -2,6 +2,7 @@
 
 namespace Develop\Controller;
 use Develop\Developbase;
+use Think\DB;
 class IndexController extends DevelopbaseController{
 
   protected $cache_model;

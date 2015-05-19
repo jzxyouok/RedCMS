@@ -1,5 +1,6 @@
 <?php
-
+namespace Develop\Controller;
+use Think\Developbase;
 class LangController extends DevelopbaseController {
 
   protected  $langpath,$lang;
@@ -28,12 +29,12 @@ class LangController extends DevelopbaseController {
     $this->assign ( 'lang', LANG_NAME );
     $this->assign ( 'files', $lang_files );
     $this->display();
-    
+
   }
 
   function editparam() {
     $file=  $_REQUEST['file'];
-    $value = F($file, $value='', $this->langpath); 
+    $value = F($file, $value='', $this->langpath);
     $this->assign ( 'id', $id );
     $this->assign ( 'file', $file );
     $this->assign ( 'lang', LANG_NAME );
@@ -48,7 +49,7 @@ class LangController extends DevelopbaseController {
     foreach($_POST as $key=>$r){
       if($r)$data[strtoupper($key)]=$r;
     }
-    $r = F($file,$data, $this->langpath); 
+    $r = F($file,$data, $this->langpath);
     if($r){
       $this->success(L('do_ok'));
     }else{

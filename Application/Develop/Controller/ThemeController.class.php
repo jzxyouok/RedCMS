@@ -1,5 +1,6 @@
 <?php
-
+namespace Develop\Controller;
+use Think\Developbase;
 class ThemeController extends DevelopbaseController {
   protected $filepath;
   protected $publicpath;

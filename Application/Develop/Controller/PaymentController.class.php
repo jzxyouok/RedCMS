@@ -1,5 +1,6 @@
 <?php
-
+namespace Develop\Controller;
+use Think\Developbase;
 class PaymentController extends DevelopbaseController {
 
   protected $db,$path;

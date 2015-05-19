@@ -1,5 +1,6 @@
 <?php
-
+namespace Develop\Controller;
+use Think\Developbase;
 class NodeController extends AdminbaseController {
 
   protected $db,$groups;

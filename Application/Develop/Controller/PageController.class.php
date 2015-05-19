@@ -1,5 +1,6 @@
 <?php
-
+namespace Develop\Controller;
+use Think\Developbase;
 class PageController extends ContentController {
 
   public function _initialize() {

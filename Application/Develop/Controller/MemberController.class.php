@@ -1,5 +1,6 @@
 <?php
-
+namespace Develop\Controller;
+use Think\Developbase;
 class MemberController extends DevelopbaseController {
 
   public $db,$usergroup;
