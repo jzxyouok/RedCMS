@@ -1,0 +1,263 @@
+<load href="./Public/Js/swfupload.js"/>
+
+<div>
+<form name="myform" id="myform" action="{:U('category/update')}&iscreatehtml=1" method="post">
+<div class="content_cat">
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation" class="active"><a href="#home" role="tab" data-toggle="tab">基本设置</a></li>
+  <li role="presentation"><a href="#profile" role="tab" data-toggle="tab">SEO设置</a></li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="home">
+    <div class="tabcatbox">
+
+      <table class="form-table">
+
+        <tr <php>if($_SESSION['groupid']!=1){</php>style="display:none;"<php>}</php>>
+          <td width="20%">选择类型</td>
+          <td width="80%" class="box_thumb">
+            <div class="selectstyle">
+            <php> echo \Org\Util\Form::select(array('field'=>'moduleid','options'=>$module+array('0'=>array('id'=>0,'title'=>L('Module_url'))),'options_key'=>'id,title','setup'=>array('onchange'=>'changetemplate(this.value)')),$vo['moduleid'])</php>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td>{:L('chose_parentid')}</td>
+          <td>
+            <div class="selectstyle">
+            <select name="parentid">
+            <option value="">{:L('select_parentid')}</option>
+            {$select_categorys}
+            </select>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td>{:L('catname')}</td>
+          <td><input type="text" name="catname" class="input-text required" value="{$vo['catname']}"  minlength="1" /></td>
+        </tr>
+
+        <tr>
+          <td>页面命名</td>
+          <td><input type="text" id="catdir" name="catdir" class="input-text  required" value="{$vo['catdir']}" /></td>
+        </tr>
+        <tr id="module_url" style="display:none;">
+          <td>{:L('cat_link_url')}</td>
+          <td>
+            <input type="text" name="url" class="input-text" value="<if condition="$vo['type']==1">{$vo['url']}</if>" />
+            <input type="hidden" id="type" name="type" value="0" />
+          </td>
+        </tr>
+      <tr>
+        <td width="20%">栏目图片</td>
+        <td width="80%" class="box_thumb">
+          <div class="thumb_image">
+            <div id="image_aid_box"></div>
+            <a href="javascript:;">
+            <img id="image_pic" src="<if condition="!empty($vo['image'])">{$vo['image']}<else/>__PUBLIC__/Images/admin_upload_thumb.png</if>" width="60" ></a>
+            <input type="button" value="{:L('clean_thumb')}" onclick="javascript:clean_thumb('image');" class="btn btn-xs btn-primary"/>
+            <input type="hidden" id="image" name="image" value="{$vo['image']}"/>
+          </div>
+        </td>
+      </tr>
+        <tr <php>if($_SESSION['groupid']!=1){</php>style="display:none;"<php>}</php>>
+          <td>{:L('chage_is')}: </td>
+          <td><div class="selectstyle"><input type="checkbox"  class="input_checkbox "  id="chage_all" name="chage_all" value="1" /><font color="red"> {:L('chage_all')}</font></div>
+          </td>
+        </tr>
+        <tr <php>if($_SESSION['groupid']!=1){</php>style="display:none;"<php>}</php>>
+          <td>{:L('ismenu')}</td>
+          <td><div class="selectstyle">{:Form::radio(array('field'=>'ismenu','options'=>array('1'=>L('yes'),'0'=>L('no'))),$vo['ismenu'])}</div></td>
+        </tr>
+  <!--       <tr>
+          <td>{:L('ishtml')}</td>
+          <td>{:Form::radio(array('field'=>'ishtml','options'=>array('1'=>L('yes'),'0'=>L('no')),'setup'=>array('onclick'=>'urlrule(this.value)')),$vo['ishtml'])}</td>
+        </tr> -->
+
+        <tr id="urlrule" <php>if($_SESSION['groupid']!=1){</php>style="display:none;"<php>}</php>>
+          <td>{:L('urlrule')}</td>
+          <td>{:Form::select(array('field'=>'urlruleid','options'=>$Urlrule,'options_key'=>'key,listexample'),$vo['urlruleid'])}</td>
+        </tr>
+
+        <tr <php>if($_SESSION['groupid']!=1){</php>style="display:none;"<php>}</php>>
+          <td>{:L('pagesize')}</td>
+          <td><input type="text" name="pagesize" class="input-text" value="<if condition="!empty($vo['pagesize'])">{$vo['pagesize']}</if>" size="3" /> <font color="red">{:L('pagesize_desc')}</font></td>
+        </tr>
+
+        <tr <php>if($_SESSION['groupid']!=1){</php>style="display:none;"<php>}</php>>
+          <td>{:L('template_list')}</td>
+          <td>
+          <div class="selectstyle">
+            <select id="template_list" name="template_list"></select> &nbsp;&nbsp;
+            <input type="checkbox"  class="input_checkbox " id="listtype" name="listtype"  onclick="javascript:templatetype();" value="1"  <if condition="!empty($vo['listtype'])">checked</if> /> {:L('listtype')}
+            </div>
+          </td>
+        </tr>
+        <tr <php>if($_SESSION['groupid']!=1){</php>style="display:none;"<php>}</php>>
+          <td>{:L('template_show')}</td>
+          <td>
+          <div class="selectstyle">
+          <select id="template_show" name="template_show"></select>
+          </div>
+          </td>
+        </tr>
+        </table>
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="profile">
+      <div class="tabbox">
+
+        <table class="form-table">
+         <tr>
+          <td>{:L('seo_title')}</td>
+          <td><input name='title' type='text' id='meta_title' value="{$vo['title']}" class="input-text"  size='60' maxlength='150'></td>
+        </tr>
+
+        <tr>
+          <td>{:L('seo_keywords')}</td>
+          <td><input name='keywords' type='text' id='meta_keywords' value="{$vo['keywords']}" class="input-text"  size='60' maxlength='150'></td>
+        </tr>
+
+        <tr>
+          <td>{:L('seo_description')}</td>
+          <td><textarea name='description' id='meta_description'  rows="5" cols="60" >{$vo['description']}</textarea></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn">
+    <if condition="$vo['id']!=''"><input TYPE="hidden" name="id" value="{$vo.id}"></if>
+    <input type="submit" value="{:L('dosubmit')}" class="btn btn-sm btn-primary" >
+    <input type="reset" value="{:L('cancel')}" class="btn btn-sm btn-primary">
+  </div>
+</form>
+
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#myform').ajaxForm({
+    success:  complete,  // post-submit callback
+    dataType: 'json'
+  });
+});
+
+function complete(data){
+  if(data.status==1){
+    $.scojs_message('修改成功', $.scojs_message.TYPE_OK);
+    setTimeout(function(){
+      window.location.href = '{:U("Category/index")}';
+    },1000);
+  }else{
+    $.scojs_message(data.info, $.scojs_message.TYPE_ERROR);
+  }
+
+}
+</script>
+<script>
+$('.thumb_image a').click(function(){
+  swfupload('image_uploadfile','image','{:L(uploadfiles)}',1,1,0,1,'jpeg,jpg,png,gif',3,0,'{$yzh_auth}',yesdo,nodo);
+});
+
+
+var modulearr = new Array();
+
+<volist name="module" id="mdate">
+modulearr[{$mdate['id']}] = "{$mdate['name']}";
+</volist>
+
+var templatearr = new Array();
+
+<volist name="templates" id="tem">
+templatearr[{$i}] = "{$tem['name']},{$tem['value']},{$tem['filename']}";
+</volist>
+
+
+var datas = "<option value=''>{:L('please_chose')}</option>";
+var moduleid = $('#moduleid').val();
+
+
+showtemplist(moduleid,<if condition="empty($vo[listtype])">0<else />{$vo.listtype}</if>);
+
+function showtemplist(m,t){
+
+  var type='_list';
+
+  if(t){
+    type='_index';
+  }
+
+  var mtlist = modulearr[m]+type;
+  var mtshow = modulearr[m]+'_show';
+
+  if(modulearr[m]=='Page')
+    mtlist=mtshow ='Page_';
+
+  $('#template_list').html(datas);
+  $('#template_show').html(datas);
+
+  listdatas = showdatas ='';
+
+  for(i=1;i<templatearr.length;i++){
+    data = templatearr[i].split(',');
+
+    if(data[0].indexOf(mtlist)  >= 0){
+      listdatas  ="<option value='"+data[1]+"'>"+data[2]+"</option>";
+      $('#template_list').append(listdatas);
+    }
+
+    if(data[0].indexOf(mtshow)  >= 0){
+      showdatas ="<option value='"+data[1]+"'>"+data[2]+"</option>";
+      $('#template_show').append(showdatas);
+    }
+  }
+  $('#template_list').val('{$vo.template_list}');
+  $('#template_show').val('{$vo.template_show}');
+}
+
+function changetemplate(m){
+  if(m==0){
+    $('#module_url').show();
+    $('#type').val('1');
+    $('#catdir').removeClass('required');
+  }else{
+    $('#module_url').hide();
+    $('#type').val('0');
+    $('#catdir').addClass('required');
+  }
+  showtemplist(m,0);
+  $("#listtype").removeAttr("checked");
+}
+
+function templatetype(){
+
+  var moduleid = $('#moduleid').val();
+
+  if($("#listtype").attr('checked')=='checked'){
+    showtemplist(moduleid,1);
+  }else{
+    showtemplist(moduleid,0);
+  }
+
+}
+
+function urlrule(m){
+  if(m==1){
+    $('#urlrule').show();
+  }else{
+    $('#urlrule').hide();
+  }
+}
+
+urlrule({$vo['ishtml']});
+
+<if condition="!empty($_GET['type'])">
+  $('#moduleid').val(0);
+  changetemplate(0);
+</if>
+</script>
