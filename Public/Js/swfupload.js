@@ -9,8 +9,8 @@ function clean_thumb(inputid){
 	$('#'+inputid+'_aid_box').html('');
 }
 
-function swfupload(id,inputid,title,isadmin,more,isthumb,file_limit,file_types,file_size,moduleid,auth,yesdo,nodo){ 
-	
+function swfupload(id,inputid,title,isadmin,more,isthumb,file_limit,file_types,file_size,moduleid,auth,yesdo,nodo){
+
 	url = APP+'?g=admin&m=attachment&a=index&isadmin='+isadmin+'&more='+more+'&isthumb='+isthumb+'&file_limit='+file_limit+'&file_types='+file_types+'&file_size='+file_size+'&moduleid='+moduleid+'&auth='+auth;
 	$.dialog.open(url, {
 	title:title,
@@ -22,14 +22,14 @@ function swfupload(id,inputid,title,isadmin,more,isthumb,file_limit,file_types,f
 	ok: function(){
 		var iframeWin = this.iframe.contentWindow;
 		var topWin = art.dialog.top;
-		yesdo.call(this,iframeWin, topWin,id,inputid); 
+		yesdo.call(this,iframeWin, topWin,id,inputid);
 		},
 	cancel: true
 	});
 }
 
-function swfuploads(id,inputid,title,isadmin,more,isthumb,file_limit,file_types,file_size,moduleid,auth,yesdo,nodo){ 
-	
+function swfuploads(id,inputid,title,isadmin,more,isthumb,file_limit,file_types,file_size,moduleid,auth,yesdo,nodo){
+
 	url = APP+'?m=attachment&a=index&isadmin='+isadmin+'&more='+more+'&isthumb='+isthumb+'&file_limit='+file_limit+'&file_types='+file_types+'&file_size='+file_size+'&moduleid='+moduleid+'&auth='+auth;
 	$.dialog.open(url, {
 	title:title,
@@ -41,7 +41,7 @@ function swfuploads(id,inputid,title,isadmin,more,isthumb,file_limit,file_types,
 	ok: function(){
 		var iframeWin = this.iframe.contentWindow;
 		var topWin = art.dialog.top;
-		yesdo.call(this,iframeWin, topWin,id,inputid); 
+		yesdo.call(this,iframeWin, topWin,id,inputid);
 		},
 	cancel: true
 	});
@@ -56,7 +56,7 @@ function yesdo(iframeWin, topWin,id,inputid){
 		var status = iframeWin.$('#myuploadform #status').attr("value");
 		var filedata = iframeWin.$('#myuploadform #filedata').attr("value");
 		var namedata = iframeWin.$('#myuploadform #filedata').attr("value");
-	
+
 		//var namedata = iframeWin.document.forms["myuploadform"].elements["namedata"];
 		if(filedata){
 			$('#'+inputid+'_pic').attr('src',filedata);
@@ -70,24 +70,24 @@ function yesdo(iframeWin, topWin,id,inputid){
 
 //批量使用
 function bulk(iframeWin, topWin,id,inputid){
- 
+
 	var num = iframeWin.$('#myuploadform > div').length;
 	if(num){
 		var aids = iframeWin.$('#myuploadform #aids').attr("value");
 		var status = iframeWin.$('#myuploadform #status').attr("value");
 		var filedata = iframeWin.$('#myuploadform #filedata').attr("value");
 		var namedata = iframeWin.$('#myuploadform #filedata').attr("value");
-	
+
 		//var namedata = iframeWin.document.forms["myuploadform"].elements["namedata"];
 		if(filedata){
 			$('#'+inputid+'_pic').attr('src',filedata);
-			$('#'+inputid).val(filedata);			
+			$('#'+inputid).val(filedata);
 		}
-	
+
 	}
 }
 
-function up_image(iframeWin, topWin,id,inputid){ 
+function up_image(iframeWin, topWin,id,inputid){
 	var num = iframeWin.$('#myuploadform > div').length;
 	if(num){
 		var aids = iframeWin.$('#myuploadform #aids').attr("value");
@@ -98,12 +98,12 @@ function up_image(iframeWin, topWin,id,inputid){
 		if(filedata){
 			$('#'+inputid+'_pic').attr('src',filedata);
 			$('#'+inputid).val(filedata);
-			if(status==0) $('#'+inputid+'_aid_box').html('<input type="hidden"  name="aid[]" value="'+aids+'"  />');				
+			if(status==0) $('#'+inputid+'_aid_box').html('<input type="hidden"  name="aid[]" value="'+aids+'"  />');
 		}
 	}
 }
 
-function up_images(iframeWin, topWin,id,inputid){ 
+function up_images(iframeWin, topWin,id,inputid){
 	var data = '';
 	var aidinput='';
 	var num = iframeWin.$('#myuploadform > div').length;
@@ -116,19 +116,19 @@ function up_images(iframeWin, topWin,id,inputid){
 				if(status==0){
 					aidinput = '<input type="hidden" name="aid[]" value="'+aid+'"/>';
 				}
-				data += ['<li id="uplist_'+aid+'">',
+				data += ['<div id="uplist_'+aid+'">',
 				aidinput,
 				'<img src="'+src+'"/>',
 				'<input type="hidden" name="'+inputid+'[]" value="'+src+'"  />',
 				'<input type="text" class="form-control input-sm" placeholder="注释" name="'+inputid+'_name[]" value="'+name+'" size="30" />',
-				'<a class="close" href="javascript:remove_this(\'uplist_'+aid+'\');"><i class="fa fa-times"></i></a> </li>'].join('');
-		});			
+				'<a class="close" href="javascript:remove_this(\'uplist_'+aid+'\');"><i class="fa fa-times"></i></a> </div>'].join('');
+		});
 		$('#'+inputid+'_images').append(data);
 	}
 }
 
 //图片列表
-function up_imagess(iframeWin, topWin,id,inputid){ 
+function up_imagess(iframeWin, topWin,id,inputid){
     $order=inputid.split("_");
 	var data = '';
 	var aidinput='';
@@ -141,7 +141,7 @@ function up_imagess(iframeWin, topWin,id,inputid){
 				var name = $(this).find('#namedata').val();
 				if(status==0) aidinput = '<input type="hidden" name="plist['+$order[1]+'][aid][]" value="'+aid+'"/>';
 				data += '<li id="uplist_'+aid+'">'+aidinput	+'<input type="hidden" size="50" class="input-text" name="plist['+$order[1]+'][pics][]" value="'+src+'"  /> 				<input class="pimages" type="text" class="input-text" name="plist['+$order[1]+'][pics_name][]" value="'+name+'" size="30" /> &nbsp;<a href="'+src+'" class="preview" title="'+name+'">			<img src="./Public/Images/admin_image.gif"></a>&nbsp;				<a class="removec" href="javascript:remove_this(\'uplist_'+aid+'\');">移除</a></li>';
-		});			
+		});
 		$('#'+inputid+'_images').append('<script type="text/javascript" src="./Public/Js/preview.js"></script>'+data);
 	}
 }

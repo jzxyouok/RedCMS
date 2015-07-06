@@ -2,61 +2,53 @@
 
 <block name="main">
 
-<style>
-.form-table td.td_indent{text-indent: 10px;}
-.selectstyle{height: 22px;line-height: 22px;margin: 4px 0;}
-</style>
 <load href="__PUBLIC__/Js/swfupload.js"/>
 <load href="__PUBLIC__/Js/jquery.colorpicker.js"/>
 <script src="__PUBLIC__/Js/Sortable.min.js"></script>
 
 <div id="yzh-content" class="col-xs-12">
-  <div class="table-header">
-    <a href="{:U($controller_name.'/index')}">{$module[$moduleid]['description']}</a>
-    <a href="{:U($controller_name.'/add')}">添加</a>
-  </div>
+    <div class="main-title">
+        <h2>{$module[$moduleid]['description']}</h2>
+    </div>
 
-  <div class="dataTables_wrapper">
-    <form id="myform" name="myform" action="<if condition="$action_name=='add'">{:U($controller_name.'/insert')}<else />{:U($controller_name.'/update')}</if>&iscreatehtml=1" method="post">
-      <div id="filelist" class="hide"></div>
-      <div class="error"><ul></ul></div>
-      <table class="form-table">
+    <form id="myform" class="form-horizontal" action="<if condition="$action_name=='add'">{:U($module_name.'/insert')}<else />{:U($module_name.'/update')}</if>" method="post">
         <volist name="fields" id="r">
         <if condition="!empty($r['status'])">
-          <tr>
-            <td class="td_indent" width="10%" ><label class="control-label"><if condition="$r['required']"><font color="red">*</font></if>{$r.name}</label></td>
-            <td width="88%" id="box_{$r['field']}">
-            {$r|getform=$form,###}
-            </td>
-          </tr>
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                <if condition="$r['required']"><font color="red">*</font></if>{$r.name}
+            </label>
+            <div class="col-md-9" id="box_{$r['field']}">
+                {$r|getform=$form,###}
+            </div>
+        </div>
         </if>
         </volist>
-      </table>
-      <div id="bootline"></div>
-      <div id="btnbox" class="row">
-        <if condition="$vo['id']!=''"><input TYPE="hidden" name="id" value="{$vo.id}"></if>
-        <input type="hidden" name="lang" value="{$langid}" />
-        <input type="hidden" name="forward" value="{$_SERVER['HTTP_REFERER']}" />
-        <input type="submit" value="{:L('dosubmit')}" class="btn btn-sm btn-primary" />
-        <input type="reset" value="{:L('cancel')}" class="btn btn-sm btn-primary"/>
-      </div>
+
+        <div class="form-actions">
+            <if condition="$vo['id']!=''"><input type="hidden" name="id" value="{$vo.id}"></if>
+            <input type="hidden" name="lang" value="{$langid}" />
+            <input type="hidden" name="forward" value="{$_SERVER['HTTP_REFERER']}"/>
+            <input type="submit" value="提交" class="btn btn-sm btn-primary" />
+            <input type="reset" value="重置" class="btn btn-sm btn-primary"/>
+        </div>
     </form>
-  </div>
+
 </div>
 
 
 <div class="modal fade" id="mymodal">
-  <div class="modal-dialog" style="top:200px;">
-    <div class="modal-content">
-      <div class="modal-body">
-        <h4 class="modal-title">添加成功!</h4>
-      </div>
-      <div class="modal-footer">
-        <a href="{:U($controller_name.'/index')}" class="btn btn-default">返回列表</a>
-        <a href="{:U($controller_name.'/add')}" class="btn btn-primary">继续添加</a>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
+    <div class="modal-dialog" style="top:200px;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4 class="modal-title">添加成功!</h4>
+            </div>
+            <div class="modal-footer">
+                <a href="{:U($module_name.'/index')}" class="btn btn-default">返回列表</a>
+                <a href="{:U($module_name.'/add')}" class="btn btn-primary">继续添加</a>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 
@@ -84,7 +76,7 @@ function complete(data){
 function complete(data){
   $.scojs_message(data, $.scojs_message.TYPE_OK);
   setTimeout(function(){
-    window.location.href = '{:U("$controller_name/index","p=$p")}';
+    window.location.href = '{:U("$module_name/index","p=$p")}';
   },1000);
 }
 </if>

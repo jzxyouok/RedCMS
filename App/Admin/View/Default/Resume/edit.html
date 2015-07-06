@@ -1,0 +1,37 @@
+<extend name="Public:base"/>
+
+<block name="main">
+
+<div id="yzh-content" class="col-xs-12">
+    <div class="main-title"><h2>查看简历</h2></div>
+
+    <form class="form-horizontal" >
+        <volist name="fields" id="r">
+        <if condition="!empty($r['status'])">
+        {if $r['name']=="姓名"}
+        <div class="form-group">
+            <label class="control-label col-md-2">{$r.name}</label>
+            <div class="col-md-6">
+                {$r|getform=$form,###}
+            </div>
+        </div>
+        {elseif $r['name']=="发布时间"}
+        <div class="form-group">
+            <label class="control-label col-md-2">发布时间</label>
+            <div class="col-md-6">
+                <input type="text" value="{$vo['createtime']|toDate=###,'Y-m-d'}" class="form-control" disabled>
+            </div>
+        </div>
+        {elseif $r['name']!='状态'}
+        <div class="form-group">
+            <label class="control-label col-md-2">{$r.name}</label>
+            <div class="col-md-6">
+            {$r|getform=$form,###}
+            </div>
+        </div>
+        {/if}
+        </if>
+        </volist>
+    </form>
+</div>
+</block>

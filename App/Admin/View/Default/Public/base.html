@@ -8,19 +8,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- 最新 Bootstrap 核心 CSS 文件 -->
-<link rel="stylesheet" href="__STATIC__/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="__STATIC__/bootstrap/flat/bootstrap.min.css">
+<link rel="stylesheet" href="__STATIC__/font-awesome/css/font-awesome.min.css">
 <!-- <script type="text/javascript" src="__PUBLIC__/Js/jquery.min.js"></script>  -->
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+<script src="__STATIC__/jquery-1.10.2.min.js"></script>
 
 <script type="text/javascript" src="__STATIC__/bootstrap/js/bootstrap.min.js"></script>
 <link rel='stylesheet' type='text/css' href='__PUBLIC__/Css/style.css'>
-<link rel='stylesheet' type='text/css' href='__PUBLIC__/Css/jquery-ui-1.9.0.custom.css'>
 <link rel='stylesheet' type='text/css' href='__PUBLIC__/Css/artdialog.css'>
-<link rel='stylesheet' type='text/css' href='__PUBLIC__/Css/scojs.css'>
-<link rel='stylesheet' type='text/css' href='__PUBLIC__/Css/sco.message.css'>
-
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.artDialog.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/iframeTools.js"></script>
+<link rel='stylesheet' type='text/css' href='__STATIC__/scojs/css/scojs.css'>
+<link rel='stylesheet' type='text/css' href='__STATIC__/scojs/css/sco.message.css'>
+<script type="text/javascript" src="__PUBLIC__/Js/yzh.js"></script>
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -33,136 +34,63 @@
 <body>
 
 <div id="header">
-  <div id="logo">
-    <img src="__PUBLIC__/Images/logo.jpg"/>
-  </div>
-  <div class="topmenu">
-    <ul>
-
-      <li id="menu_dashboard"><a href="javascript:return false;" title="返回后台首页">
-          <i class="fa fa-lg fa-fw fa-home"></i>
-          <span class="menu-item-parent">后台首页</span>
-        </a>
-      </li>
-
-      <li id="menu_system">
-      <a href="javascript:return false;" title="网站系统设置">
-        <i class="fa fa-lg fa-fw fa-cogs"></i>
-        <span class="menu-item-parent">系统设置</span>
-      </a>
-      </li>
-
-      <li id="menu_content"><a href="javascript:;" title="网站内容设置">
-        <i class="fa fa-lg fa-fw fa-bar-chart-o"></i>
-        <span class="menu-item-parent">展示系统</span>
-      </a>
-      </li>
-
-      <li id="menu_addon">
-      <a href="javascript:;" title="网站搜索优化设置">
-        <i class="fa fa-lg fa-fw fa-puzzle-piece"></i>
-        <span class="menu-item-parent">优化系统</span>
-      </a>
-      </li>
-
-      <li id="menu_operating"><a href="javascript:;" title="网站运营管理设置">
-        <i class="fa fa-lg fa-fw fa-list-alt"></i>
-        <span class="menu-item-parent">运营管理</span>
-      </a></li>
-
-      <li id="menu_wap"><a href="#" title="网站手机版设置">
-        <i class="fa fa-lg fa-fw fa-mobile"></i>
-        <span class="menu-item-parent">移动系统</span>
-      </a>
-      </li>
-    </ul>
-  </div>
-
-  <ul class="header-right pull-right">
-    <li>
-      <select id="select_lang">
-        <volist name="Lang" id="r">
-        <option value="{$r['mark']}" <if condition="$l==$r['mark']">selected</if>>{$r['name']}</option>
+    <div id="logo">
+        <img src="__PUBLIC__/Images/logo.jpg"/>
+    </div>
+    <div class="topnav">
+        <ul>
+        <volist name="topnav" id="menu" key="i">
+            <li node="{$menu['id']}">
+                <a href="{:U($menu['model'].'/'.$menu['action'],$menu['data'])}">
+                <i class="{$menu['icon']}"></i>
+                <span>{$menu['name']}</span></a>
+            </li>
         </volist>
-      </select>
-    </li>
-    <li> <a href="javascript:update_cache();"><i class="fa fa-lg fa-refresh"></i>更新缓存</a></li>
-    <li><a href="/" target="_blank">浏览站点</a></li>
-    <li><a href="http://support.yuzihao.com/help" target="_blank">使用帮助</a></li>
-  </ul>
+        </ul>
+    </div>
+
+    <ul class="header-right pull-right">
+        <li>
+            <select id="select_lang">
+                <volist name="Lang" id="r">
+                <option value="{$r['mark']}" <if condition="$l==$r['mark']">selected</if>>{$r['name']}</option>
+                </volist>
+            </select>
+        </li>
+        <li> <a href="javascript:update_cache();"><i class="fa fa-lg fa-refresh"></i>更新缓存</a></li>
+        <li><a href="/" target="_blank">浏览站点</a></li>
+        <li><a href="http://support.yuzihao.com/help" target="_blank">使用帮助</a></li>
+    </ul>
 </div>
 
 <div id="aside">
-  <div class="login-info">
-      <a href="javascript:void(0);" id="show-shortcut" >
-        <img src="__PUBLIC__/Images/logo4.png" alt="{$Think.session.username}" class="img-circle">
-      </a>
-      <dl>
-        <dt>{$Think.session.username}</dt>
-        <dd>
-          <a href="{:U('Index/profile')}">帐号设置</a>
-          <a id="logout" href="{:U('Login/logout')}">安全退出</a>
-        </dd>
-      </dl>
-  </div>
-  <div class="navbar">
-    <ul id="pm_dashboard">
-      <li><a href="{:U('Index/index')}"><i class="fa fa-lg fa-caret-right"></i><span>后台首页</span></a></li>
-      <li><a href="{:U('Index/profile')}"><i class="fa fa-lg fa-caret-right"></i><span>管理员信息</span></a></li>
-      <li><a href="{:U('Product/add')}"><i class="fa fa-lg fa-caret-right"></i><span>发布产品</span></a></li>
-      <li><a href="{:U('Article/add')}"><i class="fa fa-lg fa-caret-right"></i><span>发布新闻</span></a></li>
-      <li><a href="{:U('Kefu/index')}"><i class="fa fa-lg fa-caret-right"></i><span>在线客服</span></a></li>
-      <li><a href="{:U('Slide/index')}"><i class="fa fa-lg fa-caret-right"></i><span>广告设置</span></a></li>
-      <li><a href="{:U('Feedback/index')}"><i class="fa fa-lg fa-caret-right"></i><span>查看留言</span></a></li>
-    </ul>
+    <div class="login-info">
+        <a href="javascript:void(0);" id="show-shortcut" >
+            <img src="__PUBLIC__/Images/logo4.png" alt="{$Think.session.username}" class="img-circle">
+        </a>
+        <dl>
+            <dt>{$Think.session.username}</dt>
+            <dd>
+            <a href="{:U('Index/profile')}">帐号设置</a>
+            <a id="logout" href="{:U('Login/logout')}">安全退出</a>
+            </dd>
+        </dl>
+    </div>
+    <div class="navbar">
 
-    <ul id="pm_system">
-      <li><a href="{:U('Config/index')}"><i class="fa fa-lg fa-caret-right"></i><span>基本设置</span></a></li>
-      <li><a href="{:U('Config/mail')}"><i class="fa fa-lg fa-caret-right"></i><span>系统邮箱</span></a></li>
-      <li><a href="{:U('Config/member')}"><i class="fa fa-lg fa-caret-right"></i><span>会员设置</span></a></li>
-      <li><a href="{:U('User/index')}"><i class="fa fa-lg fa-caret-right"></i><span>管理员管理</span></a></li>
-      <li><a href="{:U('Createhtml/updateurl')}"><i class="fa fa-lg fa-caret-right"></i><span>更新伪静态</span></a></li>
-      <li><a href="{:U('Database/index')}"><i class="fa fa-lg fa-caret-right"></i><span>数据库备份</span></a></li>
-    </ul>
+        <foreach name="asidenav" item="li" key="i">
+        <ul class="asidenav" node="{$i}">
+            <volist name="li" id="menu" key="k">
+            <li node="{$menu['id']}">
+                <a href="{:U($menu['model'].'/'.$menu['action'],$menu['data'])}">
+                <i class="fa fa-lg fa-caret-right"></i><span>{$menu['name']}</span>
+                </a>
+            </li>
+            </volist>
+        </ul>
+        </foreach>
 
-    <ul id="pm_content">
-      <li><a href="{:U('Category/index')}"><i class="fa fa-lg fa-caret-right"></i><span>导航设置</span></a></li>
-      <li><a href="{:U('Slide/index')}"><i class="fa fa-lg fa-caret-right"></i><span>广告管理</span></a></li>
-      <li><a href="{:U('Page/index')}"><i class="fa fa-lg fa-caret-right"></i><span>单页管理</span></a></li>
-      <li><a href="{:U('Product/index')}"><i class="fa fa-lg fa-caret-right"></i><span>产品管理</span></a></li>
-      <li><a href="{:U('Article/index')}"><i class="fa fa-lg fa-caret-right"></i><span>新闻管理</span></a></li>
-      <li><a href="{:U('Picture/index')}"><i class="fa fa-lg fa-caret-right"></i><span>图片管理</span></a></li>
-      <li><a href="{:U('Download/index')}"><i class="fa fa-lg fa-caret-right"></i><span>下载管理</span></a></li>
-      <li><a href="{:U('Job/index')}"><i class="fa fa-lg fa-caret-right"></i><span>招聘管理</span></a></li>
-      <li><a href="{:U('Block/index')}"><i class="fa fa-lg fa-caret-right"></i><span>其他信息</span></a></li>
-    </ul>
-
-    <ul id="pm_addon">
-      <li><a href="{:U('Link/index')}"><i class="fa fa-lg fa-caret-right"></i><span>友情链接</span></a></li>
-      <li><a href="{:U('Config/ditu')}"><i class="fa fa-lg fa-caret-right"></i><span>电子地图</span></a></li>
-      <li><a href="{:U('Index/shoulu')}"><i class="fa fa-lg fa-caret-right"></i><span>搜索引擎登录</span></a></li>
-      <li><a href="http://seo.chinaz.com/" target="_blank"><i class="fa fa-lg fa-caret-right"></i><span>SEO综合查询</span></a></li>
-      <li><a href="?g=admin&m=createhtml&a=createsitemap"><i class="fa fa-lg fa-caret-right"></i><span>网站地图生成</span></a></li>
-    </ul>
-    <ul id="pm_operating">
-      <li><a href="{:U('Kefu/index')}"><i class="fa fa-lg fa-caret-right"></i><span>客服设置</span></a></li>
-      <li><a href="{:U('Feedback/index')}"><i class="fa fa-lg fa-caret-right"></i><span>查看留言</span></a></li>
-      <li><a href="{:U('Resume/index')}"><i class="fa fa-lg fa-caret-right"></i><span>简历列表</span></a></li>
-      <li><a href="{:U('Config/liul')}"><i class="fa fa-lg fa-caret-right"></i><span>流量监控</span></a></li>
-      <li><a href="{:U('Member/index')}"><i class="fa fa-lg fa-caret-right"></i><span>会员管理</span></a></li>
-      <li><a href="{:U('Config/weibo')}"><i class="fa fa-lg fa-caret-right"></i><span>微博设置</span></a></li>
-      <li><a href="{:U('Config/weixin')}"><i class="fa fa-lg fa-caret-right"></i><span>微信设置</span></a></li>
-      <li><a href="{:U('Config/qr')}"><i class="fa fa-lg fa-caret-right"></i><span>网站二维码</span></a></li>
-      <li><a href="{:U('Email/index')}"><i class="fa fa-lg fa-caret-right"></i><span>邮件营销</span></a></li>
-      <li><a href="{:U('Tags/index')}"><i class="fa fa-lg fa-caret-right"></i><span>标签管理</span></a></li>
-    </ul>
-    <ul id="pm_wap">
-      <li><a href="{:U('Slide/picmanage',array('fid'=>2))}"><i class="fa fa-lg fa-caret-right"></i><span>首页广告</span></a></li>
-      <li><a href="{:U('Config/shouji')}"><i class="fa fa-lg fa-caret-right"></i><span>基本设置</span></a></li>
-      <li><a href="{:U('Block/edit','&id=8&pos=wap_youshi')}"><i class="fa fa-lg fa-caret-right"></i><span>公司优势</span></a></li>
-      <li><a href="{:U('Block/edit','&id=1&pos=wap_about_index')}"><i class="fa fa-lg fa-caret-right"></i><span>首页公司简介</span></a></li>
-    </ul>
-  </div>
+    </div>
 </div>
 
 <div id="main">
@@ -171,6 +99,11 @@
 
 
 <script type="text/javascript">
+
+var APP = '';
+var ROOT = '';
+var PUBLIC = '/Public';
+
 
 window.onload = function (){
   if(!+"\v1" && !document.querySelector) { // for IE6 IE7
@@ -194,34 +127,42 @@ window.onload = function (){
 
 //更新缓存
 function update_cache(){
-  $.ajax({
-    url:'{:U('Index/cache')}',
-    success:function(data){
-      $.scojs_message(data, $.scojs_message.TYPE_OK);
-      window.location.reload();
-    }
-  });
+    $.ajax({
+        url:'{:U('Admin/cache')}',
+        success:function(data){
+            $.scojs_message(data, $.scojs_message.TYPE_OK);
+            window.location.reload();
+        }
+    });
 }
-
 
 
 //返回浏览器可见区高度
 function getWindowHeight(){
     return window['innerHeight']||
-  document.compatMode === "CSS1Compat" && document.documentElement['clientHeight'] || document.body['clientHeight'];
+    document.compatMode === "CSS1Compat" && document.documentElement['clientHeight'] || document.body['clientHeight'];
 }
 //打开浏览器就执行自定义初始函数
 function init(){
-  var heights=getWindowHeight()-130;
-  $('#pageleft').height(heights);
-  if($('#pageleft').height()>heights){
-    var width=$('#pageleft').width();
-    $('#pageleft').width(width+12);
-  }
-  //设置右主体内容高度
-  $('#pagerightMain').height(heights);
+    var heights=getWindowHeight()-130;
+    $('#pageleft').height(heights);
+    if($('#pageleft').height()>heights){
+        var width=$('#pageleft').width();
+        $('#pageleft').width(width+12);
+    }
+    //设置右主体内容高度
+    $('#pagerightMain').height(heights);
 }
 init();
+
+
+// 更换语言
+$("#select_lang").change(function(){
+  var lang = $("#select_lang").find("option:selected").val();
+  window.location.href = "/index.php?a=index&m=index&g=admin&l="+lang;
+});
+
+
 //顶部菜单JS
 $('.topmenu li').click(function(){
   var numorder = this.id.split('_')[1];
@@ -229,24 +170,7 @@ $('.topmenu li').click(function(){
   location.href = url;
 })
 
-
-$("#select_lang").change(function(){
-  var lang = $("#select_lang").find("option:selected").val();
-  window.location.href = "__SELF__&l="+lang;
-});
-/*
-
-$('.topmenu li').mouseover(function(){
-    $(this).addClass('active');
-}).mouseout(function(){
-    $(this).removeClass('active');
-})
-*/
-
-var APP = '';
-var ROOT = '';
-var PUBLIC = '/Public';
-
+// 确认删除
 function confirm_delete(url){
   $.scojs_confirm({
     content: "<h4>确认要删除信息吗?</h4>",
@@ -262,23 +186,43 @@ function confirm_delete(url){
   }).show();
 }
 
-$('#menu_{$nav1}').addClass('active');
-$('#pm_{$nav1}').show();
-var num = {$nav2}-1;
-$('#pm_{$nav1} li').eq(num).addClass('active');
-$('#pm_{$nav1} li a i').eq(num).attr('class', 'fa fa-square');
+// 菜单特效
+var topnav = getcookie('topnav');
+if (topnav=='') {
+    topnav = 1;
+}
+
+var asidenav = getcookie('asidenav');
+if (asidenav=='') {
+    asidenav = 7;
+}
+
+$('li[node='+topnav+']').addClass('active');
+
+$('.topnav li').click(function(){
+    var node = $(this).attr('node');
+    setcookie('topnav', node)
+    asidenav = $('ul[node='+node+'] li').eq(0).attr('node');
+    setcookie('asidenav', asidenav)
+});
+
+$('.asidenav li').click(function(){
+    var node = $(this).attr('node');
+    setcookie('asidenav', node)
+});
+
+$('ul[node='+topnav+']').show();
+$('.asidenav li[node='+asidenav+']').addClass('active');
+$('.asidenav li[node='+asidenav+'] a i').attr('class', 'fa fa-square');
+
 </script>
 <!-- 引入js -->
-<script type="text/javascript" src="__PUBLIC__/Js/sco.modal.js"></script>
-<script type="text/javascript" src="__PUBLIC__/Js/sco.message.js"></script>
-<script type="text/javascript" src="__PUBLIC__/Js/sco.confirm.js"></script>
+<script type="text/javascript" src="__STATIC__/scojs/js/sco.modal.js"></script>
+<script type="text/javascript" src="__STATIC__/scojs/js/sco.message.js"></script>
+<script type="text/javascript" src="__STATIC__/scojs/js/sco.confirm.js"></script>
 
-<script type="text/javascript" src="__PUBLIC__/Js/jquery.artDialog.js"></script>
-<script type="text/javascript" src="__PUBLIC__/Js/jquery.metadata.js"></script>
 <script type="text/javascript" src="__PUBLIC__/Js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/Js/jquery.form.js"></script>
-<script type="text/javascript" src="__PUBLIC__/Js/iframeTools.js"></script>
-<script type="text/javascript" src="__PUBLIC__/Js/my.js"></script>
 <script type="text/javascript" src="__PUBLIC__/Js/jquery.colorpicker.js"></script>
 <script type="text/javascript" src="__STATIC__/MyDate/WdatePicker.js"></script>
 </body>

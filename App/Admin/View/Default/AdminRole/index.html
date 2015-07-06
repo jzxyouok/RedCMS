@@ -1,0 +1,58 @@
+<extend name="Public:base"/>
+
+<block name="main">
+
+<div id="yzh-content" class="col-xs-12">
+
+    <div class="main-title">
+        <h2>角色列表</h2>
+    </div>
+
+    <div class="table-actions">
+        <a class="btn btn-sm btn-primary" href="{:U('AdminRole/add')}"> 新增</a>
+        <input type="submit" class="btn btn-sm btn-primary" name="dosubmit" value="删除" />
+    </div>
+
+    <table class="table table-condensed">
+      <thead>
+            <tr>
+                <th width="40">ID</th>
+                <th>用户组名</th>
+                <th>描述</th>
+                <th width="60">状态</th>
+                <th width="220">管理操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        <volist name="list" id="role" key="k">
+            <tr>
+                <td>{$role['id']}</td>
+                <td>{$role['name']}</td>
+                <td>{$role['remark']}</td>
+                <td>
+                <eq name="role['status']" value="1">启用<else />禁用</eq>
+                </td>
+                <td>
+                <neq name="role['id']" value="1">
+                <a href="{:U('AdminRole/edit',array(id=>$role['id']))}">编辑</a> |
+                <a href="javascript:authorize({$role['id']});">用户授权</a> |
+                <a href="javascript:confirm_delete('{:U('AdminRole/delete',array(id=>$role['id']))}')">删除</a> |</neq>
+                <a href="{:U('User/index',array(groupid=>$role['id']))}">{:L('user_list')}</a>
+                </td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+function authorize(rid){
+    $.scojs_modal({
+        title: '用户授权',
+        remote: "{:U('Access/index')}"+'&rid='+rid,
+        width: '700px',
+        height: "800px"
+    }).show();
+}
+</script>
+</block>

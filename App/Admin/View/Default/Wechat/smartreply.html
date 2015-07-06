@@ -1,0 +1,38 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<div id="yzh-content" class="col-xs-12">
+    <div class="main-title">
+        <h2>应答设置</h2>
+    </div>
+
+    <div class="table-actions">
+        <a href="{:U('Wechat/smartreply_add')}" class="btn btn-sm btn-primary">添加</a>
+        <button type="button" class="btn btn-sm btn-primary" onclick="myform.action='{:U('Wechat/delMenuAll')}';return confirm_deleteall()">删除</button>
+    </div>
+
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>规则名</th>
+                <th>关键字</th>
+                <th>操作管理</th>
+            </tr>
+        </thead>
+        <tbody>
+        <volist name="list" id="vo">
+            <tr>
+                <td>{$vo['id']}</td>
+                <td>{$vo['rulename']}</td>
+                <td>{$vo['key']}</td>
+                <td><a class="btn btn-xs btn-primary" href="{:U('Wechat/smartreply_edit','id='.$vo['id'])}">编辑</a>
+                <a class="btn btn-xs btn-danger" href="javascript:confirm_delete('{:U('Wechat/smartreply_del',array(id=>$vo['id']))}')">删除</a></td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+</div>
+
+</block>

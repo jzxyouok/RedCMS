@@ -2,54 +2,61 @@
 
 <block name="main">
 <div id="yzh-content">
-  <div>
-    <h2>友情链接</h2>
-  </div>
 
-    <div class="table-actions">
-      <input type="button" class="btn btn-sm btn-primary" name="dosubmit" value="<?php echo L('delete')?>" onclick="myform.action='{:U($controller_name.'/deleteall')}';return confirm_deleteall()"/>
-      <input  type="button" class="btn btn-sm btn-primary" name="dosubmit" value="<?php echo L('listorder')?>" onclick="myform.action='{:U($controller_name.'/listorder')}';$('#myform').submit();" />
-      <div class="pull-right">
-        <a href="{:U('Link/add')}" id="addyoul" class="btn btn-sm btn-primary">添加友链</a>
-      </div>
+    <div class="main-title">
+        <h2>友情链接</h2>
     </div>
 
-  <form name="myform" id="myform" action="" method="post">
+    <div class="table-actions">
+        <button type="button" class="btn btn-sm btn-primary" onclick="myform.action='{:U('Link/deleteall')}';return confirm_deleteall()">删除</button>
+        <button type="button" class="btn btn-sm btn-primary" onclick="myform.action='{:U('Link/listorder')}';$('#myform').submit();" >排序</button>
+        <a href="{:U('Link/add')}" id="addyoul" class="btn btn-sm btn-primary">添加友链</a>
+    </div>
 
-    <table class="table table-hover table-bordered">
-      <thead>
-        <tr>
-          <th width="20"><input type="checkbox" value="" id="check_box" onclick="selectall('ids[]');"></th>
-          <th class="table-cell-1">{:L('listorder')}</th>
-          <th width="40">ID</th>
-          <th align='center'>{:L('name')}</th>
-          <th align='left'>网站地址</th>
-          <th align="left">{:L('logo')}</th>
-          <th class="table-cell-3">{:L('createtime')}</th>
-          <th class="table-cell-2 center">{:L('manage')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <volist name="list" id="vo" key="k">
-        <tr>
-        <td width="20" align="center"><input class="inputcheckbox " name="ids[]" value="{$vo['id']}" type="checkbox" ></td>
-        <td  width="30" align='center'><input name='listorders[{$vo.id}]' type='text' size='3' value='{$vo.listorder}' class='input-text-c'></td>
-        <td align="center">{$vo['id']}<input class="id" type="hidden" name="id" value="{$vo['id']}"></td>
-        <td align="center">{$vo['name']}</td>
-        <td>{$vo['siteurl']}</td>
-        <td><if condition="$vo['weblogo']"><img src="{$vo['weblogo']}" height=26></if>&nbsp;</td>
-        <td align="center">{$vo['createtime']|todate="Y-m-d H:i:s"}</td>
-        <td class="table-cell-2 center">
-          <a class="btn btn-xs btn-primary" href="{:U('Link/edit',array('id'=>$vo['id']))}">编辑</a>
-          <a class="btn btn-xs btn-danger" href="javascript:confirm_delete('{:U('Link/delete',array(id=>$vo['id']))}')">{:L('delete')}</a>
-        </td>
-        </tr>
-        </volist>
-      </tbody>
-    </table>
-
-  </form>
-  <div id="pages">{$page}</div>
+    <form name="myform" id="myform" action="" method="post">
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th width="20"><input type="checkbox" value="" id="check_box" onclick="selectall('ids[]');"></th>
+                    <th class="table-cell-1">{:L('listorder')}</th>
+                    <th width="40">ID</th>
+                    <th>名称</th>
+                    <th>网站地址</th>
+                    <th>logo</th>
+                    <th class="table-cell-3">发布时间</th>
+                    <th class="table-cell-2 center">管理操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <volist name="list" id="vo" key="k">
+                <tr>
+                <td width="20" align="center"><input class="inputcheckbox " name="ids[]" value="{$vo['id']}" type="checkbox" ></td>
+                <td width="30"><input name='listorders[{$vo.id}]' type='text' size='3' value='{$vo.listorder}' class='input-text-c'></td>
+                <td>{$vo['id']}<input class="id" type="hidden" name="id" value="{$vo['id']}"></td>
+                <td>{$vo['name']}</td>
+                <td>{$vo['siteurl']}</td>
+                <td><if condition="$vo['weblogo']"><img src="{$vo['weblogo']}" height=26></if>&nbsp;</td>
+                <td align="center">{$vo['createtime']|todate="Y-m-d H:i:s"}</td>
+                <td class="table-cell-2 center">
+                    <a class="btn btn-xs btn-primary" href="{:U('Link/edit',array('id'=>$vo['id']))}">编辑</a>
+                    <a class="btn btn-xs btn-danger" href="javascript:confirm_delete('{:U('Link/delete',array(id=>$vo['id']))}')">{:L('delete')}</a>
+                </td>
+                </tr>
+                </volist>
+            </tbody>
+        </table>
+    </form>
+    <div id="pages">{$page}</div>
 </div>
-
+<script>
+// 确认删除
+function confirm_deleteall(){
+    $.scojs_confirm({
+        content: "<h4>确认要删除信息吗?</h4>",
+        action: function(){
+            $('#myform').submit();
+        }
+    }).show();
+}
+</script>
 </block>

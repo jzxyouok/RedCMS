@@ -1,56 +1,56 @@
 <?php
 namespace Admin\Controller;
-use Admin\Adminbase;
-class TagsController extends AdminbaseController {
+use Admin\Public;
+class TagsController extends AdminController {
 
-  protected  $db,$fields;
+    protected  $db,$fields;
 
-  public function _initialize() {
+    public function _initialize() {
 
-    parent::_initialize();
+        parent::_initialize();
 
-    $this->db = D(CONTROLLER_NAME);
+        $this->db = D(CONTROLLER_NAME);
 
-    $fields = F($this->moduleid.'_Field');
-    foreach($fields as $key => $res){
-      $res['setup'] = string2array($res['setup']);
-      $this->fields[$key] = $res;
+        $fields = F($this->moduleid.'_Field');
+        foreach($fields as $key => $res){
+            $res['setup'] = string2array($res['setup']);
+            $this->fields[$key] = $res;
+        }
+
+        $this->assign('fields',$this->fields);
+        $this->assign('module',$this->module);
     }
 
-    $this->assign('fields',$this->fields);
-    $this->assign('module',$this->module);
-  }
+    function index(){
 
-  function index(){
+        $list = M('tags')->select();
 
-    $list = M('tags')->select();
+        $this->assign('list',$list);
+        $this->display();
+    }
 
-    $this->assign('list',$list);
-    $this->display();
-  }
+    /**
+     * 更新
+     *
+     */
+    function edit() {
 
-  /**
-   * 更新
-   *
-   */
-  function edit() {
+        $model = M('Tags');
+        $pk = ucfirst($model->getPk());
+        $id = $_REQUEST[$model->getPk()];
 
-    $model = M('Tags');
-    $pk = ucfirst($model->getPk());
-    $id = $_REQUEST[$model->getPk()];
+        if(empty($id))
+            $this->error(L('do_empty'));
 
-    if(empty($id))
-      $this->error(L('do_empty'));
+        $do = 'getBy'.$pk;
+        $vo = $model->$do( $id );
 
-    $do = 'getBy'.$pk;
-    $vo = $model->$do( $id );
+        if($vo['setup'])
+            $vo['setup'] = string2array($vo['setup']);
 
-    if($vo['setup'])
-      $vo['setup'] = string2array($vo['setup']);
+        $this->assign('vo', $vo);
 
-    $this->assign('vo', $vo);
-
-    $this->display();
-  }
+        $this->display();
+    }
 
 }

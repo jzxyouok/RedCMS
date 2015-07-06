@@ -2,58 +2,55 @@
 
 <block name="main">
 <div id="yzh-content" class="col-xs-12">
-  <div class="table-header">
-    <a href="{:U('Kefu/index')}">在线客服</a>
-    <a href="{:U('Kefu/add')}">添加</a>
-  </div>
-
-  <div class="dataTables_wrapper">
-
-    <form name="myform" id="myform" action="" method="post">
-      <table class="table table-bordered table-hover">
-		    <thead>
-          <tr>
-			      <th width="30"><input type="checkbox" value="" id="check_box" onclick="selectall('ids[]');"></th>
-            <th>{:L('listorder')}</th>
-			      <th>{:L('name')}</th>
-            <th>{:L('type')}</th>
-            <th>代码</th>
-			      <th class="center">{:L('manage')}</th>
-          </tr>
-        </thead>
-      	<tbody>
-      		<volist name="list" id="vo" key="k">
-      		<tr>
-			      <td><input class="inputcheckbox" name="ids[]" value="{$vo['id']}" type="checkbox" ></td>
-			      <td><input name='listorders[{$vo.id}]' type='text' size='3' value='{$vo.listorder}' class='input-text-c'></td>
-      		  <td>{$vo['name']}</td>
-			      <td>{$vo['type']|fieldoption=$fields['type'],###}</td>
-      		  <td>
-              {$vo['code']|stripcslashes}
-            </td>
-			      <td class="center">
-            <a class="btn btn-xs btn-primary" href="{:U('Kefu/edit',array('id'=>$vo['id']))}">编辑</a>
-            <a class="btn btn-xs btn-danger" href="javascript:confirm_delete('{:U('Kefu/delete',array(id=>$vo['id']))}')">{:L('delete')}</a>
-          </td>
-      		</tr>
-      		</volist>
-      	</tbody>
-      </table>
-
-    <div class="row">
-      <input type="button" class="btn btn-sm btn-danger" name="dosubmit" value="{:L('delete')}" onclick="deleteAll()"/>
-      <input  type="button" class="btn btn-sm btn-primary" name="dosubmit" value="{:L('listorder')}" onclick="myform.action='{:U('Kefu/listorder')}';$('#myform').submit();" />
-      <div class="pull-right" id="pages">{$page}</div>
+    <div class="main-title">
+        <h2>在线客服</h2>
     </div>
 
-  </form>
+    <div class="table-actions">
+        <a href="{:U('Kefu/add')}" class="btn btn-sm btn-primary">添加</a>
+        <input type="button" class="btn btn-sm btn-danger" name="dosubmit" value="删除" onclick="myform.action='{:U($module_name.'/deleteall')}';return confirm_deleteall()"/>
+        <input  type="button" class="btn btn-sm btn-primary" name="dosubmit" value="排序" onclick="myform.action='{:U($module_name.'/listorder')}';$('#myform').submit();" />
+
+    </div>
+
+    <form name="myform" id="myform" action="" method="post">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th width="30"><input type="checkbox" value="" id="check_box" onclick="selectall('ids[]');"></th>
+                    <th class="table-cell-1">{:L('listorder')}</th>
+                    <th class="table-cell-2">{:L('name')}</th>
+                    <th>{:L('type')}</th>
+                    <th>代码</th>
+                    <th class="table-cell-2 center">{:L('manage')}</th>
+                </tr>
+            </thead>
+            <tbody>
+            <volist name="list" id="vo" key="k">
+                <tr>
+                    <td  width="30" align="center"><input class="inputcheckbox" name="ids[]" value="{$vo['id']}" type="checkbox" ></td>
+                    <td width="40" align='center'><input name='listorders[{$vo.id}]' type='text' size='3' value='{$vo.listorder}' class='input-text-c'></td>
+
+                    <td>{$vo['name']}</td>
+                    <td>{$vo['type']|fieldoption=$fields['type'],###}</td>
+                    <td>
+                    {$vo['code']|stripcslashes}
+                    </td>
+                    <td class="table-cell-2 center">
+                    <a class="btn btn-xs btn-primary" href="{:U('Kefu/edit',array('id'=>$vo['id']))}">编辑</a>
+                    <a class="btn btn-xs btn-danger" href="javascript:confirm_delete('{:U('Kefu/delete',array(id=>$vo['id']))}')">删除</a>
+                    </td>
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+
+        <div class="row">
+            <div class="pull-right" id="pages">{$page}</div>
+        </div>
+
+    </form>
 
 </div>
-<script type="text/javascript">
-function deleteAll(){
-  myform.action='{:U('Kefu/deleteall')}';
-  return confirm_deleteall();
-}
 
-</script>
 </block>

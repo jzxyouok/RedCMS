@@ -1,0 +1,51 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<div id="yzh-content" class="col-xs-12">
+    <div class="main-title">
+        <h2>基本设置</h2>
+    </div>
+
+    <ul class="nav nav-tabs" role="tablist">
+        <li><a href="{:U('Wechat/welcome')}">首次关注欢迎信息设置</a></li>
+        <li class="active"><a href="{:U('Wechat/robot')}">自动回复设置</a></li>
+    </ul>
+
+    <form id="myform" class="form-horizontal" action="" method="post">
+        <div class="alert alert-info" style="margin:5px;">当用户输入的触发关键字无法匹配时自动回复此消息：</div>
+        <div class="form-group">
+            <label class="control-label col-md-2">回复内容</label>
+            <div class="col-md-5">
+                <textarea name="robot_content" class="form-control" rows="8">{$robot_content}</textarea>
+            </div>
+        </div>
+
+
+        <div class="form-actions">
+            <input type="submit" value="提交" class="btn btn-default">
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+<if condition="$welcome_type eq 2">
+    $('.welcome_title').hide();
+    $('.welcome_face').hide();
+    $('.welcome_url').hide();
+</if>
+$(function(){
+    $('input[name=welcome_type]').click(function(){
+        var value = $(this).attr('value');
+        if (value==1) {
+            $('.welcome_title').show();
+            $('.welcome_face').show();
+            $('.welcome_url').show();
+        } else {
+            $('.welcome_title').hide();
+            $('.welcome_face').hide();
+            $('.welcome_url').hide();
+        }
+    });
+})
+
+</script>
+</block>

@@ -1,0 +1,50 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<div id="yzh-content" class="col-xs-12">
+    <div class="main-title">
+        <h2>新增菜单</h2>
+    </div>
+
+    <form id="myform" class="form-horizontal" action="{:U('Wechat/addMenu')}" method="post">
+        <if condition="$pid neq 0">
+        <div class="form-group">
+            <label class="control-label col-md-2">上级菜单</label>
+            <div class="col-md-5">
+                <input type="hidden" name="pid" value="{$topMenu['id']}" >
+                <input type="text"  value="{$topMenu['name']}" class="form-control" disabled>
+            </div>
+        </div>
+        </if>
+        <div class="form-group">
+            <label class="control-label col-md-2">菜单名称</label>
+            <div class="col-md-5">
+            <input type="text" class="form-control"  name="name">
+            </div>
+        </div>
+        <if condition="$pid neq 0">
+        <div class="form-group">
+            <label class="control-label col-md-2">类型</label>
+            <div class="col-md-5">
+                <label class="radio-inline">
+                    <input type="radio" name="type" value="click" />发送信息
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="type" value="view" />跳转到网页
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">类型</label>
+            <div class="col-md-5">
+                <input type="text" name="code" class="form-control" />
+            </div>
+        </div>
+        </if>
+        <div class="form-actions">
+            <input type="submit" value="提交" class="btn btn-default">
+        </div>
+    </form>
+</div>
+
+</block>

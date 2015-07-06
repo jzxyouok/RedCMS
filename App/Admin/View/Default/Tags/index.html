@@ -5,16 +5,16 @@
 
 <div id="yzh-content" class="col-xs-12">
   <div class="table-header">
-    <a href="{:U($controller_name.'/index')}">标签列表</a>
+    <a href="{:U($module_name.'/index')}">标签列表</a>
   </div>
 
   <div class="dataTables_wrapper">
     <div class="row">
       <div>
-      <form action="{:U($controller_name.'/index')}" method="get" class="form-inline" role="form">
-      <input type="hidden" name="m" value="{$Think.MODULE_NAME}" />
-      <input type="hidden" name="c" value="{$Think.CONTROLLER_NAME}" />
-      <input type="hidden" name="a" value="{$Think.ACTION_NAME}" />
+      <form action="{:U($module_name.'/index')}" method="get" class="form-inline" role="form">
+        <input type="hidden" name="g" value="{$Think.GROUP_NAME}" />
+        <input type="hidden" name="m" value="{$Think.MODULE_NAME}" />
+        <input type="hidden" name="a" value="{$Think.ACTION_NAME}" />
         <div class="form-group">
           <input id="title" type="text" class="form-control input-sm" name="keyword" value="{$Think.get.keyword}" />
         </div>
@@ -108,7 +108,7 @@
             <tr>
               <td width="40" align='center'><input name='listorders[{$vo.id}]' type='text' size='3' value='{$vo.listorder}' class='input-text-c'></td>
               <td>{$vo['name']}</td>
-              <if condition="$fields['status']"><td align="center">{if $vo['status']==1}<font color="green">{:L('isshenhe')}</font>{else}<a href="{:U($controller_name.'/status',array(id=>$vo['id'],status=>1))}"><font color="red">{:L('noshenhe')}</font></a>{/if}</td></if>
+              <if condition="$fields['status']"><td align="center">{if $vo['status']==1}<font color="green">{:L('isshenhe')}</font>{else}<a href="{:U($module_name.'/status',array(id=>$vo['id'],status=>1))}"><font color="red">{:L('noshenhe')}</font></a>{/if}</td></if>
               <if condition="$fields['hits']"> <td align="center">{$vo['hits']}</td></if>
             </tr>
             </volist>
@@ -116,7 +116,7 @@
         </table>
 
         <div style="padding:5px;">
-          <input  type="button" class="btn btn-sm btn-primary" name="dosubmit" value="<?php echo L('listorder')?>" onclick="myform.action='{:U($controller_name.'/listorder')}';$('#myform').submit();" />  
+          <input  type="button" class="btn btn-sm btn-primary" name="dosubmit" value="<?php echo L('listorder')?>" onclick="myform.action='{:U($module_name.'/listorder')}';$('#myform').submit();" />  
           
         </div>
 

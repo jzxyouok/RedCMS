@@ -21,7 +21,7 @@ define('APP_DEBUG',True);
 define('APP_PATH','./App/');
 define('APP_LANG', true);
 // 定义版本信息
-define('VERSION', 'v2.2.1');
+define('VERSION', 'v3.0.0');
 define('UPDATETIME', '20150507');
 
 // 引入ThinkPHP入口文件

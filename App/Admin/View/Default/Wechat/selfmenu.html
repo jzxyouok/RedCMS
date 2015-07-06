@@ -1,0 +1,91 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<div id="yzh-content" class="col-xs-12">
+    <div class="main-title">
+        <h2>微信菜单</h2>
+    </div>
+
+    <div class="table-actions">
+        <a href="{:U('Wechat/addMenu','pid=0')}" class="btn btn-sm btn-primary">添加一级菜单</a>
+        <button type="button" class="btn btn-sm btn-primary" onclick="myform.action='{:U('Wechat/delMenuAll')}';return confirm_deleteall()">删除</button>
+        <button type="button" class="btn btn-sm btn-primary" onclick="myform.action='{:U('Wechat/listMenuOrder')}';$('#myform').submit();" >排序</button>
+        <a href="{:U('Wechat/setMenu')}" class="btn btn-sm btn-primary">应用到微信</a>
+    </div>
+
+    <form name="myform" action="{:U('Wechat/delMenuAll')}" method="post">
+
+        <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th style="width:20px;"><input type="checkbox" id="check_box" onclick="selectall('ids[]');" /></th>
+                <th>序号</th>
+                <th align="left">名称</th>
+                <th style="width:200px;">操作</th>
+              </tr>
+            </thead>
+
+            <tbody>
+            <volist name="menuList" id="list" key="k">
+              <tr>
+                <td align="center"><input type="checkbox" name="ids[]" value="{$list['id']}" /></td>
+                <td>{$list['listorder']}</td>
+                <td>{$list['name']}</td>
+                <td>
+                <a class="btn btn-xs btn-primary" href="{:U('Wechat/editMenu','id='.$list['id'])}">编辑</a>
+                <a class="btn btn-xs btn-primary" href="javascript:add_menu('{:U('Wechat/addMenu','pid='.$list['id'])}')">添加子菜单</a>
+                <a class="btn btn-xs btn-danger" href="javascript:confirm_delete('{:U('Wechat/deleteMenu',array(id=>$list['id']))}')">删除</a></td>
+              </tr>
+              <if condition="!empty($list['sub_button'])">
+              <volist name="list['sub_button']" id="list2">
+              <tr>
+                <td align="center"><input type="checkbox" name="ids[]" value="{$list['id']}" /></td>
+                <td>{$list2['listorder']}</td>
+                <td> └─{$list2['name']}</td>
+                <td>
+                <a class="btn btn-xs btn-primary" href="{:U('Wechat/editMenu','id='.$list2['id'])}">编辑</a>
+                <a class="btn btn-xs btn-danger" href="javascript:confirm_delete('{:U('Wechat/deleteMenu',array(id=>$list2['id']))}')">删除</a></td>
+              </tr>
+              </volist>
+              </if>
+            </volist>
+
+            </tbody>
+        </table>
+
+    </form>
+
+    <div id="pages">{$page}</div>
+</div>
+<script>
+// 确认删除
+function add_menu(url){
+
+    $.ajax({
+        url: url,
+        success:function(data){
+            if(data.status==1){
+                $.scojs_message(data.info, $.scojs_message.TYPE_ERROR);
+            } else if (data['status']==2) {
+                var jump_url = url;
+                $.scojs_confirm({
+                    content: "<h4>"+data.info+"</h4>",
+                    action: function(){
+                        $.ajax({
+                            url:jump_url+'&clearTopMenu=1',
+                            success:function(data){
+                                window.location = jump_url;
+                            }
+                        });
+                    }
+                }).show();
+            } else {
+                window.location = url;
+            }
+        }
+    });
+
+}
+</script>
+</script>
+</block>

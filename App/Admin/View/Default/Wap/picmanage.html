@@ -1,0 +1,44 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<div id="yzh-content" class="col-xs-12">
+    <div class="main-title">
+        <h2>广告列表</h2>
+    </div>
+
+    <div class="table-actions">
+        <a href="{:U('slide/picmanage?fid='.$slide[id])}" class="btn btn-sm btn-primary">广告图片管理</a>
+        <a href="{:U('Slide/index')}" class="btn btn-sm btn-primary">返回广告列表</a>
+    </div>
+
+    <div class="dataTables_wrapper">
+
+        <form name="myform" id="myform" action="" method="post">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th width="48">{:L('listorder')}</th>
+                        <th align="left">{:L(THUMB)}&nbsp;&nbsp;</th>
+                        <th width="140" class="center">{:L('manage')}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <volist name="list" id="vo" key="k">
+                    <tr>
+                        <td width="40" class='center'><input name='listorders[{$vo.id}]' type='text' size='3' value='{$vo.listorder}' class='input-text-c'></td>
+                        <td align="left"><img src="{$vo['pic']}" onload="if(this.width >= 320){this.width = 320}"></td>
+                        <td class="center">
+                        <a href="{:U('slide/editpic',array(fid=>$fid,id=>$vo['id']))}">{:L('edit')}</a> </td>
+                    </tr>
+                    </volist>
+                </tbody>
+            </table>
+
+            <div class="row">
+                <input type="button" class="btn btn-sm btn-primary" name="dosubmit" value="<?php echo L('listorder')?>" onclick="myform.action='{:U($module_name.'/listorder')}';$('#myform').submit();"/>
+            </div>
+        </form>
+        <div id="pages">{$page}</div>
+</div>
+
+</block>

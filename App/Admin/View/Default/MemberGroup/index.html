@@ -1,0 +1,48 @@
+<extend name="Public:base"/>
+
+<block name="main">
+
+<div id="yzh-content" class="col-xs-12">
+    <div class="main-title">
+        <h2>会员组管理</h2>
+    </div>
+
+    <div class="table-actions">
+        <a class="btn btn-sm btn-primary" href="{:U('MemberGroup/add')}"> 新增</a>
+        <input type="submit" class="btn btn-sm btn-primary" name="dosubmit" value="删除" />
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th width="40">ID</th>
+                <th>会员组名</th>
+                <th>会员数</th>
+                <th width="60">{:L('status')}</th>
+                <th width="220">{:L('manage')}</th>
+            </tr>
+        </thead>
+        <tbody>
+        <volist name="list" id="vo" key="k">
+            <tr>
+                <td>{$vo['id']}</td>
+                <td>{$vo['name']}</td>
+                <td>{$vo['remark']}</td>
+                <td>
+                <eq name="vo['status']" value="1">
+                {:L('enable')}
+                <else />
+                {:L('disable')}
+                </eq>
+                </td>
+                <td>
+                <a href="{:U('MemberGroup/edit',array(id=>$vo['id']))}">编辑</a> |
+                <a href="javascript:confirm_delete('{:U('MemberGroup/delete',array(id=>$vo['id']))}')">删除</a> |
+                <a href="{:U('Member/index',array(groupid=>$vo['id']))}">会员列表</a>
+                </td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+</div>
+</block>

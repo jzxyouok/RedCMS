@@ -1,0 +1,73 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<div id="yzh-content" class="col-xs-12">
+    <div class="main-title">
+        <h2>基本设置</h2>
+    </div>
+
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="{:U('Wechat/welcome')}">首次关注欢迎信息设置</a></li>
+        <li><a href="{:U('Wechat/robot')}">自动回复设置</a></li>
+    </ul>
+
+    <form id="myform" class="form-horizontal" action="" method="post">
+        <div class="alert alert-info" style="margin:5px;">当用户第一次关注您的公众帐号时，自动回复以下消息：</div>
+        <div class="form-group">
+            <label class="control-label col-md-2">消息类型</label>
+            <div class="col-md-5">
+                <label class="radio-inline">
+                    <input type="radio" name="welcome_type" value="1" <if condition="$welcome_type eq 1">checked</if>> 图文
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="welcome_type" value="2" <if condition="$welcome_type eq 2">checked</if>>文本
+                </label>
+            </div>
+        </div>
+        <div class="form-group welcome_title">
+            <label class="control-label col-md-2">消息标题</label>
+            <div class="col-md-5"><input type="text" class="form-control"  name="welcome_title" value="{$welcome_title}"></div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">消息内容</label>
+            <div class="col-md-5">
+                <textarea class="form-control"  name="welcome_desc" >{$welcome_desc}</textarea>
+            </div>
+        </div>
+        <div class="form-group welcome_face">
+            <label class="control-label col-md-2">消息封面</label>
+            <div class="col-md-5"><input type="text" class="form-control"  name="welcome_face"></div>
+        </div>
+        <div class="form-group welcome_url">
+            <label class="control-label col-md-2">微网站链接</label>
+            <div class="col-md-5"><input type="text" class="form-control"  name="welcome_url" value="{$welcome_url}"></div>
+        </div>
+
+        <div class="form-actions">
+            <input type="submit" value="提交" class="btn btn-default">
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+<if condition="$welcome_type eq 2">
+    $('.welcome_title').hide();
+    $('.welcome_face').hide();
+    $('.welcome_url').hide();
+</if>
+$(function(){
+    $('input[name=welcome_type]').click(function(){
+        var value = $(this).attr('value');
+        if (value==1) {
+            $('.welcome_title').show();
+            $('.welcome_face').show();
+            $('.welcome_url').show();
+        } else {
+            $('.welcome_title').hide();
+            $('.welcome_face').hide();
+            $('.welcome_url').hide();
+        }
+    });
+})
+
+</script>
+</block>

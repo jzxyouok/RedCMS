@@ -28,19 +28,19 @@
 			<td  width="30" align="center"><input class="inputcheckbox " name="ids[]" value="{$vo['id']}" type="checkbox" ></td>
 			<td align="center">{$vo['id']}</td>
       		<td><if condition="$vo['catid']">[<font color="green">{$categorys[$vo['catid']]['catname']}</font>]</if> 
-			{if $controller_name=='Guestbook' || $controller_name=='Feedback'}{$vo['username']}-{$vo['title']}{else}<a href="{$vo.url}" <if condition="$vo['title_style']!=''">style ="{$vo['title_style']}"</if> target="_blank">{$vo['title']} </a>{/if}
+			{if $module_name=='Guestbook' || $module_name=='Feedback'}{$vo['username']}-{$vo['title']}{else}<a href="{$vo.url}" <if condition="$vo['title_style']!=''">style ="{$vo['title_style']}"</if> target="_blank">{$vo['title']} </a>{/if}
 			
 			<if condition="$vo['thumb']!=''"><a href="{$vo['thumb']}" class="preview" title="{$vo['title']}"><img src="./Public/Images/admin_image.gif"></a></if>
 			<if condition="$vo['posid']!=0"><img src="./Public/Images/admin_elite.gif"></if></td>
 			<if condition="$fields['status']"></if>
 			<if condition="$fields['hits']"> </if>
-      		<td align="center"> <a href="javascript:confirm_delete('{:U($controller_name.'/delete',array(id=>$vo['id']))}')">{:L('delete')}</a></td>
+      		<td align="center"> <a href="javascript:confirm_delete('{:U($module_name.'/delete',array(id=>$vo['id']))}')">{:L('delete')}</a></td>
       		</tr>
       		</volist>
       	</tbody>
     </table>
 
-    <div class="btn"><input type="button" class="btn btn-sm btn-primary" name="dosubmit" value="<?php echo L('delete')?>" onclick="myform.action='{:U($controller_name.'/deleteall')}';return confirm_deleteall()"/> 
+    <div class="btn"><input type="button" class="btn btn-sm btn-primary" name="dosubmit" value="<?php echo L('delete')?>" onclick="myform.action='{:U($module_name.'/deleteall')}';return confirm_deleteall()"/> 
 			
 	 </div>
   </div>

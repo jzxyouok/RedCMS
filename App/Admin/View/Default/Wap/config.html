@@ -1,0 +1,72 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<load href="./Public/Js/swfupload.js"/>
+
+<div id="yzh-content">
+    <div class="main-title">
+        <h2>基本设置</h2>
+    </div>
+
+    <form id="myform" class="form-horizontal" method="post" action="{:U('config/dosite')}">
+
+        <volist name="wap_config" id="vo">
+        {if $vo['varname']=='site_qrcode'}
+        <div class="form-group">
+            <label class="control-label col-md-2">{$vo.info}:</label>
+            <div class="col-md-5">
+                <input type="hidden" id="site_qrcode" name="{$vo.varname}"  value="{$vo['value']}" />
+                <div class="thumb_box" style ="left:500px;width:97px;height:80px;padding:2px;top:-7px;">
+                    <div id="image_aid_box"></div>
+                    <a href="javascript:swfupload('logo_uploadfile','site_qrcode','文件上传',1,1,0,1,'jpeg,jpg,png,gif',3,1,'{$yzh_auth}',yesdo,nodo)">
+                    <img style="width:50px;height: 50px;" width="50" height="50" src="<if condition="!empty($vo['value'])">{$vo['value']}<else/>./Public/Images/admin_upload_thumb.png</if>" id="site_qrcode_pic" ></a><br>
+                    <input type="button" value="取消缩略图" onclick="javascript:clean_thumb('site_qrcode');" class="btn btn-xs btn-info" style="margin:0;" />
+                </div>(建议尺寸：100px*100px)
+            </div>
+        </div>
+        {else}
+
+        <div class="form-group">
+            <label class="control-label col-md-2">{$vo.info}:</label>
+            <div class="col-md-5">
+                <input type="text" class="form-control" name="{$vo.varname}" value="{$vo.value}" >
+            </div>
+        </div>
+        {/if}
+
+        </volist>
+        <div class="form-group">
+            <label class="control-label col-md-2">服务电话:</label>
+            <div class="col-md-5">
+                <input type="text" class="form-control" name="site_tel400" value="{$site_tel400}" >
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <input type="submit" value="保存" class="btn btn-sm btn-primary" >
+            <input type="reset" value="重置" class="btn btn-sm btn-primary">
+        </div>
+
+    </form>
+
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#myform').ajaxForm({
+    success:  complete,  // post-submit callback
+    dataType: 'json'
+  });
+});
+
+function complete(data){
+  if(data.status==1){
+    $.scojs_message('修改成功', $.scojs_message.TYPE_OK);
+
+  }else{
+    $.scojs_message(data.info, $.scojs_message.TYPE_ERROR);
+  }
+
+}
+</script>
+</block>

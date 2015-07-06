@@ -3,38 +3,33 @@
 <block name="main">
 
 <div id="yzh-content" class="col-xs-12">
+    <div class="main-title">
+      <h2>网站导航</h2>
+    </div>
 
-  <div class="main-title">
-    <h2><a href="{:U('Category/index')}">网站导航</a></h2>
-  </div>
+    <div class="table-actions">
+        <input type="submit" class="btn btn-sm btn-primary" value="排序"/>
+        <button type="button" class="btn btn-sm btn-primary" id="trigger">添加顶级栏目</button>
+    </div>
 
-  <div class="table-actions">
-    <input type="submit" class="btn btn-sm btn-primary" value="排序"/>
-    <php>if($_SESSION['groupid']==1){</php>
-      <button type="button" class="btn btn-sm btn-primary" id="trigger">添加顶级栏目</button>
-    <php>}</php>
-  </div>
+    <form name="myform" action="{:U('category/listorder')}" method="post">
 
-  <form name="myform" action="{:U('category/listorder')}" method="post">
-
-    <table class="table table-hover table-condensed">
-      <thead>
-        <tr>
-          <th class="table-cell-1">排序</th>
-          <th>栏目名称</th>
-          <th class="table-cell-2">所属类型</th>
-          <th class="table-cell-1">导航</th>
-          <th class="table-cell-1">访问</th>
-          <th class="center table-cell-3">管理操作</th>
-        </tr>
-      </thead>
-      <tbody>
-      {$categorys}
-      </tbody>
-    </table>
-
-  </form>
-
+        <table class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th class="table-cell-1">排序</th>
+                    <th>栏目名称</th>
+                    <th class="table-cell-2">所属类型</th>
+                    <th class="table-cell-1">导航</th>
+                    <th class="table-cell-1">访问</th>
+                    <th class="center table-cell-3">管理操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            {$categorys}
+            </tbody>
+        </table>
+    </form>
 </div>
 
 <script type="text/javascript">
