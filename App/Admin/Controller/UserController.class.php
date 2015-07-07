@@ -2,8 +2,8 @@
 /**
  */
 namespace Admin\Controller;
-use Admin\Public;
-class UserController extends AdminController {
+
+class UserController extends BaseController {
 
     public $usergroup;
 

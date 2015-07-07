@@ -5,8 +5,8 @@
  *
  */
 namespace Admin\Controller;
-use Admin\Adminbase;
-class XlsController extends AdminController {
+
+class XlsController extends BaseController {
 
   protected $db,$fields;
 

@@ -1,0 +1,77 @@
+<include file="Public:header"/>
+<!-- 内页布局 -->
+<div class="gr-page">
+    <div class="gr-page-banner pt20"><img src="__TMPL__/public/images/pbanner.jpg"/></div>
+    <div class="gr-web1000 pt20">
+        <include file="Home:left"/>
+        <!-- 右侧内容 -->
+        <div class="gr-content gr-right">
+            <include file="Home:title"/>
+            <div class="gr-content-box">
+
+            <div class="gr-jobs-show">
+                <form name="myform" action="/?m=post&a=insert" method="post">
+
+                <input type="hidden" id="catid" name="moduleid" value="23" />
+                <input type="hidden"  name="lang" value="1" />
+                    <h3>基本信息</h3>
+                    <table border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td align="left">姓    名</td>
+                            <td ><input type="text" name="title"  class="jobs-input"/><font color="red">&nbsp;*</font>
+                            </td>
+                            <td >性    别</td>
+                            <td ><input type="radio" class="input_radio " name="sex" id="sex_1"  value="男" >男&nbsp;&nbsp;<input type="radio" class="input_radio " name="sex" id="sex_2" value="女" >女<font color="red">&nbsp;*</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>应聘职位 </td>
+                            <td><input type="text" name="jobname" id="" class="jobs-input"  /><font color="red">&nbsp;*</font></td>
+                            <td>出生年月 </td>
+                            <td><input type="text" name="theYear" id="" class="jobs-input" /> <font color="red">&nbsp;*</font></td>
+                        </tr>
+                        <tr>
+                            <td>身份证号 </td>
+                            <td><input type="text" name="IDNum" id="" class="jobs-input" /></td>
+                            <td>现居住地 </td>
+                            <td><input type="text" name="Address" id="" class="jobs-input"/></td>
+                        </tr>
+                        <tr>
+                            <td>联系电话 </td>
+                            <td><input type="text" name="LinkPhone" id="" class="jobs-input" /><font color="red">&nbsp;*</font></td>
+                            <td>电子邮箱 </td>
+                            <td><input type="text" name="Email" id="" class="jobs-input"/></td>
+                        </tr>
+                    </table>
+                    <h3>教育经历</h3>
+                    <table border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="100%" colspan="2">请按照： X年X月 至   X年X月    公司名称    职位 格式填写；<strong>请从最近的写起</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><textarea name="ComSkill" id="" class="jobs-textarea"></textarea>
+                           </td>
+                        </tr>
+                    </table>
+                    <h3>自我评价</h3>
+                    <table border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td colspan="3">让我们更充分的了解您，建议您从个性、工作态度及未来生涯规划等方面加以描述。</td>
+                        </tr>
+                        <tr>
+                            <td><textarea name="Intro" id="" class="jobs-textarea" ></textarea> </td>
+                        </tr>
+                        <tr>
+                            <td><input name="" type="submit" class="jobs-submit" value="提 交" />
+                                <input name="" type="reset" class="jobs-submit" value="重 置" />
+                                <a href="jobs.php"><input type="button" class="jobs-submitb" value="返回招聘列表" src="" /></a>
+                            </td>
+                        </tr>
+                    </table>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -14,7 +14,7 @@ use OT\File;
  * 在线更新
  * @author huajie <banhuajie@163.com>
  */
-class UpdateController extends AdminController{
+class UpdateController extends BaseController{
 
 	/**
 	 * 初始化页面

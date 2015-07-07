@@ -1,0 +1,51 @@
+<include file="Public:header"/>
+<!-- 内页布局 -->
+<div id="main" class="container">
+    <div class="row">
+    <!-- 左侧栏目 -->
+    <include file="Home:left"/>
+    <!-- 右侧内容 -->
+    <div class="gr-content gr-right">
+      <include file="Home:title"/>
+      <div class="gr-content-box">
+        <div id="contactlb">如果您对我司有任何意见和建议，请在此留言。您的留言将给予我司很大的帮助，我们会尽快回复。衷心感谢您的关注和支持！</div>
+          <div class="contactnr">
+            <form name="myform" id="Form1" action="{:U('Feedback/insert')}" method="post">
+            <input type="hidden" id="catid" name="moduleid" value="6" />
+            <input type="hidden"  name="lang" value="1" />
+            <table id="leavetable" border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td class="left_l">姓名：</td>
+                    <td><input name="name" type="text" id="name" class="tc_name" /></td>
+                </tr>
+                <tr>
+                    <td class="left_l">主题：</td>
+                    <td><input name="name" id="name" type="text" class="tc_zt" /></td>
+                </tr>
+                <tr>
+                    <td class="left_l">电话：</td>
+                    <td><input name="mobile" type="text" id="mobile" class="tc_lz" /></td>
+                </tr>
+                <tr>
+                    <td class="left_l">邮箱：</td>
+                    <td><input name="email" type="text" id="email" class="tc_lz" /></td>
+                </tr>
+                <tr>
+                    <td class="left_l left_cont">内容：</td>
+                    <td><textarea name="content" rows="10" cols="50" id="txtcontent" class="tc_nr"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="left_l">验证码：</td>
+                    <td><input name="name" id="name" type="text" class="text-input" /></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input class="suba" type="submit" name="submit" value="提 交" id="submit" /><input class="suba" type="reset" value="重 置" /></td>
+                </tr>
+            </table>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

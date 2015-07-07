@@ -8,9 +8,7 @@
         <h2>广告列表</h2>
     </div>
 
-    <div class="dataTables_wrapper">
-
-        <form name="myform" id="myform" action="<if condition="$action_name=='addpic'">{:U($module_name.'/insertpic')}<else />{:U($module_name.'/updatepic')}</if>" method="post">
+    <form name="myform" id="myform" action="<if condition="$action_name=='addpic'">{:U($module_name.'/insertpic')}<else />{:U($module_name.'/updatepic')}</if>" method="post">
         <input type="hidden" name="description" value="">
         <input type="hidden" name="data" value="">
             <table class="form-table">

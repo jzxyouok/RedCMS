@@ -55,12 +55,12 @@
             <div class="form-group">
                 <if condition="$fields['typeid']">
                 <select class="form-control input-sm" id="typeid" name="typeid">
-                <option value="">{:L('select_typeid')}</option>
-                <volist name="Type" id="row">
-                <if condition="$row['parentid']==$fields['typeid']['setup']['default']">
-                <option value="{$row['typeid']}" <eq name="typeid" value="$row['typeid']">selected="selected"</eq>>{$row['name']}</option>
-                </if>
-                </volist>
+                    <option value="">{:L('select_typeid')}</option>
+                    <volist name="Type" id="row">
+                    <if condition="$row['parentid']==$fields['typeid']['setup']['default']">
+                    <option value="{$row['typeid']}" <eq name="typeid" value="$row['typeid']">selected="selected"</eq>>{$row['name']}</option>
+                    </if>
+                    </volist>
                 </select>
                 </if>
             </div>
@@ -134,11 +134,7 @@
                     <td align="center">{$vo['id']}</td>
                     <td>
                     <if condition="$vo['catid']">[<font color="green">{$categorys[$vo['catid']]['catname']}</font>]</if>
-                    {if $module_name=='Guestbook'}
-                    {$vo['username']}-{$vo['title']}
-                    {else}
                     <a href="{$vo.url}" <if condition="$vo['title_style']!=''">style ="{$vo['title_style']}"</if> target="_blank">{$vo['title']} </a>
-                    {/if}
                     <if condition="$vo['thumb']!=''"><a href="{$vo['thumb']}" class="preview" title="{$vo['title']}"><img src="./Public/Images/admin_image.gif"></a></if>
                     <if condition="$vo['posid']!=0"><img src="./Public/Images/admin_elite.gif"></if></td>
                     <td>{$vo['createtime']|toDate=###,'Y-m-d'}</td>

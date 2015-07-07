@@ -16,9 +16,7 @@
 
     <div class="well">
         <form action="{:U('Feedback/index')}" method="get" class="form-inline" role="form" >
-            <input type="hidden" name="m" value="{$Think.MODULE_NAME}" />
-            <input type="hidden" name="c" value="{$Think.CONTROLER_NAME}" />
-            <input type="hidden" name="a" value="{$Think.ACTION_NAME}" />
+
             <div class="form-group">
                 <input id="title" type="text" class="form-control input-sm" name="keyword" value="{$Think.get.keyword}" />
             </div>

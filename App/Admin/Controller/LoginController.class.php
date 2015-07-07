@@ -3,7 +3,7 @@ namespace Admin\Controller;
 use Think\Controller;
 use Org\Util\Rbac;
 class LoginController extends Controller {
-    private $groupid;
+
     private $sysConfig;
     private $cache_model;
     private $Config;
@@ -29,7 +29,7 @@ class LoginController extends Controller {
 
         $this->menudata = F('Menu');
 
-        $this->cache_model = array('Lang','Menu','Config','Module','Role','Category','Posid','Field','Type','Urlrule','Dbsource');
+        $this->cache_model = array('Lang','Menu','Config','Module','AdminRole','Category','Posid','Field','Type','Urlrule','Dbsource');
         if(empty($this->sysConfig['ADMIN_ACCESS']) || empty($this->menudata)){
             foreach($this->cache_model as $r){
                 savecache($r);

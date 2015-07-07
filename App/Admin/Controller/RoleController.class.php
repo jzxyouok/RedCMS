@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Admin\Public;
-class RoleAction extends AdminController {
+class RoleAction extends BaseController {
 
 
     function _initialize() {

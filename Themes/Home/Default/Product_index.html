@@ -1,0 +1,26 @@
+<include file="Public:header"/>
+
+<!-- 内页布局 -->
+<div id="main" class="container">
+    <div class="row">
+        <include file="Home:left"/>
+        <!-- 右侧内容 -->
+        <div class="col-sm-9">
+
+            <div class="gr-product-list" style="clear:both;">
+                <ul id="product-list">
+                    {if $list}
+                    <volist name="list" id="r">
+                         <li><a title="{$r['title']}" href="{$r['url']}"><img alt="{$r['title']}" src="{$r['thumb']}"><span>{$r['title']}</span><span>{$r['price']}</span>
+                         </a></li>
+                    </volist>
+                    {else}
+                        {$catname}
+                    {/if}
+                </ul>
+                <div class="pagination">{$pages}</div>
+
+            </div>
+        </div>
+    </div>
+</div>

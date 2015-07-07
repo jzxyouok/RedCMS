@@ -1,0 +1,23 @@
+<!-- 左侧栏目 -->
+<div class="col-sm-3">
+  <div class="panel panel-default">
+    <div class="panel-heading">{$max_parent_catname}</div>
+    <ul class="nav nav-pills nav-stacked">
+      <Gr:subcat catid="max_parent_catid">
+        <li><a {if $catid==$r['id']}class="current"{/if} href="{$r.url}">{$r.catname}</a></li>
+      </Gr:subcat>
+    </ul>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">推荐产品</div>
+    <div class="panel-body">
+      <ul>
+        <Gr:list catid="2" id="r" field="title,url,thumb" posid="2">
+        <li><a title="{$r['title']}" href="{$r['url']}"><img alt="{$r['title']}" src="{$r['thumb']}"><span>{$r['title']}</span></a></li>
+        </Gr:list>
+      </ul>
+    </div>
+  </div>
+
+</div>

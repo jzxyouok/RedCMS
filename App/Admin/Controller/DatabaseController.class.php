@@ -5,14 +5,15 @@
  */
 
 namespace Admin\Controller;
-use Admin\Public;
+
 use Think\Db;
-class DatabaseController extends AdminController{
+class DatabaseController extends BaseController{
 
     protected $db = '';
     protected $datadir = '';
 
-    function _initialize() {
+    function _initialize()
+    {
         parent::_initialize();
         $this->datadir = ROOT.'/Public/Data/';
         $db = D('');

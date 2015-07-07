@@ -1,0 +1,33 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<div id="yzh-content" class="col-xs-12">
+    <div class="main-title">
+        <h2>菜单管理</h2>
+    </div>
+
+    <div class="table-actions">
+      <input type="submit" class="btn btn-sm btn-primary" name="dosubmit" value="排序" />
+      <a class="btn btn-sm btn-primary"  href="{:U('menu/add')}">添加</a>
+    </div>
+
+    <form id="myform" name="myform" action="{:U('menu/listorder')}" method="post">
+        <table class="table">
+            <thead>
+                <tr>
+                  <th>排序</th>
+                  <th>id</th>
+                  <th>菜单名称</th>
+                  <th>状态</th>
+                  <th>管理操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php echo $select_categorys;?>
+            </tbody>
+        </table>
+
+    </form>
+
+</div>
+</block>

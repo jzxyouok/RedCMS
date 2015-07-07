@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
-use Admin\Public;
-class SlideController extends AdminController {
+
+class SlideController extends BaseController {
 
     protected  $Tplpath,$Flashpath,$Xmlpath;
 
@@ -84,7 +84,8 @@ class SlideController extends AdminController {
         }
     }
 
-    function addpic(){
+    function addpic()
+    {
         $fid = intval($_REQUEST['fid']);
         if(!$fid) $this->error(L('do_empty'));
         $map = array();
@@ -111,7 +112,8 @@ class SlideController extends AdminController {
 
     }
 
-    function editpic(){
+    function editpic()
+    {
         $id=intval($_REQUEST['id']);
         $fid=intval($_REQUEST['fid']);
         if(!$id) $this->error(L('do_empty'));

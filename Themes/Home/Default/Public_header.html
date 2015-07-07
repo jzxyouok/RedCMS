@@ -1,0 +1,74 @@
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie6"><![endif]-->
+<!--[if IE 7 ]><html class="ie7"><![endif]-->
+<!--[if IE 8 ]><html class="ie8"><![endif]-->
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html class="w3c"><!--<![endif]-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="{$seo_keywords}" />
+<meta name="description" content="{$seo_description}" />
+<!-- 最新 Bootstrap 核心 CSS 文件 -->
+<!-- <link rel="stylesheet" href="__STATIC__/bootstrap/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="__STATIC__/bootstrap/flat/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="__STATIC__/bootstrap/flat/flat-ui.min.css"> -->
+<link rel="stylesheet" href="__STATIC__/font-awesome/css/font-awesome.min.css">
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="__STATIC__/jquery-1.10.2.min.js"></script>
+
+<script type="text/javascript" src="__STATIC__/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="__TMPL__/public/css/style.css">
+<link rel="stylesheet" type="text/css" href="__TMPL__/public/css/yzh.css">
+<script src="__PUBLIC__/Js/yzh.js"></script>
+<script type="text/javascript" src="__TMPL__/public/js/jquery.SuperSlide.2.1.1.js"></script>
+<link type="image/x-icon" href="favicon.ico" rel="shortcut icon">
+<title>{$seo_title}-{$site_name}</title>
+</head>
+<body >
+
+<header>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button data-target=".bs-navbar-collapse" data-toggle="collapse" type="button" class="navbar-toggle collapsed">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">YuZiHao</a>
+            </div>
+            <nav class="collapse navbar-collapse bs-navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <Gr:subcat catid="0" id="r" key="i">
+                    <li class="{if $max_parent_catid==$r['id']}active{/if}">
+                        <a title="{$r.catname}" href="{$r.url}">{$r.catname}</a>
+                    </li>
+                    </Gr:subcat>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{:U('Home/Cart/index')}"><i class="fa fa-lg fa-fw fa-shopping-cart "></i>购物车</a></li>
+                    <li class="dropdown">
+                        {if empty($_SESSION['yzh_member']['username'])}
+                        <a id="login_username" href="{:U('Member/Login/index')}"><i class="fa fa-lg fa-fw fa-user"></i>  登录</a>
+
+                        {else}
+                        <a id="login_username" data-toggle="dropdown" class="dropdown-toggle" href="{:U('Member/Login/index')}" aria-expanded="true"><i class="fa fa-lg fa-fw fa-user"></i>{$Think.session.yzh_member.username}  <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                                <li>
+                                        <a href="{:U('Member/index/index')}">会员中心</a>
+                                </li>
+                                <li>
+                                        <a href="{:U('Member/login/logout')}">退出</a>
+                                </li>
+
+                        {/if}
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>

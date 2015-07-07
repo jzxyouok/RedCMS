@@ -35,11 +35,11 @@
 
 <div id="header">
     <div id="logo">
-        <img src="__PUBLIC__/Images/logo.jpg"/>
+        <a href="{:U('Index/index')}"><img src="__PUBLIC__/Images/logo.jpg"/></a>
     </div>
     <div class="topnav">
         <ul>
-        <volist name="topnav" id="menu" key="i">
+        <volist name="topnav2" id="menu" key="i">
             <li node="{$menu['id']}">
                 <a href="{:U($menu['model'].'/'.$menu['action'],$menu['data'])}">
                 <i class="{$menu['icon']}"></i>
@@ -78,7 +78,7 @@
     </div>
     <div class="navbar">
 
-        <foreach name="asidenav" item="li" key="i">
+        <foreach name="asidenav2" item="li" key="i">
         <ul class="asidenav" node="{$i}">
             <volist name="li" id="menu" key="k">
             <li node="{$menu['id']}">

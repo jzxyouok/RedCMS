@@ -3,7 +3,7 @@
 namespace Admin\Controller;
 
 use Think\DB;
-class IndexController extends AdminController {
+class IndexController extends BaseController {
 
     protected $cache_model;
 
@@ -71,7 +71,7 @@ class IndexController extends AdminController {
         $role = F('Role');
         $userinfo=array(
             'username'=>$userinfos['username'],
-            'groupname'=>$role[$userinfos['groupid']]['name'],
+            'groupname'=>$role[$userinfos['roleid']]['name'],
             'logintime'=>toDate($userinfos['last_logintime']),
             'last_ip'=>$userinfos['last_ip'],
             'login_count'=>$userinfos['login_count'].L('ci'),

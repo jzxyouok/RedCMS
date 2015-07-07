@@ -1,0 +1,39 @@
+<include file="home:left"/>
+	<div class="list_right">
+
+    <include file="home:title"/>
+    	<div class="list_box">
+          <ul class="faqtab_in">
+
+
+			     {if $list}
+
+            <volist name="list" id="r">
+              <li {if $i == 1}class="current"{/if}>
+                  <p class="p01">{$r.title}</p>
+                  <div class="answer">
+                      {$r.content}
+                  </div>
+              </li>
+
+		 	</volist>
+
+		  {else}
+				{$catname}
+	    {/if}
+    </ul>
+		<div id="pages">{$pages}</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+//常见问题
+$( function(){
+  $('.faqtab_in li p').click(function(){
+    $(this).siblings('.answer').toggle();
+    $(this).parent().siblings().children('.answer').hide();
+  })
+})
+
+</script>
+</div>

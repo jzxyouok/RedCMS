@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Admin\Public;
-class TemplateController extends AdminController {
+class TemplateController extends BaseController {
     protected $filepath,$publicpath;
 
     function _initialize() {

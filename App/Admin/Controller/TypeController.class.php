@@ -1,7 +1,7 @@
 <?php
 
 
-class TypeAction extends AdminController {
+class TypeAction extends BaseController {
 
   protected $db,$Type;
 

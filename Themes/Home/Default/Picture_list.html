@@ -1,0 +1,24 @@
+<include file="Public:header"/>
+<div class="list_wrapper gr_width">
+  <include file="Home:left"/>
+  <!-- 内页右侧 -->
+  <div class="list_right">
+    <!--  当前所在位置 -->
+    <include file="Home:title" />
+    <div class="list_box">
+      <!--  工程案例 -->
+      <div class="list_case">
+        <ul>
+        {if $list}
+        <volist name="list" id="r">
+          <li><a href="{$r.url}"><img src="{$r['thumb']}" alt="" width="230" height="154"/><span>{$r.title|str_cut=###,150}</span></a></li>
+        </volist>
+        {else}
+          {$catname}
+        {/if}
+        </ul>
+      </div>
+      <div id="pages">{$pages}</div>
+    </div>
+  </div>
+</div>

@@ -9,7 +9,7 @@ namespace Admin\Controller;
 
 use Org\Util\Form;
 
-class ProductController extends AdminController {
+class ProductController extends BaseController {
 
     protected  $db,$fields;
 

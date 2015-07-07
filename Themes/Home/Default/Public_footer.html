@@ -1,0 +1,55 @@
+<div id="footer">
+    <div role="contentinfo" class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-md-12">
+                <a class="pull-right" target="ext" rel="nofollow" href="#">誉字号</a>
+                <ul class="list-inline">
+                    <li><a rel="nofollow" title="The Bootstrap Templates and Themes Project" href="https://blog.grwy.cn">国人伟业博客</a></li>
+                <Gr:link  typeid="0"  linktype="1" key="k">
+                    <li><a href="{$r['siteurl']}" target="_blank" title="{$r['name']}">{$r['name']}</a>
+                    </li>
+                </Gr:link>
+                </ul>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <ul class="list-inline">
+                  <li><a rel="nofollow" title="Official Bootstrap Site" href="http://getbootstrap.com">Bootstrap</a></li>
+                    <li><a class="gr-xl" title="关注我们" href="/?m=sitemap">网站地图</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div><!--/row-->
+
+    <div class="copy">{$site_tongji}</div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-right">
+                Built and Maintained by <a rel="nofollow" href="#">yuzihao</a>.
+                </p>
+            </div>
+        </div><!--/row-->
+      </div>
+</div>
+
+<script src="__PUBLIC__/Js/yzh.js"></script>
+
+<Gr:kefu id="kefu" left='-1' top="180" />
+
+<script>
+$('#guanbi').click(function(){
+  $('#kefu .kefu-l').animate({width:'30px'},500);
+  $('#kefu .kefu-r').animate({width:0},100);
+});
+$('.kefu-l').click(function(){
+    $(this).animate({width:0},100);
+    $('.kefu-r').animate({width:'157px'},100);
+});
+</script>
+</body>
+</html>

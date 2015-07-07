@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
-use Admin\Public;
-class PaymentAction extends AdminController {
+
+class PaymentAction extends BaseController {
 
     protected $db,$path;
     function _initialize() {

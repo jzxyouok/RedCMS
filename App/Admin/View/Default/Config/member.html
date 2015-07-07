@@ -9,17 +9,19 @@
     <form id="myform" class="form-horizontal" method='post' action="{:U('Config/dosite')}">
 
         <volist name="member_config" id="vo">
-        {if $vo[varname] =='member_getpwdemaitpl' || $vo[varname]=='member_emailchecktpl'}
+        <php>if ($vo[varname] =='member_getpwdemaitpl' || $vo[varname]=='member_emailchecktpl') {</php>
         <div class="form-group">
             <label class="control-label col-md-2">{$vo.info}:</label>
-            <div class="col-md-5"><textarea id="{$vo[varname]}" name="{$vo[varname]}" rows="5" cols="50" class="form-control">{$vo['value']|htmlspecialchars}</textarea></div>
+            <div class="col-md-5">
+                <textarea id="{$vo[varname]}" name="{$vo[varname]}" rows="5" cols="50" class="form-control">{$vo['value']|htmlspecialchars}</textarea>
+            </div>
         </div>
-        {else}
+        <php>} else {</php>
         <div class="form-group">
             <label class="control-label col-md-2">{$vo.info}:</label>
-            <div class="col-md-5">{:Form::radio(array('field'=>$vo[varname],'options'=>array('1'=>L('yes'),'0'=>L('no'))),$vo['value'])}</div>
+            <div class="col-md-5"><php>Org\Util\Form::radio(array('field'=>$vo[varname],'options'=>array('1'=>L('yes'),'0'=>L('no'))),$vo['value'])</php></div>
         </div>
-        {/if}
+        <php>}</php>
 
         </volist>
 

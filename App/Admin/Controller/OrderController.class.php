@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
-use Admin\Public;
-class OrderController extends AdminController {
+
+class OrderController extends BaseController {
 
     protected $db;
 

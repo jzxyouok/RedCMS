@@ -5,12 +5,13 @@
  *
  */
 namespace Admin\Controller;
-use Admin\Public;
-class CreatehtmlController extends AdminController {
+
+class CreatehtmlController extends BaseController {
 
     protected $module;
 
-    public function _initialize() {
+    public function _initialize()
+    {
 
         parent::_initialize();
 
@@ -28,13 +29,15 @@ class CreatehtmlController extends AdminController {
     }
 
 
-    public function docreateindex()  {
+    public function docreateindex()
+    {
         $this->create_index();
         $this->assign( 'jumpUrl', U(MODULE_NAME.'/index') );
         $this->success(L('index_create_OK'));
     }
 
-    public function createlist() {
+    public function createlist()
+    {
 
         if($this->categorys){
 
@@ -69,7 +72,8 @@ class CreatehtmlController extends AdminController {
     }
 
 
-    public function doCreatelist($_GET) {
+    public function doCreatelist($_GET)
+    {
 
         $this->assign ( 'waitSecond', 2);
 

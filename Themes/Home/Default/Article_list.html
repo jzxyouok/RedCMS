@@ -1,0 +1,27 @@
+<include file="Public:header"/>
+<!-- 内页布局 -->
+<div id="main" class="container">
+  <div class="row">
+
+    <include file="Home:left"/>
+
+    <!-- 右侧内容 -->
+    <div class="col-sm-9">
+      <include file="Home:title"/>
+
+      <div class="gr-content-box" style="padding:0">
+        <ul class="gr-news-list">
+          <volist name="list" id="r">
+            <li>
+                <a href="{$r['url']}"><img src="{$r['thumb']}"/></a>
+                <h3><a href="{$r['url']}">{$r['title']}</a></h3>
+                <h4>{$r['createtime']|toDate=###,'Y-m-d'}</h4>
+                <p>{$r['description']}<a href="{$r['url']}">[查看详细]</a></p>
+            </li>
+          </volist>
+        </ul>
+      </div>
+      <div style="text-align:center;">{$pages}</div>
+    </div>
+  </div>
+</div>

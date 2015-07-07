@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
-use Admin\Public;
-class LangController extends AdminController {
+
+class LangController extends BaseController {
 
     protected  $langpath,$lang;
     function _initialize() {

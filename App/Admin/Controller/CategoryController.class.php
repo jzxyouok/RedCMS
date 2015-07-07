@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Org\Util\Form;
-class CategoryController extends AdminController {
+class CategoryController extends BaseController {
 
     protected $db;
     protected $categorys;

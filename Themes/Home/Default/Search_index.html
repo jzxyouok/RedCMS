@@ -1,0 +1,28 @@
+<include file="Public:header"/>
+
+<div id="main" class="container">
+    <include file="home:left"/>
+    <div class="list_right">
+        <div class="position">
+            <p class="gr_right">搜索结果{:L(catpos)} <a href="{:URL()}">{:L(home_font)}</a> >&nbsp;搜索结果</strong>
+        </div>
+
+        <include file="home:title"/>
+
+        <div class="list_box">
+            <ul class="list_product">
+
+            {if $list}
+            <volist name="list" id="r">
+                <li><a href='{$r['url']}' title="{$r.title}"><img src="{$r['thumb']}" alt="{$r.title}" width="225" height="123"/><p>{$r.title|str_cut=###,25}</p></a></li>
+            </volist>
+            {else}
+            对不起，没有找到您要的结果
+            {/if}
+            </ul>
+
+            <div id="pages">{$pages}</div>
+        </div>
+    </div><!--list_right-->
+</div><!--gr_wrapper-->
+<include file="Public:header"/>

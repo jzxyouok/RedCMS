@@ -1,8 +1,7 @@
 <?php
 
 namespace Admin\Controller;
-use Admin\Admin;
-class FieldController extends AdminController {
+class FieldController extends BaseController {
 
     protected $db,$moduleid;
 

@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Admin\Public;
-class NodeAction extends AdminController {
+class NodeAction extends BaseController {
 
     protected $db,$groups;
 

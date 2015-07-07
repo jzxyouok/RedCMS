@@ -84,7 +84,7 @@ return array(
 	/* 模板引擎设置 */
   'VIEW_PATH'=>'./Themes/Home/',
 	'TMPL_STRIP_SPACE'      =>  false,
-	'TMPL_FILE_DEPR'        =>  '/',
+	'TMPL_FILE_DEPR'        =>  '_',
   // 'TMPL_ACTION_ERROR'     =>  VIEW_PATH.'Default/public/error.html',
   // 'TMPL_ACTION_SUCCESS'   =>  VIEW_PATH.'Default/public/success.html',
   // 'TMPL_EXCEPTION_FILE'   =>  VIEW_PATH.'Default/public/exception.html',

@@ -1,0 +1,51 @@
+<include file="Public:header"/>
+<!-- 内页布局 -->
+<div class="gr-page">
+    <div class="gr-page-banner pt20"><img src="__TMPL__/public/images/pbanner.jpg"/></div>
+    <div class="gr-web1000 pt20">
+        <include file="Home:left"/>
+        <!-- 右侧内容 -->
+        <div class="gr-content gr-right">
+            <include file="Home:title"/>
+            <div class="gr-content-box">
+                {if $content}{$content}{else}{$catname}{/if}
+                <br>
+                <div style="width:700px;height:450px;border:#ccc solid 1px; margin:0 auto" id="dituContent"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=C6f907d67b0d14d6d9a0fe741db759c0"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
+<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map('dituContent');
+    var poi = new BMap.Point({$site_x},{$site_y});
+    map.centerAndZoom(poi, 16);
+    map.enableScrollWheelZoom();
+
+    var content ='<div style="margin:0;line-height:20px;padding:2px;">' +
+                                    '地址：{if $site_daddress==""}{$site_ren}{else}{$site_daddress}{/if}<br/>电话：{if $site_dtel==""}{$site_telephone}{else}{$site_dtel}{/if}<br/>' +
+                                '</div>'
+
+    //创建检索信息窗口对象
+    var searchInfoWindow = null;
+    searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
+            title  : "{$site_dname}",      //标题
+            width  : 250,             //宽度
+            height : 60,              //高度
+            //panel  : "panel",         //检索结果面板
+            enableAutoPan : false,     //自动平移
+            searchTypes   :[
+            ]
+        });
+        var marker = new BMap.Marker(poi); //创建marker对象
+        searchInfoWindow.open(marker);
+        marker.addEventListener("click", function(e){
+            searchInfoWindow.open(marker);
+        })
+        map.addOverlay(marker); //在地图中添加marker
+</script>
+<include file="Public:footer"/>

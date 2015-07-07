@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Admin\Public;
-class UrlruleAction extends AdminController {
+class UrlruleAction extends BaseController {
 
     protected $db;
 

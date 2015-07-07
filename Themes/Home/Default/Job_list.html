@@ -1,0 +1,42 @@
+<include file="Public:header"/>
+<!-- 内页布局 -->
+<div class="gr-page">
+    <div class="gr-page-banner pt20"><img src="__TMPL__/public/images/pbanner.jpg"/></div>
+    <div class="gr-web1000 pt20">
+        <include file="Home:left"/>
+        <!-- 右侧内容 -->
+        <div class="gr-content gr-right">
+            <include file="Home:title"/>
+            <div class="gr-content-box">
+                <div class="list_box">
+                <!--  招聘职位 -->
+                <div class="gr-jobs-list">
+                    <dl>
+                    {if $list}
+                    <volist name="list" id="r">
+                        <dd><em></em><span><b>职位：</b>{$r.title}</span><span><b>人数：</b>{$r.censhu02}人</span><span><b>学历：</b>{$r.censhu04}</span><span><b>时间：</b>{$r.createtime|toDate=###,'Y-m-d'}</span></dd>
+                        <dt>
+                            <p>
+                            <strong>职位描述：</strong><br/>
+                                {$r.censhu03}
+                                 <br/><br/>
+                            <strong>职位要求：</strong><br/>
+                            {$r.content}
+                            </p>
+                            <a href="{$r.url}" class="gr-apply">立即申请</a>
+                        </dt>
+                    </volist>
+                    {else}
+                        {$catname}
+                    {/if}
+                    </dl>
+                </div>
+                <script type="text/javascript">
+                //招聘
+                jQuery(".gr-jobs-list").slide({titCell:"dd", targetCell:"dt",effect:"slideDown",delayTime:300});
+                </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

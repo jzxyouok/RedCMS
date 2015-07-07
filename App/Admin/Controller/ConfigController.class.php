@@ -7,7 +7,7 @@
  */
 namespace Admin\Controller;
 use Org\Util\Form;
-class ConfigController extends AdminController {
+class ConfigController extends BaseController {
 
     protected $db;
     protected $config;

@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Admin\Public;
-class ModuleController extends PublicController {
+class ModuleController extends BaseController {
 
     protected $db;
 

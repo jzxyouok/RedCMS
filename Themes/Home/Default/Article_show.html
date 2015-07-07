@@ -1,0 +1,61 @@
+<include file="Public:header"/>
+<!-- 内页布局 -->
+<div class="container">
+
+    <div class="row">
+        <include file="Home:left"/>
+        <!-- 右侧内容 -->
+        <div class="gr-content gr-right">
+           <include file="Home:title"/>
+            <div class="gr-content-box">
+                <div class="gr-news-show">
+                    <h2>{$title}</h2>
+                    <h3><span>文章来源：顺达成科技</span><span>人气：2</span><span>发表时间：2014-07-21 16:38:00</span><span class="fontResizer">【<a href="javascript:void(0);" class="smallFont">小</a><a href="javascript:void(0);" class="medFont">中</a><a href="javascript:void(0);" class="largeFont">大</a>】</span></h3>
+                    <div class="news-show-box fontsizebox" style="font-size:14px;">
+                       {$content}
+                    </div>
+                </div>
+            </div>
+             <!-- 客户感言 -->
+            <div class="gr-rec-news">
+                <div class="rec-title">客户感言</div>
+                <div class="news-message">
+                    <div>作为一名一线客服，建立客户对你的信赖感，大于你拥有的实力，销售的97%都来自信赖感，3%来自于成交。在同质化竞争的今天，塑造信赖感，关键在客服敬业精神，在于你对产品了如指掌，对案例如数家珍。</div>
+                    <h3>台正精机 装备中国</h3>
+                </div>
+            </div>
+            <!-- 上下篇 -->
+            <div class="gr-fenx">
+                <div class="prew">上一篇：<a href="#">儿童家纺市场缺口大 消费者比较"挑剔"</a></div>
+                <div class="nextw">{if $next!=''} 下一篇：<a href="{$next.url}">{$next.title|str_cut=###,60}</a>{else}下一篇：<a>无</a>{/if}</div>
+            </div>
+            <!-- 此文关键词 -->
+            <div class="clearfix"></div>
+            <div class="gr-keyword"><b>此文关键词：</b><a href="#">炮塔铣床</a><a href="#">数控车床</a><a href="#">强力数控铣床</a><a href="#">加工中心</a><a href="#">台正精机</a></div>
+            <div class="clearfix"></div>
+            <!-- 相关资讯 -->
+            <div class="gr-rec-news">
+                <div class="rec-title">相关资讯</div>
+                <ul>
+                    <li><a href="newshow.php">台正供应商-台湾键椿主轴</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.php">炮塔铣床不断创新在显行业风范炮塔铣床不断创新在显行业风范</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.php">炮塔铣床不断创新在显行业风范</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.php">台正供应商-台湾键椿主轴</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.php">炮塔铣床不断创新在显行业风范炮塔铣床不断创新在显行业风范</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.php">炮塔铣床不断创新在显行业风范</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.php">台正供应商-台湾键椿主轴</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.php">炮塔铣床不断创新在显行业风范</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.php">炮塔铣床不断创新在显行业风范炮塔铣床不断创新在显行业风范</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.php">台正供应商-台湾键椿主轴</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.php">炮塔铣床不断创新在显行业风范炮塔铣床不断创新在显行业风范</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.php">炮塔铣床不断创新在显行业风范</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.php">台正供应商-台湾键椿主轴</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.php">炮塔铣床不断创新在显行业风范</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.php">炮塔铣床不断创新在显行业风范</a><span>2014-08-08</span></li>
+                    <li><a href="newshow.php">炮塔铣床不断创新在显行业风范</a><span>2014-08-08</span></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,8 +1,7 @@
 <?php
 namespace Admin\Controller;
-use Admin\Public;
 use Org\Util\Form;
-class MemberController extends PublicController {
+class MemberController extends BaseController {
 
     public $db,$usergroup;
 

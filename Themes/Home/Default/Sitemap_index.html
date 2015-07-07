@@ -1,0 +1,24 @@
+<include file="Public:header"/>
+<style>
+.sitemap{padding-top:30px;padding-bottom:50px;}
+.sitemap_title{color:#75d31f; margin-bottom:30px;}
+.sitemap_main{ overflow:hidden; border-bottom:1px dotted #d4d4d4; padding-bottom:15px; padding-top:15px;}
+.sitemap_main .gr_left{color:#333;}
+.sitemap_main .gr_right{ width:850px; color:#666666}
+.sitemap_main .gr_right li{ float: left; margin: 0 10px;}
+.sitemap_main .gr_right a{color:#666666}
+.sitemap_main .gr_right a:hover{color:#75d31f}
+</style>
+
+<div class="container">
+<!-- 内页主体从此处开始复制-->
+<div class="sitemap gr_width">
+    <h1 class="sitemap_title">网站地图</h1>
+    <div class="sitemap_box">
+    {$sitemap}
+    </div>
+</div>
+</div>
+
+
+<include file="Public:footer"/>
