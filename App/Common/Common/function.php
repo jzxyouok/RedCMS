@@ -547,7 +547,7 @@ function savecache($name = '',$id='') {
 }
 
 
-function checkfield($fields,$_POST){
+function checkfield($fields,$post){
 
 	foreach ($_POST as $key => $val) {
 

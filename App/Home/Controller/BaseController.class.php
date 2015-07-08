@@ -9,6 +9,7 @@ use Think\Controller;
 use Org\Util\Form;
 use Org\Util\Online;
 class BaseController extends Controller {
+
     protected $Config;
     protected $sysConfig;
     protected $categorys;
