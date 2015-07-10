@@ -1,5 +1,304 @@
 <?php
 
+// OneThink常量定义
+use Admin\Model\AuthRuleModel;
+const ONETHINK_VERSION = '1.0.131218';
+const ONETHINK_ADDON_PATH = './Addons/';
+
+
+
+/**
+ * 设置跳转页面URL
+ * 使用函数再次封装，方便以后选择不同的存储方式（目前使用cookie存储）
+ * @author 麦当苗儿 <zuojiazi@vip.qq.com>
+ */
+function set_redirect_url($url)
+{
+    cookie('redirect_url', $url);
+}
+
+/**
+ * 获取跳转页面URL
+ * @return string 跳转页URL
+ * @author 麦当苗儿 <zuojiazi@vip.qq.com>
+ */
+function get_redirect_url()
+{
+    $url = cookie('redirect_url');
+    return empty($url) ? __APP__ : $url;
+}
+
+/**
+ * 处理插件钩子
+ * @param string $hook 钩子名称
+ * @param mixed  $params 传入参数
+ * @return void
+ */
+function hook($hook, $params = array())
+{
+    \Think\Hook::listen($hook, $params);
+}
+
+/**
+ * 获取插件类的类名
+ * @param strng $name 插件名
+ */
+function get_addon_class($name)
+{
+    $class = "Addons\\{$name}\\{$name}Addon";
+    return $class;
+}
+
+/**
+ * 获取插件类的配置文件数组
+ * @param string $name 插件名
+ */
+function get_addon_config($name)
+{
+    $class = get_addon_class($name);
+    if (class_exists($class)) {
+        $addon = new $class();
+        return $addon->getConfig();
+    } else {
+        return array();
+    }
+}
+
+/**
+ * 插件显示内容里生成访问插件的url
+ * @param string $url url
+ * @param array  $param 参数
+ * @author 麦当苗儿 <zuojiazi@vip.qq.com>
+ */
+function addons_url($url, $param = array())
+{
+    $url = parse_url($url);
+    $case = C('URL_CASE_INSENSITIVE');
+    $addons = $case ? parse_name($url['scheme']) : $url['scheme'];
+    $controller = $case ? parse_name($url['host']) : $url['host'];
+    $action = trim($case ? strtolower($url['path']) : $url['path'], '/');
+
+    /* 解析URL带的参数 */
+    if (isset($url['query'])) {
+        parse_str($url['query'], $query);
+        $param = array_merge($query, $param);
+    }
+
+    /* 基础参数 */
+    $params = array(
+        '_addons' => $addons,
+        '_controller' => $controller,
+        '_action' => $action,
+    );
+    $params = array_merge($params, $param); //添加额外参数
+    if (strtolower(MODULE_NAME) == 'admin') {
+        return U('Admin/Addons/execute', $params);
+    } else {
+        return U('Home/Addons/execute', $params);
+
+    }
+
+}
+
+/**
+ * 时间戳格式化
+ * @param int $time
+ * @return string 完整的时间显示
+ * @author huajie <banhuajie@163.com>
+ */
+function time_format($time = NULL, $format = 'Y-m-d H:i')
+{
+    $time = $time === NULL ? NOW_TIME : intval($time);
+    return date($format, $time);
+}
+
+
+/**
+ * select返回的数组进行整数映射转换
+ *
+ * @param array $map  映射关系二维数组  array(
+ *                                          '字段名1'=>array(映射关系数组),
+ *                                          '字段名2'=>array(映射关系数组),
+ *                                           ......
+ *                                       )
+ * @author 朱亚杰 <zhuyajie@topthink.net>
+ * @return array
+ *
+ *  array(
+ *      array('id'=>1,'title'=>'标题','status'=>'1','status_text'=>'正常')
+ *      ....
+ *  )
+ *
+ */
+function int_to_string(&$data,$map=array('status'=>array(1=>'正常',-1=>'删除',0=>'禁用',2=>'未审核',3=>'草稿'))) {
+    if($data === false || $data === null ){
+        return $data;
+    }
+    $data = (array)$data;
+    foreach ($data as $key => $row){
+        foreach ($map as $col=>$pair){
+            if(isset($row[$col]) && isset($pair[$row[$col]])){
+                $data[$key][$col.'_text'] = $pair[$row[$col]];
+            }
+        }
+    }
+    return $data;
+}
+
+/**
+ * 动态扩展左侧菜单,base.html里用到
+ * @author 朱亚杰 <zhuyajie@topthink.net>
+ */
+function extra_menu($extra_menu,&$base_menu){
+    foreach ($extra_menu as $key=>$group){
+        if( isset($base_menu['child'][$key]) ){
+            $base_menu['child'][$key] = array_merge( $base_menu['child'][$key], $group);
+        }else{
+            $base_menu['child'][$key] = $group;
+        }
+    }
+}
+
+/**
+ * 获取参数的所有父级分类
+ * @param int $cid 分类id
+ * @return array 参数分类和父类的信息集合
+ * @author huajie <banhuajie@163.com>
+ */
+function get_parent_category($cid){
+    if(empty($cid)){
+        return false;
+    }
+    $cates  =   M('Category')->where(array('status'=>1))->field('id,title,pid')->order('sort')->select();
+    $child  =   get_category($cid); //获取参数分类的信息
+    $pid    =   $child['pid'];
+    $temp   =   array();
+    $res[]  =   $child;
+    while(true){
+        foreach ($cates as $key=>$cate){
+            if($cate['id'] == $pid){
+                $pid = $cate['pid'];
+                array_unshift($res, $cate); //将父分类插入到数组第一个元素前
+            }
+        }
+        if($pid == 0){
+            break;
+        }
+    }
+    return $res;
+}
+
+/**
+ * 对查询结果集进行排序
+ * @access public
+ * @param array  $list 查询结果
+ * @param string $field 排序的字段名
+ * @param array  $sortby 排序类型
+ * asc正向排序 desc逆向排序 nat自然排序
+ * @return array
+ */
+function list_sort_by($list, $field, $sortby = 'asc')
+{
+    if (is_array($list)) {
+        $refer = $resultSet = array();
+        foreach ($list as $i => $data)
+            $refer[$i] = &$data[$field];
+        switch ($sortby) {
+            case 'asc': // 正向排序
+                asort($refer);
+                break;
+            case 'desc': // 逆向排序
+                arsort($refer);
+                break;
+            case 'nat': // 自然排序
+                natcasesort($refer);
+                break;
+        }
+        foreach ($refer as $key => $val)
+            $resultSet[] = &$list[$key];
+        return $resultSet;
+    }
+    return false;
+}
+
+/**
+ * 把返回的数据集转换成Tree
+ * @param array  $list 要转换的数据集
+ * @param string $pid parent标记字段
+ * @param string $level level标记字段
+ * @return array
+ * @author 麦当苗儿 <zuojiazi@vip.qq.com>
+ */
+function list_to_tree($list, $pk = 'id', $pid = 'pid', $child = '_child', $root = 0)
+{
+
+
+    // 创建Tree
+    $tree = array();
+    if (is_array($list)) {
+        // 创建基于主键的数组引用
+        $refer = array();
+        foreach ($list as $key => $data) {
+            $refer[$data[$pk]] =& $list[$key];
+        }
+        foreach ($list as $key => $data) {
+            // 判断是否存在parent
+            $parentId = $data[$pid];
+            if ($root == $parentId) {
+                $tree[] =& $list[$key];
+            } else {
+                if (isset($refer[$parentId])) {
+                    $parent =& $refer[$parentId];
+                    $parent[$child][] =& $list[$key];
+                }
+            }
+        }
+    }
+
+    return $tree;
+}
+
+/**
+ * 将list_to_tree的树还原成列表
+ * @param  array  $tree 原来的树
+ * @param  string $child 孩子节点的键
+ * @param  string $order 排序显示的键，一般是主键 升序排列
+ * @param  array  $list 过渡用的中间数组，
+ * @return array        返回排过序的列表数组
+ * @author yangweijie <yangweijiester@gmail.com>
+ */
+function tree_to_list($tree, $child = '_child', $order = 'id', &$list = array())
+{
+    if (is_array($tree)) {
+        $refer = array();
+        foreach ($tree as $key => $value) {
+            $reffer = $value;
+            if (isset($reffer[$child])) {
+                unset($reffer[$child]);
+                tree_to_list($value[$child], $child, $order, $list);
+            }
+            $list[] = $reffer;
+        }
+        $list = list_sort_by($list, $order, $sortby = 'asc');
+    }
+    return $list;
+}
+
+/**
+ * 格式化字节大小
+ * @param  number $size 字节数
+ * @param  string $delimiter 数字和单位分隔符
+ * @return string            格式化后的带单位的大小
+ * @author 麦当苗儿 <zuojiazi@vip.qq.com>
+ */
+function format_bytes($size, $delimiter = '')
+{
+    $units = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+    for ($i = 0; $size >= 1024 && $i < 5; $i++) $size /= 1024;
+    return round($size, 2) . $delimiter . $units[$i];
+}
+
+
 
 function fieldoption($fields,$value=null,$space=''){
 
