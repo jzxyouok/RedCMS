@@ -3,7 +3,7 @@ header("Content-type: text/html; charset=utf-8");
 
 //判断是否已经安装过
 if(file_exists("./install.lock")){
- die("网站已经安装过！" );
+	die("网站已经安装过！" );
 }
 
 

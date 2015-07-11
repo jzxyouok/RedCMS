@@ -70,17 +70,17 @@ class AddonsModel extends Model {
 		foreach($list as $addon){
 			$addon['uninstall']		=	0;
 			$addons[$addon['name']]	=	$addon;
-		}
+		}dump($dirs);
         foreach ($dirs as $value) {
 
             if(!isset($addons[$value])){
-				$class = get_addon_class($value);
+				$class = get_addon_class($value);dump($class);
 				if(!class_exists($class)){ // 实例化插件失败忽略执行
 					\Think\Log::record('插件'.$value.'的入口文件不存在！');
 					continue;
 				}
                 $obj    =   new $class;
-				$addons[$value]	= $obj->info;
+				$addons[$value]	= $obj->info;dump($addons[$value]);
 				if($addons[$value]){
 					$addons[$value]['uninstall'] = 1;
                     unset($addons[$value]['status']);
@@ -89,7 +89,7 @@ class AddonsModel extends Model {
         }
         //dump($list);exit;
         int_to_string($addons, array('status'=>array(-1=>'损坏', 0=>'禁用', 1=>'启用', null=>'未安装')));
-        $addons = list_sort_by($addons,'uninstall','desc');
+        $addons = list_sort_by($addons,'uninstall','desc');dump($addons);exit;
         return $addons;
     }
 
