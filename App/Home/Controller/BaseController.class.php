@@ -31,7 +31,6 @@ class BaseController extends Controller {
 
     public function _initialize()
     {
-
         $this->sysConfig = F('sys.config');
         $this->module    = F('Module');
         $this->Role      = F('Role');
