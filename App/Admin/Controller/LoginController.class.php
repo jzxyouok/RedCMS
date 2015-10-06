@@ -18,25 +18,8 @@ class LoginController extends Controller {
 
     public function index()
     {
-        if(is_file(RUNTIME_PATH.'~app.php'))
-            @unlink(RUNTIME_PATH.'~app.php');
-
-        if(is_file(RUNTIME_PATH.'~runtime.php'))
-            @unlink(RUNTIME_PATH.'~runtime.php');
-
-        if(is_file(RUNTIME_PATH.'~allinone.php'))
-            @unlink(RUNTIME_PATH.'~allinone.php');
-
         $this->menudata = F('Menu');
 
-        $this->cache_model = array('Lang','Menu','Config','Module','AdminRole','Category','Posid','Field','Type','Urlrule','Dbsource');
-        if(empty($this->sysConfig['ADMIN_ACCESS']) || empty($this->menudata)){
-            foreach($this->cache_model as $r){
-                savecache($r);
-            }
-            $this->sysConfig = F('sys.config');
-            C('ADMIN_ACCESS',$this->sysConfig['ADMIN_ACCESS']);
-        }
         if(!empty($_SESSION['adminid'])){
             $this->redirect('Index/index');
         }
@@ -46,7 +29,7 @@ class LoginController extends Controller {
 
     public function doLogin()
     {
-        $user = M('Admin');
+        $user = M('User');
 
         if(C('TOKEN_ON') && !$user->autoCheckToken($_POST)){
             $this->error('表单令牌错误');
@@ -153,7 +136,7 @@ class LoginController extends Controller {
 
     function checkEmail()
     {
-        $user = M('Admin');
+        $user = M('User');
         $email = $_GET['email'];
 
         $userid = intval($_GET['userid']);
@@ -187,10 +170,10 @@ class LoginController extends Controller {
         ob_clean();
         header("Content-type: image/png");
         $config =    array(
-                // 'imageW'    =>    120,    // 验证码宽度
-                // 'imageH'      =>    50,     // 验证码高度
-                'length'=>4,
-                'useNoise' => false,
+            // 'imageW'    =>    120,    // 验证码宽度
+            // 'imageH'      =>    50,     // 验证码高度
+            'length'=>4,
+            'useNoise' => false,
         );
         $Verify = new \Think\Verify($config);
         $Verify->entry();

@@ -17,7 +17,7 @@
 <div id="login">
   <h1><a href="/admin" title="誉字号网站管理系统" tabindex="-1">誉字号网站管理系统</a></h1>
 
-<form name="loginform" id="loginform" action="{:U('Index/index')}" method="post">
+<form name="loginform" id="loginform" action="{:U('Login/doLogin')}" method="post">
   <p>
     <label for="user_login">用户名<br />
     <input type="text" name="username" id="user_login" class="input" value="" size="20" /></label>
@@ -40,38 +40,38 @@
 
 <script type="text/javascript">
 
-$("#loginform").submit(function () {
-    var username, password,verifyCode;
-
-    username = $("input[name='username']").val();
-    password = $("input[name='password']").val();
-    verifyCode = $("input[name='verifyCode']").val();
-
-    var data = new Object();
-    data.username = username;
-    data.password = password;
-    data.verifyCode = verifyCode;
-
-    var options = new Object();
-
-    options.data = data;
-    //options.dataType = 'json';
-    options.type = 'post';
-    options.success = function(data) {
-      if (data.status==1) {
-        setTimeout(function(){
-          window.location.href = '{:U("Index/index")}';
-        },500);
-      }else{
-        alert(data.info);
-      }
-    };
-
-    options.url = '{:U('Login/doLogin')}';
-
-    $.ajax(options);
-    return false;
-});
+//$("#loginform").submit(function () {
+//    var username, password,verifyCode;
+//
+//    username = $("input[name='username']").val();
+//    password = $("input[name='password']").val();
+//    verifyCode = $("input[name='verifyCode']").val();
+//
+//    var data = new Object();
+//    data.username = username;
+//    data.password = password;
+//    data.verifyCode = verifyCode;
+//
+//    var options = new Object();
+//
+//    options.data = data;
+//    //options.dataType = 'json';
+//    options.type = 'post';
+//    options.success = function(data) {
+//      if (data.status==1) {
+//        setTimeout(function(){
+//          window.location.href = '{:U("Index/index")}';
+//        },500);
+//      }else{
+//        alert(data.info);
+//      }
+//    };
+//
+//    options.url = '{:U('Login/doLogin')}';
+//
+//    $.ajax(options);
+//    return false;
+//});
 </script>
 
   <p id="backtoblog"><a href="/" title="不知道自己在哪？">&larr; 回到首页</a></p>
